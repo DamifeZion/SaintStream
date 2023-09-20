@@ -134,7 +134,7 @@ const loginUser = async (req, res) => {
 };
 
 //Edit user profile
-const editUser = async (req, res) => {
+const editUserLoggedIn = async (req, res) => {
   const { id } = req.params;
   const { userName, email, password } = req.body;
   let filename;
@@ -150,14 +150,15 @@ const editUser = async (req, res) => {
     });
   }
 
-  const user = await userModel.findById(id);
+  const user = await userModel.find({ id });
 
-  const imageUpdate = filename || user.image;
+  let imageUpdate = filename || user.image;
   const usernameUpdate = userName || user.userName;
   const emailUpdate = email || user.email;
   const passwordUpdate = password || user.password;
 
   //Validate username & check if updated username exists
+
   if (usernameUpdate) {
     const updatedUsernameExists = await userModel.findOne({ userName });
 
@@ -231,6 +232,37 @@ const editUser = async (req, res) => {
   }
 };
 
+const editUserForgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(404).json({
+      success: false,
+      message: "Please enter your account email address",
+    });
+  }
+
+  const user = await userModel.findOne({ email });
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "Email does not exist",
+    });
+  }
+
+  
+
+  try {
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
 //Delete user account
 const deleteUser = async (req, res) => {
   const { id } = req.params;
@@ -244,7 +276,7 @@ const deleteUser = async (req, res) => {
       });
     }
 
-    const user = await userModel.findOne({ id });
+    const user = await userModel.findById(id);
 
     if (!user) {
       return res.status(404).json({
@@ -263,9 +295,12 @@ const deleteUser = async (req, res) => {
       });
     }
 
-    req.status(200).json({
+    const deletedUser = await userModel.findByIdAndDelete(id);
+
+    res.status(200).json({
       success: true,
       message: "User Account Deleted",
+      deletedUser,
     });
   } catch (error) {
     res.status(500).json({
@@ -276,4 +311,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser, editUser, deleteUser };
+module.exports = {
+  createUser,
+  loginUser,
+  editUserLoggedIn,
+  editUserForgotPassword,
+  deleteUser,
+};

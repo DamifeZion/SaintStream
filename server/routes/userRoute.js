@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { createUser, loginUser, editUser, deleteUser } = require("../controllers/userCtrl");
+const {
+  createUser,
+  loginUser,
+  editUserLoggedIn,
+  editUserForgotPassword,
+  deleteUser,
+} = require("../controllers/userCtrl");
 
 //middlewares
 const {
@@ -12,8 +18,13 @@ router.post("/register", createUser);
 
 router.post("/login", loginUser);
 
-router.put("/:id", multerUpload.single("profileImage"), editUser);
+//edit user from dashboard
+router.put("/:id", multerUpload.single("profileImage"), editUserLoggedIn);
 
+//edit user if they forgot password
+router.put("/", editUserForgotPassword);
+
+//delete user
 router.delete("/:id", deleteUser);
 
 //Use multer error handler
