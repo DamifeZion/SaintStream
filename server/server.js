@@ -9,6 +9,7 @@ const path = require("path");
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.set("view-engine", "ejs");
 
 //Server state
 app.get("/", (req, res) => {

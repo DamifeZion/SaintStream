@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 //local modules
 const userModel = require("../models/userModel");
 const createToken = require("../middlewares/createTokenMiddleware");
+const sendResetEmail = require("../middlewares/sendResetEmailMiddleware");
 
 const createUser = async (req, res) => {
   try {
@@ -239,7 +240,7 @@ const resetPassword = async (req, res) => {
   if (!email) {
     return res.status(404).json({
       success: false,
-      message: "Please enter your account email address",
+      message: "Please enter account email address",
     });
   }
 
@@ -254,15 +255,9 @@ const resetPassword = async (req, res) => {
 
   const resetToken = createToken(user._id);
 
-  
+  sendResetEmail(email, resetToken);
 
-  res.status(200).json({
-    success: true,
-    message: "Check your email for the link to reset password",
-    resetToken,
-  });
-
-  res.redirect("/reset-password");
+  res.render("index");
   try {
   } catch (error) {
     res.status(500).json({
