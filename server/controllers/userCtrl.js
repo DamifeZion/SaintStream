@@ -232,7 +232,8 @@ const editUserLoggedIn = async (req, res) => {
   }
 };
 
-const editUserForgotPassword = async (req, res) => {
+//Post request to edit password
+const resetPassword = async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
@@ -251,8 +252,17 @@ const editUserForgotPassword = async (req, res) => {
     });
   }
 
+  const resetToken = createToken(user._id);
+
   
 
+  res.status(200).json({
+    success: true,
+    message: "Check your email for the link to reset password",
+    resetToken,
+  });
+
+  res.redirect("/reset-password");
   try {
   } catch (error) {
     res.status(500).json({
@@ -315,6 +325,6 @@ module.exports = {
   createUser,
   loginUser,
   editUserLoggedIn,
-  editUserForgotPassword,
+  resetPassword,
   deleteUser,
 };

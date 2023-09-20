@@ -4,7 +4,7 @@ const {
   createUser,
   loginUser,
   editUserLoggedIn,
-  editUserForgotPassword,
+  resetPassword,
   deleteUser,
 } = require("../controllers/userCtrl");
 
@@ -22,7 +22,7 @@ router.post("/login", loginUser);
 router.put("/:id", multerUpload.single("profileImage"), editUserLoggedIn);
 
 //edit user if they forgot password
-router.put("/", editUserForgotPassword);
+router.post("/reset-password", resetPassword);
 
 //delete user
 router.delete("/:id", deleteUser);
