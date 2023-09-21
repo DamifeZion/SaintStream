@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 //local modules
 const userModel = require("../models/userModel");
-const resetPasswordTokenModel = require("../models/resetPasswordTokenModel");
+const resetTokenModel = require("../models/resetTokenModel");
 const createToken = require("../middlewares/createToken");
 const sendMail = require("../middlewares/sendResetEmail");
 const {
@@ -255,7 +255,7 @@ const forgotPassword = async (req, res) => {
     const resetToken = createToken(user._id, "30m");
 
     //create token for user validation
-    await resetPasswordTokenModel.create({
+    await resetTokenModel.create({
       token: resetToken,
     });
 
@@ -318,7 +318,7 @@ const resetPassword = async (req, res) => {
       });
     }
 
-    const tokenDocument = await resetPasswordTokenModel.findOne({
+    const tokenDocument = await resetTokenModel.findOne({
       token: resetToken,
     });
 
@@ -330,7 +330,7 @@ const resetPassword = async (req, res) => {
     }
 
     //update validation state
-    await resetPasswordTokenModel.findOneAndUpdate({ validated: true });
+    await resetTokenModel.findOneAndUpdate({ validated: true });
 
     //then handle password update form
     if (!password || !confirmPassword) {
@@ -356,7 +356,7 @@ const resetPassword = async (req, res) => {
     });
 
     //delete token model upon successful update
-    await resetPasswordTokenModel.findOneAndDelete({ token: resetToken });
+    await resetTokenModel.findOneAndDelete({ token: resetToken });
 
     res.status(200).json({
       success: true,
