@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 //local modules
 const userModel = require("../models/userModel");
+const tokenModel = require("../models/tokenModel");
 const createToken = require("../middlewares/createTokenMiddleware");
 const sendMail = require("../middlewares/sendResetEmailMiddleware");
 
@@ -246,7 +247,12 @@ const forgotPassword = async (req, res) => {
       });
     }
 
-    const resetToken = createToken(user._id);
+    const resetToken = createToken(user._id, "10m");
+
+    //create token for user validation
+    const userToken = await tokenModel.create({
+      token: resetToken,
+    });
 
     //Send mail in try catch for proper errors handling
     try {
@@ -256,10 +262,10 @@ const forgotPassword = async (req, res) => {
         user,
         "Reset Password",
         "reset-password",
-        "reset-password.ejs",
+        "reset-password.html",
         {
           username: user.userName,
-          resetLink: "https://gdurl.com/0nga",
+          resetLink: "https://localhost",
         }
       );
 
