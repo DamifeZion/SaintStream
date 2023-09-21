@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 //local modules
 const userModel = require("../models/userModel");
 const createToken = require("../middlewares/createTokenMiddleware");
-const sendResetEmail = require("../middlewares/sendResetEmailMiddleware");
+const sendMail = require("../middlewares/sendResetEmailMiddleware");
 
 const createUser = async (req, res) => {
   try {
@@ -137,7 +137,7 @@ const loginUser = async (req, res) => {
 //Edit user profile
 const editUserLoggedIn = async (req, res) => {
   const { id } = req.params;
-  const { userName, email, password } = req.body;
+  const { userName, email } = req.body;
   let filename;
 
   if (req.file) {
@@ -151,12 +151,18 @@ const editUserLoggedIn = async (req, res) => {
     });
   }
 
-  const user = await userModel.find({ id });
+  const user = await userModel.findById(id);
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User does not exist",
+    });
+  }
 
   let imageUpdate = filename || user.image;
   const usernameUpdate = userName || user.userName;
   const emailUpdate = email || user.email;
-  const passwordUpdate = password || user.password;
 
   //Validate username & check if updated username exists
 
@@ -190,24 +196,10 @@ const editUserLoggedIn = async (req, res) => {
     }
   }
 
-  let hash;
-  if (passwordUpdate) {
-    if (!validator.isStrongPassword(passwordUpdate)) {
-      return res.status(403).json({
-        success: false,
-        message: "Password not strong enough",
-      });
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    hash = await bcrypt.hash(passwordUpdate, salt);
-  }
-
   const userUpdate = await userModel.findByIdAndUpdate(id, {
     image: imageUpdate,
     userName: usernameUpdate,
     email: emailUpdate,
-    password: hash,
   });
 
   const token = createToken(user._id);
@@ -234,31 +226,56 @@ const editUserLoggedIn = async (req, res) => {
 };
 
 //Post request to edit password
-const resetPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
-  if (!email) {
-    return res.status(404).json({
-      success: false,
-      message: "Please enter account email address",
-    });
-  }
-
-  const user = await userModel.findOne({ email });
-
-  if (!user) {
-    return res.status(404).json({
-      success: false,
-      message: "Email does not exist",
-    });
-  }
-
-  const resetToken = createToken(user._id);
-
-  sendResetEmail(email, resetToken);
-
-  res.render("index");
   try {
+    if (!email) {
+      return res.status(404).json({
+        success: false,
+        message: "Please enter account email address",
+      });
+    }
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Email does not exist",
+      });
+    }
+
+    const resetToken = createToken(user._id);
+
+    //Send mail in try catch for proper errors handling
+    try {
+      await sendMail(
+        process.env.EMAIL_ANONYMOUS_USER,
+        process.env.EMAIL_ANONYMOUS_PASS,
+        user,
+        "Reset Password",
+        "reset-password",
+        "reset-password.ejs",
+        {
+          username: user.userName,
+          resetLink: "https://gdurl.com/0nga",
+        }
+      );
+
+      console.log(`Email sent successfully`);
+
+      res.status(200).json({
+        success: true,
+        message: "An email has been sent to reset password",
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: error.message,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -266,6 +283,11 @@ const resetPassword = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+//Update user password here
+const resetPassword = (req, res) => {
+  res.send("Reset user password here");
 };
 
 //Delete user account
@@ -320,6 +342,7 @@ module.exports = {
   createUser,
   loginUser,
   editUserLoggedIn,
+  forgotPassword,
   resetPassword,
   deleteUser,
 };
