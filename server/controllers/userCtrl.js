@@ -265,7 +265,7 @@ const forgotPassword = async (req, res) => {
         "reset-password.html",
         {
           username: user.userName,
-          resetLink: "https://localhost",
+          resetLink: `${process.env.BASE_URL}/${userToken}/reset-password`,
         }
       );
 
