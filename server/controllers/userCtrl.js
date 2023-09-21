@@ -272,7 +272,7 @@ const forgotPassword = async (req, res) => {
       }
     );
 
-    console.log(`Email sent successfully`);
+    console.log(`Email sent successfully - from userCtrl line: 275`);
 
     res.status(200).json({
       success: true,
