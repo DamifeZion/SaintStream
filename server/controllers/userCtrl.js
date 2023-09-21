@@ -287,7 +287,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-// Update user password here
+//Update user password here
 const resetPassword = async (req, res) => {
   const { resetToken } = req.params;
   const { password, confirmPassword } = req.body;
@@ -295,65 +295,78 @@ const resetPassword = async (req, res) => {
   try {
     const decodedToken = jwt.verify(resetToken, process.env.SECRET);
 
+    //getting user._id from decoded token
     const { _id } = decodedToken;
+
+    //check if the user._id from the decoded token matches a user in our database
     const user = await userModel.findOne({ _id });
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "Invalid or expired password reset link. Please request a new one.",
+        message:
+          "We couldn't find a valid token for your password reset request. Please ensure you have the correct reset link or initiate the password reset process again.",
       });
     }
 
-    const tokenDocument = await resetTokenModel.findOne({ token: resetToken });
+    const tokenDocument = await resetTokenModel.findOne({
+      token: resetToken,
+    });
 
     if (!tokenDocument) {
       return res.status(404).json({
         success: false,
-        message: "Token not found. Please request a new password reset link.",
+        message: "Token not found",
       });
     }
 
-    await resetTokenModel.findOneAndUpdate({ token: resetToken }, { validated: true });
+    //update validation state
+    await resetTokenModel.findOneAndUpdate({ validated: true });
 
+    //then handle password update form
     if (!password || !confirmPassword) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        message: "Both password and confirm password are required fields.",
+        message: "All fields must be filled",
       });
     }
 
     if (confirmPassword !== password) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        message: "Passwords do not match.",
+        message: "Passwords are not the same",
       });
     }
 
+    //validate password
     if (!validator.isStrongPassword(password)) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        message: "Password is not strong enough. It should contain at least 8 characters, including uppercase, lowercase, numeric, and special characters.",
+        message: "Password not strong enough",
       });
     }
 
+    //hash the password
     const hash = await hashPassword(password);
 
+    //update password
     const newPassword = await userModel.findByIdAndUpdate(_id, {
       password: hash,
     });
 
+    //delete token model upon successful update
     await resetTokenModel.findOneAndDelete({ token: resetToken });
 
     res.status(200).json({
       success: true,
-      message: "Password updated successfully.",
+      message: "Password updated successfully",
       newPassword,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "The password reset link has expired. Please request a new one.",
+      message:
+        "Your password reset link has expired. Please initiate the password reset process again.",
       error: error.message,
     });
   }
