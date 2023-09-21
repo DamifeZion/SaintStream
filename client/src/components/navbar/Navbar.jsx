@@ -1,4 +1,4 @@
-import image from '../../assets/'
+
 
 const Navbar = () => {
   return (
