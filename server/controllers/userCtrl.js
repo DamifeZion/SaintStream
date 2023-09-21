@@ -267,7 +267,7 @@ const forgotPassword = async (req, res) => {
         user, //document
         "Reset Password", //subject
         "reset-password", //html folder name
-        "reset-password.ejs", //html file name
+        "reset-password.html", //html file name
         {
           username: user.userName,
           resetLink: `${process.env.BASE_URL}/reset-password/${resetToken}`, //dynamic data
