@@ -16,6 +16,9 @@ const tokenSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const tokenModel = mongoose.model("Token", tokenSchema);
+const resetPasswordTokenModel = mongoose.model(
+  "ResetPasswordToken",
+  tokenSchema
+);
 
-module.exports = tokenModel;
+module.exports = resetPasswordTokenModel;

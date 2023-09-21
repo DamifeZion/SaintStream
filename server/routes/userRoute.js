@@ -13,7 +13,7 @@ const {
 const {
   multerUpload,
   multerErrHandler,
-} = require("../middlewares/multerMiddleware");
+} = require("../middlewares/multer");
 
 router.post("/register", createUser);
 
@@ -22,11 +22,11 @@ router.post("/login", loginUser);
 //edit user from dashboard
 router.put("/:id", multerUpload.single("profileImage"), editUserLoggedIn);
 
-//edit user if they forgot password
+//collect email for password reset
 router.post("/forgot-password", forgotPassword);
 
-//
-router.put("/reset-password/:token", resetPassword);
+//collect and update password
+router.put("/reset-password/:resetToken", resetPassword);
 
 //delete user
 router.delete("/:id", deleteUser);

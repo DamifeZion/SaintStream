@@ -2,12 +2,17 @@
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 //local modules
 const userModel = require("../models/userModel");
-const tokenModel = require("../models/tokenModel");
-const createToken = require("../middlewares/createTokenMiddleware");
-const sendMail = require("../middlewares/sendResetEmailMiddleware");
+const resetPasswordTokenModel = require("../models/resetPasswordTokenModel");
+const createToken = require("../middlewares/createToken");
+const sendMail = require("../middlewares/sendResetEmail");
+const {
+  hashPassword,
+  comparePassword,
+} = require("../middlewares/hashPassword");
 
 const createUser = async (req, res) => {
   try {
@@ -247,25 +252,25 @@ const forgotPassword = async (req, res) => {
       });
     }
 
-    const resetToken = createToken(user._id, "10m");
+    const resetToken = createToken(user._id, "30m");
 
     //create token for user validation
-    const userToken = await tokenModel.create({
+    await resetPasswordTokenModel.create({
       token: resetToken,
     });
 
     //Send mail in try catch for proper errors handling
     try {
       await sendMail(
-        process.env.EMAIL_ANONYMOUS_USER,
-        process.env.EMAIL_ANONYMOUS_PASS,
-        user,
-        "Reset Password",
-        "reset-password",
-        "reset-password.html",
+        process.env.EMAIL_ANONYMOUS_USER, //email username
+        process.env.EMAIL_ANONYMOUS_PASS, //email password
+        user, //document
+        "Reset Password", //subject
+        "reset-password", //html folder name
+        "reset-password.ejs", //html file name
         {
           username: user.userName,
-          resetLink: `${process.env.BASE_URL}/${userToken}/reset-password`,
+          resetLink: `${process.env.BASE_URL}/reset-password/${resetToken}`, //dynamic data
         }
       );
 
@@ -292,8 +297,80 @@ const forgotPassword = async (req, res) => {
 };
 
 //Update user password here
-const resetPassword = (req, res) => {
-  res.send("Reset user password here");
+const resetPassword = async (req, res) => {
+  const { resetToken } = req.params;
+  const { password, confirmPassword } = req.body;
+
+  try {
+    const decodedToken = jwt.verify(resetToken, process.env.SECRET);
+
+    //getting user._id from decoded token
+    const { _id } = decodedToken;
+
+    //check if the user._id from the decoded token matches a user in our database
+    const user = await userModel.findOne({ _id });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message:
+          "We couldn't find a valid token for your password reset request. Please ensure you have the correct reset link or initiate the password reset process again.",
+      });
+    }
+
+    const tokenDocument = await resetPasswordTokenModel.findOne({
+      token: resetToken,
+    });
+
+    if (!tokenDocument) {
+      return res.status(404).json({
+        success: false,
+        message: "Token not found",
+      });
+    }
+
+    //update validation state
+    await resetPasswordTokenModel.findOneAndUpdate({ validated: true });
+
+    //then handle password update form
+    if (!password || !confirmPassword) {
+      return res.status(404).json({
+        success: false,
+        message: "All fields must be filled",
+      });
+    }
+
+    if (confirmPassword !== password) {
+      return res.status(404).json({
+        success: false,
+        message: "Passwords are not the same",
+      });
+    }
+
+    //hash the password
+    const hash = await hashPassword(password);
+
+    //update password
+    const newPassword = await user.findByIdAndUpdate(_id, {
+      password: hash,
+    });
+
+    //delete token model upon successful update
+    await resetPasswordTokenModel.findOneAndDelete({ token: resetToken });
+
+    res.status(200).json({
+      success: true,
+      message: "Password updated successfully",
+      newPassword,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message:
+        "Your password reset link has expired. Please initiate the password reset process again.",
+      error: error.message,
+    });
+  }
 };
 
 //Delete user account
