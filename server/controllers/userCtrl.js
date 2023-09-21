@@ -62,8 +62,8 @@ const createUser = async (req, res) => {
       });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
+    //hash password
+    const hash = await hashPassword(password);
 
     const user = await userModel.create({
       image: "",
@@ -112,9 +112,9 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const verifyPasswords = await bcrypt.compare(password, user.password);
+    const matchPasswords = await comparePassword(password, user.password);
 
-    if (!verifyPasswords) {
+    if (!matchPasswords) {
       return res.status(404).json({
         success: false,
         message: "Invalid email or password",
@@ -259,34 +259,25 @@ const forgotPassword = async (req, res) => {
       token: resetToken,
     });
 
-    //Send mail in try catch for proper errors handling
-    try {
-      await sendMail(
-        process.env.EMAIL_ANONYMOUS_USER, //email username
-        process.env.EMAIL_ANONYMOUS_PASS, //email password
-        user, //document
-        "Reset Password", //subject
-        "reset-password", //html folder name
-        "reset-password.html", //html file name
-        {
-          username: user.userName,
-          resetLink: `${process.env.BASE_URL}/reset-password/${resetToken}`, //dynamic data
-        }
-      );
+    await sendMail(
+      process.env.EMAIL_ANONYMOUS_USER, //email username
+      process.env.EMAIL_ANONYMOUS_PASS, //email password
+      user, //document
+      "Reset Password", //subject
+      "reset-password", //html folder name
+      "reset-password.html", //html file name
+      {
+        username: user.userName,
+        resetLink: `${process.env.BASE_URL}/reset-password/${resetToken}`, //dynamic data
+      }
+    );
 
-      console.log(`Email sent successfully`);
+    console.log(`Email sent successfully`);
 
-      res.status(200).json({
-        success: true,
-        message: "An email has been sent to reset password",
-      });
-    } catch (error) {
-      res.status(500).json({
-        success: false,
-        message: "Server error",
-        error: error.message,
-      });
-    }
+    res.status(200).json({
+      success: true,
+      message: "An email has been sent to reset password",
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
