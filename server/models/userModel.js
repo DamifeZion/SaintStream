@@ -20,6 +20,12 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+
+  role: {
+    type: String,
+    required: true,
+    default: "visitor",
+  },
 });
 
 const userModel = mongoose.model("user", userSchema);
