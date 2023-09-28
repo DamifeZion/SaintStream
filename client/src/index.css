@@ -1,24 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&family=Rubik:wght@300;400;500;600;700;800&display=swap");
+
+/* Montserrat, inter, rubik */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --px: 30px;
+  --py: 29px;
+
+  /* Colors */
+  --white: #ffffff; /*White for headers and call to actions*/
+
+  --light-gray: #9ca4ab; /*#9CA4AB for movie summary body and cast real names*/
+
+  --lighter-gray: #f9f9f9; /*#F9F9F9 for casts characters, green button, and movie chapters*/
+
+  --green-dark: #056040; /*#056040 for the "More" button*/
+
+  /* Background */
+  --black: #0d0c0f; /*site color*/
+  --green: #00925d;
+  --dark-gray: #28262d;
+  --dark-gray-light: #38363d;
+  --danger: #ff0000;
+  --danger-dark: #ff0000;
+
+  /* Background Image */
+
+  /* Border Colors */
+  --action-white: #fff;
+  --highlight-gray: #a3a2a6;
+}
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
-  max-width: 1286px;
+  background: #121014;
+  transition: linear 0.2s;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+#template {
   margin-inline: auto;
   width: 100%;
-  transition: linear 0.2s;
+  max-width: 1280px;
 }
 
-h1{
-
+img {
+  width: 100%;
 }
 
-h2{
+.background {
+  background-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0)
+  );
+}
 
+.overflow-x-scroll::-webkit-scrollbar,
+.overflow-y-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+@media (width <= 768px) {
+  :root {
+    --px: 10px;
+  }
+}
+
+@media (width >= 500px) {
+  :root {
+    --px: 20px;
+  }
+}
+
+@media (width <= 480px) {
+  :root {
+    --px: 10px;
+  }
 }

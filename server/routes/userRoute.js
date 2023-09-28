@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
+  getUser,
   createUser,
   loginUser,
   editUserLoggedIn,
@@ -10,10 +11,11 @@ const {
 } = require("../controllers/userCtrl");
 
 //middlewares
-const {
-  multerUpload,
-  multerErrHandler,
-} = require("../middlewares/multer");
+const { multerUpload, multerErrHandler } = require("../middlewares/multer");
+const requireAuth = require("../middlewares/requireAuth");
+
+//get one user from token Id in requireAuth
+router.get("/", requireAuth, getUser);
 
 router.post("/register", createUser);
 

@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 //local modules
 const userModel = require("../models/userModel");
@@ -14,16 +15,45 @@ const {
   comparePassword,
 } = require("../middlewares/hashPassword");
 
+//get user data from DB with users Id inside jwt token as req.user
+const getUser = async (req, res) => {
+  try {
+    res.status(200).json({
+      success: true,
+      data: req.user,
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
 const createUser = async (req, res) => {
   try {
-    const { userName, email, password, confirmPassword } = req.body;
+    const { userName, dob, email, password, confirmPassword } = req.body;
 
-    if (!userName || !email || !password || !confirmPassword) {
+    if (!userName || !dob || !email || !password || !confirmPassword) {
       return res.status(200).json({
         success: false,
         message: "All fields must be field",
       });
     }
+
+    if (dob.length < 10) {
+      return res.status(404).json({
+        success: false,
+        message:
+          "Please provide your complete date of birth in the format DD/MM/YYYY to ensure accuracy. Thank you!",
+      });
+    }
+
+    //calculate age
+    const dobToJsDate = dob.split("/");
+    const age = moment().diff(dob, "years");
+    console.log(age);
 
     if (!validator.isEmail(email)) {
       return res.status(404).json({
@@ -68,6 +98,7 @@ const createUser = async (req, res) => {
     const user = await userModel.create({
       image: "",
       userName,
+      dob,
       email,
       password: hash,
     });
@@ -76,10 +107,7 @@ const createUser = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Successfully registered",
-      image: user.image,
-      userName: user.userName,
-      email: user.email,
+      message: "Registration successful! You are now logged in.",
       token: token,
     });
   } catch (error) {
@@ -125,10 +153,7 @@ const loginUser = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Successfully logged in",
-      image: user.image,
-      userName: user.userName,
-      email: user.email,
+      message: "Login successful! Welcome back.",
       token: token,
     });
   } catch (error) {
@@ -142,87 +167,87 @@ const loginUser = async (req, res) => {
 
 //Edit user profile
 const editUserLoggedIn = async (req, res) => {
-  const { id } = req.params;
-  const { userName, email } = req.body;
-  let filename;
-
-  if (req.file) {
-    filename = req.file.filename;
-  }
-  // Validating user ID
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({
-      success: false,
-      message: "Invalid user id",
-    });
-  }
-
-  const user = await userModel.findById(id);
-
-  if (!user) {
-    return res.status(404).json({
-      success: false,
-      message: "User does not exist",
-    });
-  }
-
-  let imageUpdate = filename || user.image;
-  const usernameUpdate = userName || user.userName;
-  const emailUpdate = email || user.email;
-
-  //Validate username & check if updated username exists
-
-  if (usernameUpdate) {
-    const updatedUsernameExists = await userModel.findOne({ userName });
-
-    if (updatedUsernameExists && updatedUsernameExists._id.toString() !== id) {
-      return res.status(404).json({
-        success: false,
-        message: "Username already in use",
-      });
-    }
-  }
-
-  //Validate email & check if updated email exist
-  if (emailUpdate) {
-    const updatedEmailExists = await userModel.findOne({ email });
-
-    if (!validator.isEmail(emailUpdate)) {
-      return res.status(404).json({
-        success: false,
-        message: "Email is invalid",
-      });
-    }
-
-    if (updatedEmailExists && updatedEmailExists._id.toString() !== id) {
-      return res.status(404).json({
-        success: false,
-        message: "Email already in use",
-      });
-    }
-  }
-
-  const userUpdate = await userModel.findByIdAndUpdate(id, {
-    image: imageUpdate,
-    userName: usernameUpdate,
-    email: emailUpdate,
-  });
-
-  const token = createToken(user._id);
-
-  res.status(200).json({
-    success: true,
-    message: "Successfully updated details",
-    image: userUpdate.image,
-    userName: userUpdate.userName,
-    email: userUpdate.email,
-    token: token,
-  });
-
   try {
-  } catch (error) {
-    console.log("Error:", error); // Debugging statement
+    const { id } = req.params;
+    const { userName, email } = req.body;
+    let filename;
 
+    if (req.file) {
+      filename = req.file.filename;
+    }
+    // Validating user ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({
+        success: false,
+        message: "Invalid user id",
+      });
+    }
+
+    const user = await userModel.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User does not exist",
+      });
+    }
+
+    let imageUpdate = filename || user.image;
+    const usernameUpdate = userName || user.userName;
+    const emailUpdate = email || user.email;
+
+    //Validate username & check if updated username exists
+
+    if (usernameUpdate) {
+      const updatedUsernameExists = await userModel.findOne({ userName });
+
+      if (
+        updatedUsernameExists &&
+        updatedUsernameExists._id.toString() !== id
+      ) {
+        return res.status(404).json({
+          success: false,
+          message: "Username already in use",
+        });
+      }
+    }
+
+    //Validate email & check if updated email exist
+    if (emailUpdate) {
+      const updatedEmailExists = await userModel.findOne({ email });
+
+      if (!validator.isEmail(emailUpdate)) {
+        return res.status(404).json({
+          success: false,
+          message: "Email is invalid",
+        });
+      }
+
+      if (updatedEmailExists && updatedEmailExists._id.toString() !== id) {
+        return res.status(404).json({
+          success: false,
+          message: "Email already in use",
+        });
+      }
+    }
+
+    const userUpdate = await userModel.findByIdAndUpdate(id, {
+      image: imageUpdate,
+      userName: usernameUpdate,
+      email: emailUpdate,
+    });
+
+    const token = createToken(user._id);
+
+    res.status(200).json({
+      success: true,
+      message: "Successfully updated details",
+      image: userUpdate.image,
+      userName: userUpdate.userName,
+      email: userUpdate.email,
+      token: token,
+    });
+  } catch (error) {
     res.status(500).json({
       success: false,
       message: "Server error",
@@ -360,7 +385,6 @@ const resetPassword = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Password updated successfully",
-      newPassword,
     });
   } catch (error) {
     res.status(500).json({
@@ -409,7 +433,6 @@ const deleteUser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "User Account Deleted",
-      deletedUser,
     });
   } catch (error) {
     res.status(500).json({
@@ -421,6 +444,7 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
+  getUser,
   createUser,
   loginUser,
   editUserLoggedIn,

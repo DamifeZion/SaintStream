@@ -1,15 +1,15 @@
-
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import("preline");
 
 function App() {
-
   return (
-   <div>
-    <div className="button" role="button">
-      <strong>Alert Heading</strong> Some Word
+    <div id="App">
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </div>
-    
-   </div>
-  )
+  );
 }
 
-export default App
+export default App;
