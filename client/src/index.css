@@ -77,7 +77,7 @@ img {
   }
 }
 
-@media (width >= 500px) {
+@media (width <= 580px) {
   :root {
     --px: 20px;
   }
@@ -85,6 +85,6 @@ img {
 
 @media (width <= 480px) {
   :root {
-    --px: 10px;
+    --px: 11px;
   }
 }

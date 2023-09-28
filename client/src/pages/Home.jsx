@@ -3,6 +3,7 @@ import Navbar from "../components/navbar/Navbar";
 import HomeCard from "../components/HomeCard";
 import FAQ from "../components/faq/FAQ";
 import InputGroup from "../components/InputGroup";
+import Footer from "../components/footer/Footer";
 
 const Home = () => {
   return (
@@ -60,7 +61,7 @@ const Home = () => {
 
         <div
           id="template"
-          className="mt-16 grid grid-cols-2 gap-1 1100:gap-6 1100:mt-14 px-[16px] 500:gap-3 800:gap-6 900:place-self-center 900:w-[87%] 900:px-0 1000:w-[77%] 1100:w-[70%] 1200:w-[65%] 1280:grid-cols-4 1280:w-full 1280:px-[--px]"
+          className="mt-16 grid grid-cols-2 gap-1 1100:gap-6 1100:mt-14 500:gap-3 800:gap-6 900:place-self-center 900:w-[87%]  px-[--px] 1000:w-[77%] 1100:w-[70%] 1200:w-[65%] 1280:grid-cols-4 1280:w-full"
         >
           <HomeCard />
           <HomeCard />
@@ -81,7 +82,7 @@ const Home = () => {
 
           <div
             id="template"
-            className="flex flex-col items-center  justify-center mt-12 pb-6"
+            className="flex flex-col items-center  justify-center mt-12"
           >
             <h4 className="text-xl w-9/12 leading-snug text-center 400:w-10/12 500:text-[17px] 700:w-9/12 1000:text-1xl 1100:w-full">
               Ready to watch? Enter your email to create or restart your
@@ -92,6 +93,12 @@ const Home = () => {
               <InputGroup />
             </div>
           </div>
+        </div>
+
+        <div className=" mt-14 border-t-8 border-[--dark-gray] py-6">
+          <footer id="template" className="px-[--px]">
+            <Footer />
+          </footer>
         </div>
       </section>
     </div>
