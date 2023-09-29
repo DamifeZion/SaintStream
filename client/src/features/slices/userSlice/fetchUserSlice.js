@@ -5,7 +5,7 @@ const url = `${import.meta.data.VITE_SERVER}`;
 console.log(url);
 
 const fetchUser = createAsyncThunk("fetchUser/Get", () => {
-  axios.get(url).then((res) => res.json());
+  return axios.get(url).then((res) => res.json());
 });
 
 export const fetchUserSLice = createSlice({
@@ -24,13 +24,14 @@ export const fetchUserSLice = createSlice({
     });
 
     builder.addCase(fetchUser.fulfilled, (state, action) => {
-      (state.user = action.payload),
-        (state.isLoading = false),
-        (state.message = "");
+      state.user = action.payload;
+      state.isLoading = false;
+      state.message = "";
     });
 
     builder.addCase(fetchUser.rejected, (state, action) => {
-      (state.isLoading = false), (state.message = action.error.message);
+      (state.isLoading = false),
+      state.message = action.error.message || "Request failed";
     });
   },
 });
