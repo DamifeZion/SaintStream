@@ -54,9 +54,9 @@ const PasswordReset = () => {
           </small>
         </>
 
-       <div id="alert">
-         <ToastContainer />
-       </div>
+        <div id="alert">
+          <ToastContainer />
+        </div>
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-4">
           <>
@@ -118,6 +118,7 @@ const PasswordReset = () => {
           </>
 
           <button
+            id="submitBtn"
             type="submit"
             className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
           >

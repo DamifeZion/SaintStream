@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
 import { goBack } from "../../../utils/goBack";
 import { ToastContainer } from "react-toastify";
+import { useSignUp } from "../../../hooks/useSignUp";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");
@@ -19,6 +20,7 @@ const SignUp = () => {
     handlePasswordToggle,
     handleConfirmPasswordToggle,
   } = handleSignUpChange();
+  const { handleSubmit } = useSignUp();
 
   const { email, policy, hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.signUpSlice
@@ -58,7 +60,7 @@ const SignUp = () => {
           </small>
         </>
 
-        <div id="alert">
+        <div id="alert" >
           <ToastContainer />
         </div>
 
@@ -161,7 +163,7 @@ const SignUp = () => {
               htmlFor="policy"
               className={`${
                 policy && "border-0 "
-              } flex border w-6 h-6 rounded-full overflow-hidden relative `}
+              } flex border rounded-full overflow-hidden relative w-5 h-5 400:w-6 400:h-6`}
             >
               <input
                 id="policy"
@@ -180,13 +182,13 @@ const SignUp = () => {
               <i
                 className={`${
                   policy ? "scale-100" : "scale-0"
-                } z-10 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-[--white]`}
+                } z-10 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-[--white] text-sm 400:text-md`}
               >
                 <BsCheckLg />
               </i>
             </label>
 
-            <span>
+            <span className="text-sm 400:text-md">
               I agree to our
               <NavLink className={`font-semibold text-[--white]`}>
                 {" "}
@@ -201,6 +203,8 @@ const SignUp = () => {
           </div>
 
           <button
+            id="submitBtn"
+            onClick={handleSubmit}
             type="submit"
             className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
           >

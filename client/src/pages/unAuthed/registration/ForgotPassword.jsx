@@ -55,7 +55,7 @@ const ForgotPassword = () => {
         </>
 
         <div id="alert">
-         <ToastContainer />
+          <ToastContainer />
         </div>
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-6">
@@ -77,6 +77,7 @@ const ForgotPassword = () => {
           </>
 
           <button
+            id="submitBtn"
             type="submit"
             onClick={handleSubmit}
             className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 500:mt-10"

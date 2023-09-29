@@ -3,17 +3,13 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const moment = require("moment");
 
 //local modules
 const userModel = require("../models/userModel");
 const resetTokenModel = require("../models/resetTokenModel");
 const createToken = require("../middlewares/createToken");
-const sendMail = require("../middlewares/sendResetEmail");
-const {
-  hashPassword,
-  comparePassword,
-} = require("../middlewares/hashPassword");
+const sendMail = require("../utils/sendResetEmail");
+const { hashPassword, comparePassword } = require("../utils/hashPassword");
 
 //get user data from DB with users Id inside jwt token as req.user
 const getUser = async (req, res) => {
@@ -33,27 +29,14 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { userName, dob, email, password, confirmPassword } = req.body;
+    const { userName, email, password, confirmPassword, policy } = req.body;
 
-    if (!userName || !dob || !email || !password || !confirmPassword) {
-      return res.status(200).json({
+    if (!userName || !email || !password || !confirmPassword || !policy) {
+      return res.status(404).json({
         success: false,
         message: "All fields must be field",
       });
     }
-
-    if (dob.length < 10) {
-      return res.status(404).json({
-        success: false,
-        message:
-          "Please provide your complete date of birth in the format DD/MM/YYYY to ensure accuracy. Thank you!",
-      });
-    }
-
-    //calculate age
-    const dobToJsDate = dob.split("/");
-    const age = moment().diff(dob, "years");
-    console.log(age);
 
     if (!validator.isEmail(email)) {
       return res.status(404).json({
@@ -98,16 +81,16 @@ const createUser = async (req, res) => {
     const user = await userModel.create({
       image: "",
       userName,
-      dob,
       email,
       password: hash,
+      policy,
     });
 
     const token = createToken(user._id);
 
     res.status(200).json({
       success: true,
-      message: "Registration successful! You are now logged in.",
+      message: "Registration successful! Redirecting...",
       token: token,
     });
   } catch (error) {

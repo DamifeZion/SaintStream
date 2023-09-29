@@ -11,16 +11,6 @@ const userSchema = mongoose.Schema({
     upperCase: true,
   },
 
-  dob: {
-    type: String,
-    required: true,
-  },
-
-  age: {
-    type: Number,
-    required: true,
-  },
-
   email: {
     type: String,
     required: true,
@@ -30,7 +20,13 @@ const userSchema = mongoose.Schema({
 
   password: {
     type: String,
-    require: true,
+    required: true,
+  },
+
+  policy: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 
   role: {

@@ -110,6 +110,7 @@ const LogIn = () => {
           </NavLink>
 
           <button
+            id="submitBtn"
             type="submit"
             className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
           >
