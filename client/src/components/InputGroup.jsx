@@ -1,7 +1,17 @@
 import React from "react";
 import { FiChevronRight } from "react-icons/fi";
+import { handleSignUpChange } from "../utils/signupUtil/handleSignUpChange";
+import { useNavigate } from "react-router-dom";
 
 const InputGroup = ({ contCn, cont2Cn, inputCn, btnCn }) => {
+  const navigate = useNavigate();
+  //Append the input value to signUp form
+  const { handleEmailChange } = handleSignUpChange();
+
+  const handleClick = () => {
+    navigate("/register");
+  };
+
   return (
     <div
       className={`${contCn} overflow-hidden p-1 rounded-[2.5px] font-rubik w-full`}
@@ -11,12 +21,14 @@ const InputGroup = ({ contCn, cont2Cn, inputCn, btnCn }) => {
       >
         <input
           type="text"
+          onChange={handleEmailChange}
           placeholder="Email address"
           name="hs-trailing-button-add-on"
           className={`${inputCn} block w-full outline-none bg-[--dark-gray] shadow-sm border-[.5px] border-[--light-gray] rounded-md text-lg tracking-wide text-[--lighter-gray] focus:z-10 outline-2 focus:outline-[--green] focus:ring-[--green] transition-all ease-linear duration-200 py-3 px-3 600:py-4 700:rounded-sm`}
         />
         <button
           type="button"
+          onClick={handleClick}
           className={`${btnCn} py-2 px-5 inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-md bg-[--green] text-white hover:bg-[--green-dark] transition-all text-1xl w-fit 600:py-3 600:text-2xl 700:rounded-sm 900:font-medium 1000:py-[16px] 1000:rounded-[5px] 1200:py-[14.5px]`}
         >
           Get Started

@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 
 //routes
 const userRoute = require("./routes/userRoute");
-app.use("/api/user", userRoute);
+app.use("/api/v1/user", userRoute);
 
 const dbUrl = process.env.MONGO_DB_URL;
 const port = process.env.PORT || 8080;

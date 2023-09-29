@@ -63,7 +63,8 @@ const PCNavbar = () => {
           Sign in
         </button> */}
 
-        <button
+        <NavLink
+          to={`${!user ? "/login" : ""}`}
           className={`ml-4 py-[6px] px-4 rounded-md transition-bg ease duration-150 font-semibold ${
             user
               ? "bg-[--danger] hover:bg-[--danger-dark]"
@@ -71,7 +72,7 @@ const PCNavbar = () => {
           }`}
         >
           {user ? "Sign out" : "Sign in"}
-        </button>
+        </NavLink>
       </div>
     </div>
   );

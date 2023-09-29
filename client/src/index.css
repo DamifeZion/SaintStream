@@ -73,12 +73,6 @@ img {
 
 @media (width <= 768px) {
   :root {
-    --px: 10px;
-  }
-}
-
-@media (width <= 580px) {
-  :root {
     --px: 20px;
   }
 }

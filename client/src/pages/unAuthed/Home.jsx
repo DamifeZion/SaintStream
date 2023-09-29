@@ -1,11 +1,13 @@
 import React from "react";
-import Navbar from "../components/navbar/Navbar";
-import HomeCard from "../components/HomeCard";
-import FAQ from "../components/faq/FAQ";
-import InputGroup from "../components/InputGroup";
-import Footer from "../components/footer/Footer";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import Navbar from "../../components/navbar/Navbar";
+import HomeCard from "../../components/HomeCard";
+import FAQ from "../../components/faq/FAQ";
+import InputGroup from "../../components/InputGroup";
+import Footer from "../../components/footer/Footer";
 
 const Home = () => {
+  useDocumentTitle('Saintstream')
   return (
     <div className="relative">
       <header
@@ -61,7 +63,7 @@ const Home = () => {
 
         <div
           id="template"
-          className="mt-16 grid grid-cols-2 gap-1 1100:gap-6 1100:mt-14 500:gap-3 800:gap-6 900:place-self-center 900:w-[87%]  px-[--px] 1000:w-[77%] 1100:w-[70%] 1200:w-[65%] 1280:grid-cols-4 1280:w-full"
+          className="mt-16 grid grid-cols-2 gap-1 px-[--px] 1100:gap-6 1100:mt-14 500:gap-3 800:gap-6 800:px-[50px] 900:place-self-center 900:px-[70px] 900:w-[87%] 1000:w-[77%] 1100:px-[120px] 1100:w-[70%] 1200:grid-cols-4 1280:w-full"
         >
           <HomeCard />
           <HomeCard />

@@ -63,9 +63,9 @@ const MobileNavbar = () => {
             <NavLink
               id="mobile-links"
               className={`${
-                browserLocation === "/register" ? activeStyle : inActiveStyle
+                browserLocation === "/login" ? activeStyle : inActiveStyle
               } border-2 border-[--green] hover:bg-[--green] hover:text-[--white] transition-all ease-linear duration-150`}
-              to={"register"}
+              to={"/login"}
             >
               Sign in <FaSignInAlt />
             </NavLink>
