@@ -7,37 +7,35 @@ import InputGroup from "../../components/InputGroup";
 import Footer from "../../components/footer/Footer";
 
 const Home = () => {
-  useDocumentTitle('Saintstream')
+  useDocumentTitle("Saintstream");
   return (
     <div className="relative">
-      <header
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/src/assets/landing_header.jpg)",
-        }}
-        className="bg-no-repeat bg-cover bg-center border-0 border-b-8 border-[--dark-gray] px-[--px]"
-      >
-        <Navbar />
+      <header className="relative bg-homeHeroBg bg-no-repeat bg-cover bg-center border-0 border-b-8 border-[--dark-gray] px-[--px]">
+        <span className="absolute inset-0 bg-homeHeroGradient z-[1] w-full h-full" />
 
-        <div className="flex flex-col items-center justify-center text-center font-inter px-[--px] overflow-hidden h-[70vh] max-h-[650px] 700:h-[60vh] 1000:h-[86.5vh] 1280:h-[82vh]">
-          <h1
-            id="template"
-            className="text-[33px] font-black leading-snug 500:text-[31px] 1000:text-[45px] 1200:text-5xl"
-          >
-            Unlimited movies, TV shows, and more
-          </h1>
+        <div className="relative z-50">
+          <Navbar />
 
-          <h3 className="mt-4 text-center text-[17px] w-10/12  leading-snug 600:text-xl 1000:text-2xl 1280:mt-6">
-            Watch anywhere. Watch anytime.
-          </h3>
+          <div className="flex relative flex-col items-center justify-center text-center font-inter px-[--px] overflow-hidden h-[70vh] max-h-[650px] 700:h-[60vh] 1000:h-[86.5vh] 1280:h-[82vh]">
+            <h1
+              id="template"
+              className="text-[33px] font-black leading-snug 500:text-[31px] 1000:text-[45px] 1200:text-5xl"
+            >
+              Unlimited movies, TV shows, and more
+            </h1>
 
-          <h4 className="mt-6 text-xl w-9/12 leading-snug 400:w-10/12 500:w-11/12 500:text-[17px] 500:leading-relaxed 700:w-10/12 1000:text-1xl">
-            Ready to watch? Enter your email to create or restart your
-            membership.
-          </h4>
+            <h3 className="mt-4 text-center text-[17px] w-10/12  leading-snug 600:text-xl 1000:text-2xl 1280:mt-6">
+              Watch anywhere. Watch anytime.
+            </h3>
 
-          <div className="flex items-center justify-center mt-5 w-[80%] max-w-[630px] 500:mt-4 500:w-[88%] 800:w-[75%] 900:w-[68%] 1000:w-[65%] 1100:w-[61%] 1200:w-[56%] 1280:w-[52%]">
-            <InputGroup />
+            <h4 className="mt-6 text-xl w-9/12 leading-snug 400:w-10/12 500:w-11/12 500:text-[17px] 500:leading-relaxed 700:w-10/12 1000:text-1xl">
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </h4>
+
+            <div className="flex items-center justify-center mt-5 w-[80%] max-w-[630px] 500:mt-4 500:w-[88%] 800:w-[75%] 900:w-[68%] 1000:w-[65%] 1100:w-[61%] 1200:w-[56%] 1280:w-[52%]">
+              <InputGroup />
+            </div>
           </div>
         </div>
       </header>

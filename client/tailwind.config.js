@@ -22,6 +22,11 @@ export default {
         1280: "1280px",
       },
 
+      backgroundImage: {
+        homeHeroBg: "url(/src/assets/landing_header.jpg)",
+        homeHeroGradient: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3))'
+      },
+
       fontSize: {
         xs: "10px",
         sm: "12px",
