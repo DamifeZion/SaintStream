@@ -1,4 +1,5 @@
 import { handleForgotPasswordChange } from "../../../utils/forgotPasswordUtil/handleForgotPasswordChange";
+import logo from "../../assets/saintstream-logo.svg";
 import { colorBorderIfValue } from "../../../utils/forgotPasswordUtil/colorBorderIfValue";
 import { IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";
@@ -34,11 +35,7 @@ const ForgotPassword = () => {
               to={"/"}
               className="mt-6 items-center justify-center 500:mt-0"
             >
-              <img
-                src="/src/assets/saintstream-logo.svg"
-                alt=""
-                className="w-[160px]"
-              />
+              <img src={logo} alt="" className="w-[160px]" />
             </NavLink>
 
             <button

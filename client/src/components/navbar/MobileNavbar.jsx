@@ -97,11 +97,11 @@ const MobileNavbar = () => {
             <NavLink
               id="mobile-links"
               className={`${
-                browserLocation === "/movie-release"
+                browserLocation === "/movie_release"
                   ? activeStyle
                   : inActiveStyle
               }`}
-              to={"/movie-release"}
+              to={"/movie_release"}
             >
               Movie Release <FaFilm />
             </NavLink>

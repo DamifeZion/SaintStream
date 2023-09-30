@@ -28,8 +28,8 @@ const PCNavbar = () => {
           </NavLink>
 
           <NavLink
-            className={`${browserLocation === "/movie-release" && activeStyle}`}
-            to={"/movie-release"}
+            className={`${browserLocation === "/movie_release" && activeStyle}`}
+            to={"/movie_release"}
           >
             Movie Release
           </NavLink>
@@ -64,7 +64,7 @@ const PCNavbar = () => {
         </button> */}
 
         <NavLink
-          to={`${!user ? "/login" : ""}`}
+          to={`${user ? "" : "/login"}`}
           className={`ml-4 py-[6px] px-4 rounded-md transition-bg ease duration-150 font-semibold ${
             user
               ? "bg-[--danger] hover:bg-[--danger-dark]"
