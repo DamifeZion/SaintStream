@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { authUtil } from "../../../utils/authUtil";
 
 //the user token is critical tofetch the user data as a param
 const initialState = {
@@ -35,6 +36,7 @@ export const userSlice = createSlice({
 
     setLogOut: (state) => {
       (state.user = null), (state.sessionToken = null);
+      authUtil().removeTokenFromLocalStorage("SessionKey");
       window.location.href = "/";
     },
   },

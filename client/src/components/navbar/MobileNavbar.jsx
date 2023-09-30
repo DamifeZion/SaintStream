@@ -13,6 +13,7 @@ import {
 import { BiSearch } from "react-icons/bi";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
 import { hideMobileMenuUtil } from "../../utils/mobileMenu/hideMobileMenuUtil";
+import { userSlice } from "../../features/slices/userSlice/userSlice";
 
 const browserLocation = window.location.pathname;
 const inActiveStyle = `tracking-wide w-full h-fit py-2 px-10 whitespace-nowrap text-center rounded-sm text-[--light-gray] hover:text-[--white] hover:bg-[#272C34] flex items-center justify-center gap-3`;
@@ -37,6 +38,10 @@ const MobileNavbar = () => {
   //hide menu on click on any of the navlinks
   hideMobileMenuUtil();
 
+  const handleLogOut = () => {
+    dispatch(userSlice.actions.setLogOut());
+  };
+  
   return (
     <div className="flex flex-col text-lg font-semibold relative z-[1000]">
       <div className="flex items-center justify-center gap-3">
@@ -127,6 +132,7 @@ const MobileNavbar = () => {
             </NavLink>
 
             <button
+              onClick={handleLogOut}
               id="mobile-links"
               className={` py-2 px-10 text-[--light-gray] hover:bg-[--danger] hover:text-[--white] transition-bg ease-linear duration-150 flex items-center justify-center gap-3`}
             >

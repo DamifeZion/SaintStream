@@ -23,7 +23,6 @@ export const useSessionLogin = () => {
     dispatch(userSlice.actions.setSessionToken(sessionKey));
     //fetch the user with the token stored in the slice
     dispatch(fetchUserThunk());
-    console.log("User Logged in");
 
     const isSessionExpired = () => {
       const { exp } = jwtDecode(sessionKey);

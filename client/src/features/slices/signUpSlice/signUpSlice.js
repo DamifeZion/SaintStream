@@ -43,7 +43,7 @@ export const signUpSlice = createSlice({
     },
 
     reset: (state) => {
-      state.username = "";
+      state.userName = "";
       state.email = "";
       state.password = "";
       state.confirmPassword = "";

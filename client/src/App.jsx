@@ -2,13 +2,17 @@ import("preline");
 import "react-toastify/dist/ReactToastify.css";
 import { useLayoutEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/unAuthed/Home";
-import LogIn from "./pages/unAuthed/registration/LogIn";
-import SignUp from "./pages/unAuthed/registration/SignUp";
-import ForgotPassword from "./pages/unAuthed/registration/ForgotPassword";
-import FindAccount from "./pages/unAuthed/registration/FindAccount";
-import PasswordReset from "./pages/unAuthed/registration/PasswordReset";
+import Home from "./pages/Home";
+import LogIn from "./pages/registration/LogIn";
+import SignUp from "./pages/registration/SignUp";
+import ForgotPassword from "./pages/registration/ForgotPassword";
+import FindAccount from "./pages/registration/FindAccount";
+import PasswordReset from "./pages/registration/PasswordReset";
 import { useSessionLogin } from "./hooks/useSessionLogin";
+import MovieLibrary from "./pages/auth/MovieLibrary";
+//Auth middleWare
+import { RequireAuth } from "./utils/RequireAuth";
+//Auth pages import
 
 function App() {
   //fetch user Data from DB
@@ -26,6 +30,15 @@ function App() {
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/find_account" element={<FindAccount />} />
         <Route path="/password_reset" element={<PasswordReset />} />
+
+        <Route
+          path="/movie_library"
+          element={
+            <RequireAuth>
+              <MovieLibrary />
+            </RequireAuth>
+          }
+        />
         <Route path="*" element={"404 Page not Found"} />
       </Routes>
     </div>

@@ -1,10 +1,10 @@
 import React from "react";
-import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import Navbar from "../../components/navbar/Navbar";
-import HomeCard from "../../components/HomeCard";
-import FAQ from "../../components/faq/FAQ";
-import InputGroup from "../../components/InputGroup";
-import Footer from "../../components/footer/Footer";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import Navbar from "../components/navbar/Navbar";
+import HomeCard from "../components/HomeCard";
+import FAQ from "../components/faq/FAQ";
+import InputGroup from "../components/InputGroup";
+import Footer from "../components/footer/Footer";
 
 const Home = () => {
   useDocumentTitle("Saintstream");

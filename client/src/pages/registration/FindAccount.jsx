@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { goBack } from "../../../utils/goBack";
+import { goBack } from "../../utils/goBack";
 
 const FindAccount = () => {
   useDocumentTitle("Find My Account");

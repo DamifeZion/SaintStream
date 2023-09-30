@@ -1,11 +1,11 @@
-import { handleForgotPasswordChange } from "../../../utils/forgotPasswordUtil/handleForgotPasswordChange";
-import logo from "../../../assets/saintstream-logo.svg";
-import { colorBorderIfValue } from "../../../utils/forgotPasswordUtil/colorBorderIfValue";
+import { handleForgotPasswordChange } from "../../utils/forgotPasswordUtil/handleForgotPasswordChange";
+import logo from "../../assets/saintstream-logo.svg";
+import { colorBorderIfValue } from "../../utils/forgotPasswordUtil/colorBorderIfValue";
 import { IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useNavigate } from "react-router-dom";
-import { goBack } from "../../../utils/goBack";
+import { goBack } from "../../utils/goBack";
 import { ToastContainer } from "react-toastify";
 
 const ForgotPassword = () => {

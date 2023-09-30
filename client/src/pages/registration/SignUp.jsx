@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
-import logo from "../../../assets/saintstream-logo.svg";
-import { handleSignUpChange } from "../../../utils/signupUtil/handleSignUpChange";
+import logo from "../../assets/saintstream-logo.svg";
+import { handleSignUpChange } from "../../utils/signupUtil/handleSignUpChange";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { BsCheckLg } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
-import { goBack } from "../../../utils/goBack";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import { goBack } from "../../utils/goBack";
 import { ToastContainer } from "react-toastify";
-import { useSignUp } from "../../../hooks/useSignUp";
+import { useSignUp } from "../../hooks/useSignUp";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");

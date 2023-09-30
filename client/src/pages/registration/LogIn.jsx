@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
-import logo from "../../../assets/saintstream-logo.svg";
-import { handleLoginChange } from "../../../utils/loginUtil/handleLoginChange";
+import logo from "../../assets/saintstream-logo.svg";
+import { handleLoginChange } from "../../utils/loginUtil/handleLoginChange";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
-import { goBack } from "../../../utils/goBack";
+import { goBack } from "../../utils/goBack";
 import { NavLink } from "react-router-dom";
-import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
+import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { ToastContainer } from "react-toastify";
+import { useLogin } from "../../hooks/useLogin";
 
 const LogIn = () => {
   useDocumentTitle("Login");
@@ -14,6 +15,8 @@ const LogIn = () => {
     handleLoginChange();
 
   const { hidePassword } = useSelector((state) => state.loginSlice);
+
+  const { handleSubmit } = useLogin();
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
@@ -104,6 +107,7 @@ const LogIn = () => {
           </NavLink>
 
           <button
+            onClick={handleSubmit}
             id="submitBtn"
             type="submit"
             className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
