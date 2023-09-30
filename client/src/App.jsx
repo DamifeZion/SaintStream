@@ -20,12 +20,13 @@ function App() {
   return (
     <div id="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/find_account" element={<FindAccount />} />
         <Route path="/password_reset" element={<PasswordReset />} />
+        <Route path="*" element={"404 Page not Found"} />
       </Routes>
     </div>
   );
