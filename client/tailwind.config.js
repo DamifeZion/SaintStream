@@ -24,7 +24,10 @@ export default {
 
       backgroundImage: {
         homeHeroBg: "url(/src/assets/landing_header.jpg)",
-        homeHeroGradient: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3))'
+        homeHeroGradient:
+          "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3))",
+        homeCardGradient:
+          "linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.2) 50%)",
       },
 
       fontSize: {
