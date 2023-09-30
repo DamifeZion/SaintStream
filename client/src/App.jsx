@@ -12,6 +12,7 @@ import { useSessionLogin } from "./hooks/useSessionLogin";
 import MovieLibrary from "./pages/auth/MovieLibrary";
 //Auth middleWare
 import { RequireAuth } from "./utils/RequireAuth";
+import NotFound from "./pages/NotFound";
 //Auth pages import
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route path="*" element={"404 Page not Found"} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

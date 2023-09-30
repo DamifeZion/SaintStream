@@ -36,7 +36,7 @@ const getUser = async (req, res) => {
     const user = await userModel.findById(_id).select("-password -policy -__v");
 
     if (!user) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "User not found",
       });
