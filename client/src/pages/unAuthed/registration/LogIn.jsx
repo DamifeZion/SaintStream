@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import logo from "../../assets/saintstream-logo.svg";
+import logo from "../../../assets/saintstream-logo.svg";
 import { handleLoginChange } from "../../../utils/loginUtil/handleLoginChange";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { goBack } from "../../../utils/goBack";

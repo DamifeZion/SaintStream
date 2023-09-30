@@ -1,5 +1,5 @@
 import { handleForgotPasswordChange } from "../../../utils/forgotPasswordUtil/handleForgotPasswordChange";
-import logo from "../../assets/saintstream-logo.svg";
+import logo from "../../../assets/saintstream-logo.svg";
 import { colorBorderIfValue } from "../../../utils/forgotPasswordUtil/colorBorderIfValue";
 import { IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";

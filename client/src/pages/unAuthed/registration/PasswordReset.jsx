@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import logo from "../../assets/saintstream-logo.svg";
+import logo from "../../../assets/saintstream-logo.svg";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../../hooks/useDocumentTitle";
