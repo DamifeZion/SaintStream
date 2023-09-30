@@ -21,7 +21,7 @@ function App() {
     <div id="App">
       <Routes>
         <Route index element={<Home />} />
-        <Route path={"/login" || "/Login"} element={<LogIn />} />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/find_account" element={<FindAccount />} />
