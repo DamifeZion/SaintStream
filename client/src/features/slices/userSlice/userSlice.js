@@ -1,55 +1,60 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const token =
-  "token from localStorage when user logs in which can be stored in temporarily as user and until this is completed then replaces";
-
-const url = `${import.meta.env.VITR_SERVER}/user/${token}`;
-// console.log(url);
-
-const fetchUser = createAsyncThunk("fetchUser/Get", async () => {
-  try {
-    const res = await fetch(url);
-    const data = res.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
+//the user token is critical tofetch the user data as a param
+const initialState = {
+  user: null,
+  sessionToken: null,
+  isLoading: false,
+  message: "",
+};
+export const fetchUserThunk = createAsyncThunk(
+  "fetchUserData/GET",
+  async (_, { getState }) => {
+    const { sessionToken } = getState().userSlice;
+    const url = `${import.meta.env.VITE_SERVER}/user/${sessionToken}`;
+    try {
+      const res = await fetch(url);
+      const userData = await res.json();
+      console.log("userData ", userData.user);
+      return userData;
+    } catch (error) {
+      throw new Error();
+    }
   }
-});
+);
 
 export const userSlice = createSlice({
-  name: "userSice",
+  name: "userSlice",
 
-  initialState: {
-    user: null,
-    isLoading: false,
-    message: "",
-  },
+  initialState,
 
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
+    setSessionToken: (state, action) => {
+      state.sessionToken = action.payload;
     },
 
-    setMessage: (state, action) => {
-      state.message = action.payload;
+    setLogOut: (state) => {
+      (state.user = null), (state.sessionToken = null);
+      window.location.href = "/";
     },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.pending, (state, action) => {
-      state.isLoading = true;
-      state.message = "";
-    });
+    builder
+      .addCase(fetchUserThunk.pending, (state) => {
+        state.isLoading = true;
+        state.message = "";
+      })
 
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload;
-      state.isLoading = false;
-      state.message = "";
-    });
+      .addCase(fetchUserThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.message = action.payload.message || "Successful";
+        state.user = action.payload;
+      })
 
-    builder.addCase(fetchUser.rejected, (state, action) => {
-      (state.isLoading = false),
-        (state.message = action.error.message || "Request failed");
-    });
+      .addCase(fetchUserThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.message = action.error.message || "Failed to fetch";
+      });
   },
 });

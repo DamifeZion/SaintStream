@@ -45,15 +45,17 @@ export const faqItemData = [
     body2: null,
   },
 
-  {
-    id: 4,
+  //below is future project that requires users age
 
-    title: "Is Saintstream good for kids?",
+  // {
+  //   id: 4,
 
-    body1:
-      "Saintstream provides options for parents to maintain control over their children's viewing experience. By creating individual profiles for your kids, you can customize the content they have access to. Additionally, you can set up parental controls with PIN protection, allowing you to restrict the maturity rating of the content they can watch. This means you have the ability to block specific titles that you deem unsuitable for your children.",
+  //   title: "Is Saintstream good for kids?",
 
-    body2:
-      "While Saintstream may not have a dedicated child center like some other platforms, it empowers parents to make informed decisions about what their kids can watch, ensuring a safe and enjoyable streaming experience for the whole family.",
-  },
+  //   body1:
+  //     "Saintstream provides options for parents to maintain control over their children's viewing experience. By creating individual profiles for your kids, you can customize the content they have access to. Additionally, you can set up parental controls with PIN protection, allowing you to restrict the maturity rating of the content they can watch. This means you have the ability to block specific titles that you deem unsuitable for your children.",
+
+  //   body2:
+  //     "While Saintstream may not have a dedicated child center like some other platforms, it empowers parents to make informed decisions about what their kids can watch, ensuring a safe and enjoyable streaming experience for the whole family.",
+  // },
 ];

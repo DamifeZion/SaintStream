@@ -1,12 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import { userSlice } from "../features/slices/userSlice/userSlice";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { signUpSlice } from "../features/slices/signUpSlice/signUpSlice";
+import { authUtil } from "../utils/authUtil";
 
 export const useSignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { userName, email, password, confirmPassword, policy } = useSelector(
     (state) => state.signUpSlice
   );
+  const { saveTokenToLocalStorage } = authUtil();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,16 +33,18 @@ export const useSignUp = () => {
       const json = await res.json();
 
       if (!res.ok) {
-        dispatch(userSlice.actions.setMessage(json.message));
-        toast.error(json.message);
-        return;
+        return toast.error(json.message);
       }
-      
-      dispatch(userSlice.actions.setUser(json.token));
-      dispatch(userSlice.actions.setMessage(json.message));
+
+      //store user token to retrieve when user redirected to auth pages
+      saveTokenToLocalStorage("SessionKey", json.token);
+      dispatch(signUpSlice.actions.reset());
       toast.success(json.message);
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 3500);
     } catch (error) {
-      dispatch(userSlice.actions.setMessage(error.message));
       toast.error(error.message);
     }
   };

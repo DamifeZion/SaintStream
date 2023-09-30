@@ -1,5 +1,6 @@
 import("preline");
 import "react-toastify/dist/ReactToastify.css";
+import { useLayoutEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/unAuthed/Home";
 import LogIn from "./pages/unAuthed/registration/LogIn";
@@ -7,8 +8,15 @@ import SignUp from "./pages/unAuthed/registration/SignUp";
 import ForgotPassword from "./pages/unAuthed/registration/ForgotPassword";
 import FindAccount from "./pages/unAuthed/registration/FindAccount";
 import PasswordReset from "./pages/unAuthed/registration/PasswordReset";
+import { useSessionLogin } from "./hooks/useSessionLogin";
 
 function App() {
+  //fetch user Data from DB
+  const { useLogin } = useSessionLogin();
+  useLayoutEffect(() => {
+    useLogin();
+  }, [useLogin]);
+
   return (
     <div id="App">
       <Routes>

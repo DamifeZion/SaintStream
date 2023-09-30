@@ -13,10 +13,38 @@ const { hashPassword, comparePassword } = require("../utils/hashPassword");
 
 //get user data from DB with users Id inside jwt token as req.user
 const getUser = async (req, res) => {
+  const { token } = req.params;
   try {
+    if (!token) {
+      return res.status(404).json({
+        success: false,
+        message: "Invalid URL: Token is missing",
+      });
+    }
+
+    const decodedToken = jwt.decode(token, process.env.SECRET);
+
+    if (!decodedToken) {
+      return res.status(404).json({
+        status: false,
+        message: "Invalid Token: Unable to decode the token",
+      });
+    }
+
+    const { _id } = decodedToken;
+
+    const user = await userModel.findById(_id).select("-password -policy -__v");
+
+    if (!user) {
+      res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
     res.status(200).json({
       success: true,
-      data: req.user,
+      user: user,
     });
   } catch (error) {
     res.status(404).json({
@@ -171,7 +199,7 @@ const editUserLoggedIn = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User does not exist",
+        message: "User not found",
       });
     }
 
@@ -358,7 +386,7 @@ const resetPassword = async (req, res) => {
     const hash = await hashPassword(password);
 
     //update password
-    const newPassword = await userModel.findByIdAndUpdate(_id, {
+    await userModel.findByIdAndUpdate(_id, {
       password: hash,
     });
 
@@ -367,7 +395,7 @@ const resetPassword = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Password updated successfully",
+      message: "Password updated successfully. Redirect to login",
     });
   } catch (error) {
     res.status(500).json({
@@ -397,7 +425,7 @@ const deleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User does not exist",
+        message: "User not found",
       });
     }
 
