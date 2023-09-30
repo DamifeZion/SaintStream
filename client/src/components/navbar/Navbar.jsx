@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/saintstream-logo.svg";
+// import logo from '/src/assets/saintstream-logo.svg'
 import PCNavbar from "./PCNavbar";
 import MobileNavbar from "./MobileNavbar";
 import { useMediaQuery } from "@mui/material";
@@ -31,7 +31,7 @@ const Navbar = ({ contCn, logoCn }) => {
         to="/"
         className={`${logoCn} z-[1000] ${user ? "w-[180px]" : "w-[230px]"} `}
       >
-        <img src={logo} draggable="false" alt="" />
+        <img src="../../assets/saintstream-logo.svg" alt="" />
       </NavLink>
 
       {/* Below hides Mobile navbar */}
