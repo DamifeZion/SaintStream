@@ -9,11 +9,12 @@ import ForgotPassword from "./pages/registration/ForgotPassword";
 import FindAccount from "./pages/registration/FindAccount";
 import PasswordReset from "./pages/registration/PasswordReset";
 import { useSessionLogin } from "./hooks/useSessionLogin";
-import MovieLibrary from "./pages/auth/MovieLibrary";
+import { NotFound } from "./pages/NotFound";
 //Auth middleWare
 import { RequireAuth } from "./utils/RequireAuth";
-import NotFound from "./pages/NotFound";
 //Auth pages import
+import MovieLibrary from "./pages/auth/MovieLibrary";
+
 
 function App() {
   //fetch user Data from DB
@@ -40,6 +41,7 @@ function App() {
             </RequireAuth>
           }
         />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

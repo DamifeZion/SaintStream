@@ -7,7 +7,7 @@ import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
 
-const Navbar = ({ contCn, logoCn }) => {
+const Navbar = ({ contCn, logoCn, screenCn }) => {
   const dispatch = useDispatch();
   const isSmall = useMediaQuery("(max-width: 1024px)");
   const { user } = useSelector((state) => state.userSlice);
@@ -29,7 +29,7 @@ const Navbar = ({ contCn, logoCn }) => {
     >
       <NavLink
         to="/"
-        className={`${logoCn} z-[1000] ${user ? "w-[180px]" : "w-[230px]"} `}
+        className={`${logoCn} z-[1000] ${user ? "w-[170px]" : "w-[230px]"} `}
       >
         <img src={logo} alt="" />
       </NavLink>
@@ -42,7 +42,7 @@ const Navbar = ({ contCn, logoCn }) => {
         />
       )}
 
-      <div className="w-4/6 flex justify-end">
+      <div className={`${screenCn} w-4/6 flex justify-end`}>
         {isSmall ? <MobileNavbar /> : <PCNavbar />}
       </div>
     </div>
