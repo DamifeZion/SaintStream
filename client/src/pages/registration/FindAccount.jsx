@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import logo from "../../assets/saintstream-logo.svg";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -24,11 +25,7 @@ const FindAccount = () => {
               to={"/"}
               className="mt-6 items-center justify-center 500:mt-0"
             >
-              <img
-                src="/src/assets/saintstream-logo.svg"
-                alt=""
-                className="w-[160px]"
-              />
+              <img src={logo} alt="" className="w-[160px]" />
             </NavLink>
 
             <button

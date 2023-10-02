@@ -6,7 +6,7 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle";
 export const NotFound = () => {
   useDocumentTitle("Saintstream");
   return (
-    <div className="flex flex-col border min-h-screen overflow-hidden relative">
+    <div className="flex flex-col min-h-screen overflow-hidden relative">
       <nav className="bg-[--black] px-[--px] absolute top-0 w-full z-[1000]">
         <NavLink
           to={"/"}
