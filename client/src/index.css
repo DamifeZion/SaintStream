@@ -41,11 +41,17 @@
   scroll-behavior: smooth;
 }
 
+html {
+  height: -webkit-fill-available;
+}
+
 body {
   background: #121014;
   transition: linear 0.2s;
   color: #fff;
   font-family: "Inter", sans-serif;
+
+  height: -webkit-fill-available;
 }
 
 #template {

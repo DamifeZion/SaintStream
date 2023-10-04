@@ -14,7 +14,7 @@ export const useSessionLogin = () => {
 
   const sessionKey = getSessionTokenFromLocalStorage();
 
-  const useLogin = useCallback(() => {
+  const useIsUserLoggedin = useCallback(() => {
     if (!sessionKey) {
       return;
     }
@@ -39,6 +39,6 @@ export const useSessionLogin = () => {
   }, [dispatch, sessionKey, removeTokenFromLocalStorage]);
 
   return {
-    useLogin,
+    useIsUserLoggedin,
   };
 };

@@ -18,10 +18,10 @@ import MovieLibrary from "./pages/auth/MovieLibrary";
 
 function App() {
   //fetch user Data from DB
-  const { useLogin } = useSessionLogin();
+  const { useIsUserLoggedin } = useSessionLogin();
   useLayoutEffect(() => {
-    useLogin();
-  }, [useLogin]);
+    useIsUserLoggedin();
+  }, [useIsUserLoggedin]);
 
   return (
     <div id="App">
