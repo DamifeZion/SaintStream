@@ -36,7 +36,7 @@ export const useSessionLogin = () => {
     };
 
     setInterval(isSessionExpired, 1000);
-  }, [dispatch, sessionKey]);
+  }, [dispatch, sessionKey, removeTokenFromLocalStorage]);
 
   return {
     useLogin,
