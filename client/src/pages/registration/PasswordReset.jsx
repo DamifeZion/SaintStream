@@ -5,15 +5,14 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
-import { ToastContainer } from "react-toastify";
+import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
 
-  const { 
-    hidePassword, 
-    hideConfirmPassword 
-  } = useSelector((state) => state.passwordResetSlice);
+  const { hidePassword, hideConfirmPassword } = useSelector(
+    (state) => state.passwordResetSlice
+  );
 
   const {
     handlePasswordChange,
@@ -31,6 +30,10 @@ const PasswordReset = () => {
             <IoIosArrowBack />
           </button>
         </nav>
+
+        <div id="alert">
+          <ToastWrapper />
+        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">
@@ -52,10 +55,6 @@ const PasswordReset = () => {
             Reset your password
           </small>
         </>
-
-        <div id="alert">
-          <ToastContainer />
-        </div>
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-4">
           <>

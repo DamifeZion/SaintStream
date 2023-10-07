@@ -1,18 +1,14 @@
 import logo from "../../assets/saintstream-logo.svg";
-import { colorBorderIfValue } from "../../utils/colorBorder/forgotPassword/colorBorderIfValue";
 import { IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
-import { ToastContainer } from "react-toastify";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
+import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const ForgotPassword = () => {
   useDocumentTitle("Forgot Password");
-  const {
-    handleEmailChange,
-    handleSubmit
-  } = useForgotPassword()
+  const { handleEmailChange, handleSubmit } = useForgotPassword();
 
   return (
     <div className="justify-center min-h-screen  overflow-y-scroll 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
@@ -22,6 +18,10 @@ const ForgotPassword = () => {
             <IoIosArrowBack />
           </button>
         </nav>
+
+        <div id="alert">
+          <ToastWrapper />
+        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">
@@ -44,10 +44,6 @@ const ForgotPassword = () => {
             password reset link.
           </small>
         </>
-
-        <div id="alert">
-          <ToastContainer />
-        </div>
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-6">
           <>

@@ -5,8 +5,8 @@ import { BsCheckLg } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
-import { ToastContainer } from "react-toastify";
 import { useSignUp } from "../../hooks/useSignUp";
+import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");
@@ -22,12 +22,9 @@ const SignUp = () => {
     handleSubmit,
   } = useSignUp();
 
-  const { 
-    email, 
-    policy, 
-    hidePassword, 
-    hideConfirmPassword 
-  } = useSelector((state) => state.signUpSlice);
+  const { email, policy, hidePassword, hideConfirmPassword } = useSelector(
+    (state) => state.signUpSlice
+  );
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
@@ -37,6 +34,10 @@ const SignUp = () => {
             <IoIosArrowBack />
           </button>
         </nav>
+
+        <div id="alert">
+          <ToastWrapper />
+        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">
@@ -58,10 +59,6 @@ const SignUp = () => {
             Resister to enjoy the features
           </small>
         </>
-
-        <div id="alert">
-          <ToastContainer />
-        </div>
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-6">
           <>

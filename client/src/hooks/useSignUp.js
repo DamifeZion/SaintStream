@@ -1,10 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { colorBorderIfValue } from "../utils/colorBorder/signUp/colorBorderIfValue";
 import { signUpSlice } from "../features/slices/signUpSlice/signUpSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const useSignUp = () => {
   colorBorderIfValue();
   const dispatch = useDispatch();
+  const body = useSelector((state) => state.signUpSlice);
 
   const handleUsernameChange = (e) => {
     dispatch(signUpSlice.actions.setUserName(e.target.value));
@@ -36,8 +39,23 @@ export const useSignUp = () => {
   };
 
   //Submit form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await axios.post(url, body, {
+        headers: { "Content-Type": "application/json" },
+      });
+      const json = res.data;
+
+      if (!res.ok) {
+        return toast.info(json.message);
+      }
+
+      toast.success(json.message);
+    } catch (error) {
+      toast.info(error.message);
+    }
   };
 
   return {

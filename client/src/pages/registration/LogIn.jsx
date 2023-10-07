@@ -4,8 +4,8 @@ import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { goBack } from "../../utils/goBack";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { ToastContainer } from "react-toastify";
 import { useLogin } from "../../hooks/useLogin";
+import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const LogIn = () => {
   useDocumentTitle("Login");
@@ -28,6 +28,10 @@ const LogIn = () => {
           </button>
         </nav>
 
+        <div id="alert">
+          <ToastWrapper />
+        </div>
+
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">
             <NavLink
@@ -48,10 +52,6 @@ const LogIn = () => {
             Login to your account
           </small>
         </>
-
-        <div id="alert">
-          <ToastContainer />
-        </div>
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-6">
           <>
