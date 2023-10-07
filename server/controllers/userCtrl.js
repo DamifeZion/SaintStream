@@ -114,12 +114,9 @@ const createUser = async (req, res) => {
       policy,
     });
 
-    const token = createToken(user._id);
-
     res.status(200).json({
       success: true,
       message: "Registration successful! Redirecting...",
-      token: token,
     });
   } catch (error) {
     res.status(500).json({

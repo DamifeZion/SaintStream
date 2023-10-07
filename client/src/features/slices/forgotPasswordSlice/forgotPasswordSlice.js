@@ -5,6 +5,7 @@ export const forgotPasswordSlice = createSlice({
 
   initialState: {
     email: "",
+    isLoading: false,
   },
 
   reducers: {
@@ -12,8 +13,13 @@ export const forgotPasswordSlice = createSlice({
       state.email = action.payload;
     },
 
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+
     reset: (state) => {
       state.email = "";
+      state.isLoading = false;
     },
   },
 });

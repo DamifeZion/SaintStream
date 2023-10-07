@@ -1,13 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userSlice } from "../../features/slices/userSlice/userSlice";
 
 const browserLocation = window.location.pathname;
 const activeStyle = `text-[--green] font-extrabold`;
 
 const PCNavbar = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
+
+  const handleLogout = () => {
+    dispatch(userSlice.actions.logOut());
+  };
 
   return (
     <div className=" flex w-full text-md">
@@ -64,6 +70,7 @@ const PCNavbar = () => {
         </button> */}
 
         <NavLink
+          onClick={handleLogout}
           to={`${user ? "" : "/login"}`}
           className={`ml-4 py-[6px] px-4 rounded-md transition-bg ease duration-150 font-semibold ${
             user

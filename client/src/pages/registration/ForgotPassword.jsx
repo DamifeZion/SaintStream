@@ -1,24 +1,18 @@
-import { handleForgotPasswordChange } from "../../utils/forgotPasswordUtil/handleForgotPasswordChange";
 import logo from "../../assets/saintstream-logo.svg";
-import { colorBorderIfValue } from "../../utils/forgotPasswordUtil/colorBorderIfValue";
+import { colorBorderIfValue } from "../../utils/colorBorder/forgotPassword/colorBorderIfValue";
 import { IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { useNavigate } from "react-router-dom";
 import { goBack } from "../../utils/goBack";
 import { ToastContainer } from "react-toastify";
+import { useForgotPassword } from "../../hooks/useForgotPassword";
 
 const ForgotPassword = () => {
-  //handles input change utils
-  colorBorderIfValue();
   useDocumentTitle("Forgot Password");
-  const navigate = useNavigate();
-
-  const { handleEmailChange } = handleForgotPasswordChange();
-
-  const handleSubmit = () => {
-    navigate("/find_account");
-  };
+  const {
+    handleEmailChange,
+    handleSubmit
+  } = useForgotPassword()
 
   return (
     <div className="justify-center min-h-screen  overflow-y-scroll 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">

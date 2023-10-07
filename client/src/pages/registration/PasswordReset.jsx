@@ -4,22 +4,24 @@ import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
-import { handleResetPasswordChange } from "../../utils/passwordResetUtil/handleResetPasswordChange";
+import { usePasswordReset } from "../../hooks/usePasswordReset";
 import { ToastContainer } from "react-toastify";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
-  //handles input change utils
+
+  const { 
+    hidePassword, 
+    hideConfirmPassword 
+  } = useSelector((state) => state.passwordResetSlice);
+
   const {
     handlePasswordChange,
     handleConfirmPasswordChange,
     handlePasswordToggle,
     handleConfirmPasswordToggle,
-  } = handleResetPasswordChange();
-
-  const { hidePassword, hideConfirmPassword } = useSelector(
-    (state) => state.passwordResetSlice
-  );
+    handleSubmit,
+  } = usePasswordReset();
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
@@ -115,6 +117,7 @@ const PasswordReset = () => {
           </>
 
           <button
+            onClick={handleSubmit}
             id="submitBtn"
             type="submit"
             className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "

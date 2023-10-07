@@ -1,7 +1,9 @@
 import { useDispatch } from "react-redux";
-import { passwordResetSlice } from "../../features/slices/passwordResetSlice/passwordResetSlice.js";
+import { colorBorderIfValue } from "../utils/colorBorder/passwordReset/colorBorderIfValue";
+import { passwordResetSlice } from "../features/slices/passwordResetSlice/passwordResetSlice";
 
-export const handleResetPasswordChange = () => {
+export const usePasswordReset = () => {
+  colorBorderIfValue();
   const dispatch = useDispatch();
 
   const handlePasswordChange = (e) => {
@@ -19,10 +21,16 @@ export const handleResetPasswordChange = () => {
   const handleConfirmPasswordToggle = () => {
     dispatch(passwordResetSlice.actions.setHideConfirmPassword());
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return {
     handlePasswordChange,
     handleConfirmPasswordChange,
     handlePasswordToggle,
     handleConfirmPasswordToggle,
+    handleSubmit,
   };
 };

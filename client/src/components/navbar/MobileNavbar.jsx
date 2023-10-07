@@ -39,9 +39,9 @@ const MobileNavbar = () => {
   hideMobileMenuUtil();
 
   const handleLogOut = () => {
-    dispatch(userSlice.actions.setLogOut());
+    dispatch(userSlice.actions.logOut());
   };
-  
+
   return (
     <div className="flex flex-col text-lg font-semibold relative z-[1000]">
       <div className="flex items-center justify-center gap-3">

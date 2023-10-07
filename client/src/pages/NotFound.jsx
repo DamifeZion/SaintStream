@@ -23,7 +23,7 @@ export const NotFound = () => {
 
       <div
         id="notFound"
-        className="flex flex-col items-center justify-center px-[--px] bg-homeHeroBg h-screen text-center font-rubik bg-no-repeat"
+        className="flex flex-col items-center justify-center px-[--px] bg-404NotFound bg-cover h-screen text-center font-rubik bg-no-repeat"
       >
         <h1 className="relative z-10 font-medium tracking-wide text-[28px] 400:text-4xl 500:text-[28px] 600:text-4xl 700:text-[42px] 800:text-6xl 900:text-5xl 1000:text-[52px] 1200:text-[62px] 1200:font-semibold">
           Lost your way?
@@ -34,7 +34,7 @@ export const NotFound = () => {
           page
         </h3>
 
-        <NavLink to={'/'}>
+        <NavLink to={"/"}>
           <button className="relative z-10 bg-[--white] text-[--black] px-2 py-[6px] mt-2 rounded-md font-medium text-[8px] 400:text-sm 400:mt-3 500:text-xs 700:text-[12px] 700:mt-5 800:text-lg 800:p-3 900:text-md 900:py-2 900:px-3 1000:mt-7 1200:text-xl 1200:p-3">
             Saintstream Home
           </button>
@@ -47,3 +47,5 @@ export const NotFound = () => {
     </div>
   );
 };
+
+export default NotFound;

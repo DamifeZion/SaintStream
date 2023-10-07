@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import logo from "../../assets/saintstream-logo.svg";
-import { handleLoginChange } from "../../utils/loginUtil/handleLoginChange";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { goBack } from "../../utils/goBack";
 import { NavLink } from "react-router-dom";
@@ -10,13 +9,15 @@ import { useLogin } from "../../hooks/useLogin";
 
 const LogIn = () => {
   useDocumentTitle("Login");
-  //handles input change utils
-  const { handleEmailChange, handlePasswordChange, handlePasswordToggle } =
-    handleLoginChange();
 
   const { hidePassword } = useSelector((state) => state.loginSlice);
 
-  const { handleSubmit } = useLogin();
+  const {
+    handleEmailChange,
+    handlePasswordChange,
+    handlePasswordToggle,
+    handleSubmit,
+  } = useLogin();
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">

@@ -1,12 +1,11 @@
 import React from "react";
 import { FiChevronRight } from "react-icons/fi";
-import { handleSignUpChange } from "../utils/signupUtil/handleSignUpChange";
 import { useNavigate } from "react-router-dom";
+import { useSignUp } from "../hooks/useSignUp";
 
 const InputGroup = ({ contCn, cont2Cn, inputCn, btnCn }) => {
   const navigate = useNavigate();
-  //Append the input value to signUp form
-  const { handleEmailChange } = handleSignUpChange();
+  const { handleEmailChange } = useSignUp();
 
   const handleClick = () => {
     navigate("/register");

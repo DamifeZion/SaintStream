@@ -1,25 +1,30 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { authUtil } from "../../../utils/authUtil";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import axios from "axios";
 
 //the user token is critical tofetch the user data as a param
 const initialState = {
   user: null,
   sessionToken: null,
   isLoading: false,
+  success: false,
   message: "",
 };
-export const fetchUserThunk = createAsyncThunk(
+
+export const fetchUserDataThunk = createAsyncThunk(
   "fetchUserData/GET",
   async (_, { getState }) => {
     const { sessionToken } = getState().userSlice;
-    const url = `${import.meta.env.VITE_SERVER}/user/${sessionToken}`;
+    if (!sessionToken) {
+      return null;
+    }
+
     try {
-      const res = await fetch(url);
-      const userData = await res.json();
-      console.log("userData ", userData.user);
-      return userData;
+      const url = `${import.meta.VITE_SERVER}/user/${sessionToken}`;
+      const res = await axios.get(url);
+      return res.data.user;
     } catch (error) {
-      throw new Error();
+      throw error.message;
     }
   }
 );
@@ -34,29 +39,36 @@ export const userSlice = createSlice({
       state.sessionToken = action.payload;
     },
 
-    setLogOut: (state) => {
-      (state.user = null), (state.sessionToken = null);
-      authUtil().removeTokenFromLocalStorage("SessionKey");
-      window.location.href = "/";
+    setMessage: (state, action) => {
+      state.message = action.payload;
+    },
+
+    logOut: (state) => {
+      state.user = null;
+      state.sessionToken = null;
+      useLocalStorage().removeToken("Session");
     },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserThunk.pending, (state) => {
+      .addCase(fetchUserDataThunk.pending, (state) => {
         state.isLoading = true;
         state.message = "";
       })
 
-      .addCase(fetchUserThunk.fulfilled, (state, action) => {
+      .addCase(fetchUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.message = action.payload.message || "Successful";
+        state.success = action.payload.message || "Successfull";
         state.user = action.payload;
       })
 
-      .addCase(fetchUserThunk.rejected, (state, action) => {
+      .addCase(fetchUserDataThunk.rejected, (state, action) => {
         state.isLoading = false;
-        state.message = action.error.message || "Failed to fetch";
+        state.user = null;
+        state.sessionToken = null;
+        state.success = "";
+        state.message = action.payload.error || "Failed to fetch";
       });
   },
 });
