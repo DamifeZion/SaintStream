@@ -13,7 +13,10 @@ const tokenSchema = mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    expires: "30m",
+  }
 );
 
 const resetTokenModel = mongoose.model("ResetPasswordToken", tokenSchema);

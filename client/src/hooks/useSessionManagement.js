@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../features/slices/userSlice/userSlice";
-import jwt from "jsonwebtoken";
+import jwt from "jwt-js-decode";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "./useSessionStorage";
 

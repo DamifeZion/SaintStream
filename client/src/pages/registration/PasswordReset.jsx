@@ -7,7 +7,7 @@ import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
 import ToastWrapper from "../../components/toast/ToastWrapper";
 import { useEffect } from "react";
-import jwt from "jsonwebtoken";
+import jwt from "jwt-js-decode";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
@@ -17,7 +17,7 @@ const PasswordReset = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        await jwt.verify(id, import.meta.env.VITE_SECRET_KEY);
+        await jwt.verify(`${id}`, import.meta.env.VITE_SECRET_KEY);
       } catch (error) {
         navigate("/login");
       }
