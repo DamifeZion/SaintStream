@@ -1,15 +1,26 @@
 import { useSelector } from "react-redux";
 import logo from "../../assets/saintstream-logo.svg";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
 import ToastWrapper from "../../components/toast/ToastWrapper";
+import { useEffect } from "react";
+import jwt from "jsonwebtoken";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const decodedToken = jwt.verify(id, import.meta.env.VITE_SECRET_KEY);
+    } catch (error) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const { hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.passwordResetSlice

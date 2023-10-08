@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../features/slices/userSlice/userSlice";
-import jwtDecode from "jwt-decode";
+import jwt from "jsonwebtoken";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "./useSessionStorage";
 
@@ -21,7 +21,7 @@ export const useSessionManagement = () => {
 
     //check if session has expired, then log user out
     const isSessionExpired = setInterval(() => {
-      const { exp } = jwtDecode(session);
+      const { exp } = jwt.decode(session);
       const tokenTime = exp * 1000;
       const currentTime = new Date().getTime();
 
@@ -31,7 +31,6 @@ export const useSessionManagement = () => {
 
       //Show message & log user out on token expiration
       if (currentTime >= tokenTime) {
-
         toast.info("Session has expired, please login again", {
           position: "top-center",
           pauseOnFocusLoss: false,
