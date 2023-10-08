@@ -4,7 +4,7 @@ import { passwordResetSlice } from "../features/slices/passwordResetSlice/passwo
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export const usePasswordReset = () => {
+export const usePasswordReset = (resetToken) => {
   colorBorderIfValue();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +29,10 @@ export const usePasswordReset = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const url = `${
+      import.meta.env.VITE_SERVER
+    }/user/reset-password/${resetToken}`;
+
     try {
       const res = await fetch(url, {
         method: "PUT",
@@ -39,7 +43,17 @@ export const usePasswordReset = () => {
       const json = await res.json();
 
       if (!res.ok) {
-        return toast.error(json.message);
+        toast.error(json.message, {
+          autoClose: 3000,
+          closeOnClick: false,
+          draggable: false,
+          pauseOnHover: false,
+          pauseOnFocusLoss: false,
+        });
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       }
 
       toast.success(json.message, {

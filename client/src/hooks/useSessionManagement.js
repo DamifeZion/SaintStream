@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../features/slices/userSlice/userSlice";
-import jwt from "jwt-js-decode";
+import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "./useSessionStorage";
 
@@ -21,7 +21,7 @@ export const useSessionManagement = () => {
 
     //check if session has expired, then log user out
     const isSessionExpired = setInterval(() => {
-      const { exp } = jwt.decode(session);
+      const { exp } = jwtDecode(session);
       const tokenTime = exp * 1000;
       const currentTime = new Date().getTime();
 

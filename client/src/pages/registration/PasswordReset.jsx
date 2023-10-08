@@ -6,25 +6,10 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
 import ToastWrapper from "../../components/toast/ToastWrapper";
-import { useEffect } from "react";
-import jwt from "jwt-js-decode";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
   const { id } = useParams();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const verifyToken = async () => {
-      try {
-        await jwt.verify(`${id}`, import.meta.env.VITE_SECRET_KEY);
-      } catch (error) {
-        navigate("/login");
-      }
-
-      verifyToken();
-    };
-  }, [id, navigate]);
 
   const { hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.passwordResetSlice
@@ -36,7 +21,7 @@ const PasswordReset = () => {
     handlePasswordToggle,
     handleConfirmPasswordToggle,
     handleSubmit,
-  } = usePasswordReset();
+  } = usePasswordReset(id);
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
