@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { userSlice } from "../features/slices/userSlice/userSlice";
 import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
@@ -7,7 +8,6 @@ import { useSessionStorage } from "./useSessionStorage";
 export const useSessionManagement = () => {
   const dispatch = useDispatch();
   const { getSession } = useSessionStorage();
-  const { sessionExpired } = useSelector((state) => state.userSlice);
 
   const manageSession = () => {
     const session = getSession(import.meta.env.VITE_SESSION_KEY);
@@ -16,24 +16,37 @@ export const useSessionManagement = () => {
       return null;
     }
 
-    //store the session key in redux store
+    // Store the session key in the Redux store
     dispatch(userSlice.actions.setSessionToken(session));
 
+    //check if session has expired, then log user out
     const isSessionExpired = () => {
       const { exp } = jwtDecode(session);
       const tokenTime = exp * 1000;
       const currentTime = new Date().getTime();
 
-      console.log("Decoded: " + tokenTime);
-      console.log("Current: " + currentTime);
+      //uncomment the below and fix the bug of showing the toast 3 times before redirecting to login
+      // console.log("Decoded: " + tokenTime);
+      // console.log("Current: " + currentTime);
+
+      //Show message & log user out on token expiration
       if (currentTime >= tokenTime) {
-        dispatch(userSlice.actions.setSessionExpired(true));
-        dispatch(userSlice.actions.logOut());
+        toast.info("Session has expired, please login again", {
+          position: "top-center",
+          pauseOnFocusLoss: false,
+          pauseOnHover: false,
+          closeOnClick: false,
+          autoClose: 3000,
+        });
+
+        setTimeout(() => {
+          dispatch(userSlice.actions.logOut());
+        }, 3000);
       }
     };
 
-    //every second we check if token is expired
-    const time = 1000;
+    // Every 2 seconds, we check if the token is expired
+    const time = 2000;
     const interval = setInterval(isSessionExpired, time);
 
     return () => {
@@ -41,24 +54,7 @@ export const useSessionManagement = () => {
     };
   };
 
-  const sessionExpiredMessage = () => {
-    if (!sessionExpired) {
-      return null;
-    }
-
-    toast.info("Session has expired. Please login again", {
-      position: "top-center",
-      autoClose: 2000,
-      pauseOnHover: false,
-      pauseOnFocusLoss: false,
-    });
-
-    //after message has shown we want to reset the sessionExpired
-    dispatch(userSlice.actions.setSessionExpired(false));
-  };
-
   return {
     manageSession,
-    sessionExpiredMessage,
   };
 };

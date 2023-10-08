@@ -10,12 +10,8 @@ export const UserAuth = ({ children }) => {
   const { sessionToken, isLoading } = useSelector((state) => state.userSlice);
   const { manageSession } = useSessionManagement();
 
-  //Clean up the manageSession and also activate it
-  useEffect(() => {
-    return () => {
-      manageSession();
-    };
-  }, []);
+  //manage session and log users out on token expiration
+  manageSession();
 
   //Memoise the fetchUserDataThunk to prevent unnecessary re-render
   const fetchUser = useCallback(() => {

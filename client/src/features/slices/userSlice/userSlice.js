@@ -5,7 +5,6 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 const initialState = {
   user: [],
   sessionToken: null,
-  sessionExpired: false,
   isLoading: false,
   success: false,
 };
@@ -39,14 +38,11 @@ export const userSlice = createSlice({
       state.sessionToken = action.payload;
     },
 
-    setSessionExpired: (state, action) => {
-      state.sessionExpired = action.payload;
-    },
-
     logOut: (state) => {
       state.user = null;
       state.sessionToken = null;
       useSessionStorage().removeSession(import.meta.env.VITE_SESSION_KEY);
+      window.location.href = "/login";
     },
   },
 
@@ -60,7 +56,7 @@ export const userSlice = createSlice({
       .addCase(fetchUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.success = action.payload.message || "Successfull";
-        state.user = action.payload || [];
+        state.user = action.payload;
       })
 
       .addCase(fetchUserDataThunk.rejected, (state, action) => {

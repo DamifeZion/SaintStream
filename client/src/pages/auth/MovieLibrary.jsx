@@ -1,7 +1,8 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useSelector } from "react-redux";
-import Navbar from '../../components/navbar/Navbar'
+import Navbar from "../../components/navbar/Navbar";
+import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const MovieLibrary = () => {
   useDocumentTitle("Movie Library");
@@ -9,7 +10,8 @@ const MovieLibrary = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
+      <ToastWrapper />
       MovieLibrary
     </div>
   );

@@ -48,7 +48,7 @@ export const useLogin = () => {
 
       setTimeout(() => {
         navigate("/movie_library", { replace: true });
-      }, 2000);
+      }, 1000);
     } catch (error) {
       toast.error(error.message);
     }
