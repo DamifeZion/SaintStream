@@ -289,6 +289,7 @@ const forgotPassword = async (req, res) => {
 
     //create token for user validation
     await resetTokenModel.create({
+      email,
       token: resetToken,
     });
 
@@ -352,7 +353,8 @@ const resetPassword = async (req, res) => {
     if (!tokenDocument) {
       return res.status(404).json({
         success: false,
-        message: "We couldn't find a valid token for your password reset request. Please ensure you have the correct reset link or initiate the password reset process again.",
+        message:
+          "We couldn't find a valid token for your password reset request. Please ensure you have the correct reset link or initiate the password reset process again.",
       });
     }
 
