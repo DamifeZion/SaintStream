@@ -106,7 +106,7 @@ const createUser = async (req, res) => {
     //hash password
     const hash = await hashPassword(password);
 
-    const user = await userModel.create({
+    await userModel.create({
       image: "",
       userName,
       email,

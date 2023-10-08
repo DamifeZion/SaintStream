@@ -84,7 +84,7 @@ const MobileNavbar = () => {
               className={`${
                 browserLocation === "/" ? activeStyle : inActiveStyle
               }`}
-              to={"/"}
+              to={!user ? "/" : '/movie_library'}
             >
               Home <FaHome />
             </NavLink>

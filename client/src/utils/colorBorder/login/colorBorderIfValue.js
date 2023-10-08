@@ -15,17 +15,19 @@ export const colorBorderIfValue = () => {
     const inputs = document.querySelectorAll("input");
     const button = document.querySelector("#submitBtn");
 
+    const inputMinLength = 6;
+
     inputs.forEach((input) => {
-      if (input.value !== "") {
+      if (input.value !== "" && input.value.length >= inputMinLength) {
         input.style = `border: 1px solid white; transition: ease-in-out .15s`;
       }
 
-      if (input.value === "") {
+      if (input.value === "" || input.value.length < inputMinLength) {
         input.style.border = "";
       }
     });
 
-    if (email && password) {
+    if (email.length >= inputMinLength && password.length >= inputMinLength) {
       button.removeAttribute("disabled");
       button.style = `background-color: #00925d; color: #fff; transition: ease-in-out .15s`;
     } else {

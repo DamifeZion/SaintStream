@@ -21,7 +21,7 @@ const PCNavbar = () => {
         <ul className="flex items-center gap-4 text-[--lighter-gray]">
           <NavLink
             className={`${browserLocation === "/" && activeStyle}`}
-            to={"/"}
+            to={!user ? "/" : '/movie_library'}
           >
             Home
           </NavLink>

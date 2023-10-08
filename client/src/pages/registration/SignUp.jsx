@@ -22,9 +22,12 @@ const SignUp = () => {
     handleSubmit,
   } = useSignUp();
 
-  const { email, policy, hidePassword, hideConfirmPassword } = useSelector(
-    (state) => state.signUpSlice
-  );
+  const { 
+    email, 
+    policy, 
+    hidePassword, 
+    hideConfirmPassword 
+  } = useSelector((state) => state.signUpSlice);
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">

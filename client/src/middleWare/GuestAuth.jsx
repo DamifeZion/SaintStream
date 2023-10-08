@@ -6,7 +6,7 @@ export const GuestAuth = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const { getToken } = useLocalStorage();
-    const session = getToken("session");
+    const session = getToken(import.meta.env.VITE_SESSION_KEY);
 
     if (session) {
       const referrer = document.referrer;
@@ -18,7 +18,7 @@ export const GuestAuth = ({ children }) => {
       }
 
       //redirect user to the default page for user coz came from foreign place
-      return navigate("movie_library", { replace: true });
+      navigate("/movie_library");
     }
   });
 

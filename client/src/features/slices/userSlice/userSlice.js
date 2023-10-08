@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
-import axios from "axios";
 
 //the user token is critical tofetch the user data as a param
 const initialState = {
@@ -20,9 +19,10 @@ export const fetchUserDataThunk = createAsyncThunk(
     }
 
     try {
-      const url = `${import.meta.VITE_SERVER}/user/${sessionToken}`;
-      const res = await axios.get(url);
-      return res.data.user;
+      const url = `${import.meta.env.VITE_SERVER}/user/${sessionToken}`;
+      const res = await fetch(url);
+      const json = await res.json();
+      return json.user;
     } catch (error) {
       throw error.message;
     }
@@ -46,7 +46,8 @@ export const userSlice = createSlice({
     logOut: (state) => {
       state.user = null;
       state.sessionToken = null;
-      useLocalStorage().removeToken("Session");
+      window.confirm("Are you sure you want to logOut");
+      useLocalStorage().removeToken(import.meta.env.VITE_SESSION_KEY);
     },
   },
 

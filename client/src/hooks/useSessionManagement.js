@@ -2,13 +2,14 @@ import { useDispatch } from "react-redux";
 import { userSlice } from "../features/slices/userSlice/userSlice";
 import jwtDecode from "jwt-decode";
 import { useLocalStorage } from "./useLocalStorage";
+import { toast } from "react-toastify";
 
 export const useSessionManagement = () => {
   const dispatch = useDispatch();
   const { getToken } = useLocalStorage();
 
   const manageSession = () => {
-    const session = getToken("Session");
+    const session = getToken(import.meta.env.VITE_SESSION_KEY);
 
     if (!session) {
       return null;
@@ -22,7 +23,10 @@ export const useSessionManagement = () => {
 
     const isSessionExpired = () => {
       if (decodedToken.exp * 1000 <= currentTime) {
-        return dispatch(userSlice.actions.logOut());
+        toast.info("Session expired. Redirecting t Login...");
+        setTimeout(() => {
+          return dispatch(userSlice.actions.logOut());
+        }, 3000);
       }
     };
 

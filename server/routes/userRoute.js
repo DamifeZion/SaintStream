@@ -22,7 +22,12 @@ router.post("/register", createUser);
 router.post("/login", loginUser);
 
 //edit user from dashboard
-router.put("/:id", multerUpload.single("profileImage"), editUserLoggedIn);
+router.put(
+  "/:id",
+  multerUpload.single("profileImage"),
+  requireAuth,
+  editUserLoggedIn
+);
 
 //collect email for password reset
 router.post("/forgot-password", forgotPassword);
