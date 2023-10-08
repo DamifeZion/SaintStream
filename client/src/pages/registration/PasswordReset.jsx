@@ -15,12 +15,16 @@ const PasswordReset = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
-      const decodedToken = jwt.verify(id, import.meta.env.VITE_SECRET_KEY);
-    } catch (error) {
-      navigate("/login");
-    }
-  }, [navigate]);
+    const verifyToken = async () => {
+      try {
+        await jwt.verify(id, import.meta.env.VITE_SECRET_KEY);
+      } catch (error) {
+        navigate("/login");
+      }
+
+      verifyToken();
+    };
+  }, [id, navigate]);
 
   const { hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.passwordResetSlice
@@ -76,8 +80,6 @@ const PasswordReset = () => {
             >
               Password
             </label>
-
-            {id}
 
             <div className="relative">
               <input
