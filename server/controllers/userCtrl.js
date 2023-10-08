@@ -352,7 +352,7 @@ const resetPassword = async (req, res) => {
     if (!tokenDocument) {
       return res.status(404).json({
         success: false,
-        message: "Token not found",
+        message: "We couldn't find a valid token for your password reset request. Please ensure you have the correct reset link or initiate the password reset process again.",
       });
     }
 
@@ -402,7 +402,6 @@ const resetPassword = async (req, res) => {
       success: false,
       message:
         "Your password reset link has expired. Please initiate the password reset process again.",
-      error: error.message,
     });
   }
 };
