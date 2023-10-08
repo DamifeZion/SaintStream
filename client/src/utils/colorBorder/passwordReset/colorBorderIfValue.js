@@ -33,5 +33,5 @@ export const colorBorderIfValue = () => {
       button.style.background = ``;
       button.style.color = ``;
     }
-  }, [email]);
+  }, [password, confirmPassword]);
 };
