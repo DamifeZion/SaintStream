@@ -9,12 +9,20 @@ export const UserAuth = ({ children }) => {
   const dispatch = useDispatch();
   const { sessionToken, isLoading } = useSelector((state) => state.userSlice);
   const { manageSession } = useSessionManagement();
-  manageSession();
 
+  //Clean up the manageSession and also activate it
+  useEffect(() => {
+    return () => {
+      manageSession();
+    };
+  }, []);
+
+  //Memoise the fetchUserDataThunk to prevent unnecessary re-render
   const fetchUser = useCallback(() => {
     dispatch(fetchUserDataThunk());
   }, [dispatch]);
 
+  //fetch the userData
   useEffect(() => {
     if (sessionToken) {
       fetchUser();

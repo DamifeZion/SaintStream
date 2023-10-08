@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 import { useNavigate } from "react-router-dom";
 
 export const GuestAuth = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
-    const { getToken } = useLocalStorage();
-    const session = getToken(import.meta.env.VITE_SESSION_KEY);
+    const { getSession } = useSessionStorage();
+    const session = getSession(import.meta.env.VITE_SESSION_KEY);
 
     if (session) {
       const referrer = document.referrer;

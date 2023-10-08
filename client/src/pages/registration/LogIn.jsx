@@ -6,11 +6,18 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useLogin } from "../../hooks/useLogin";
 import ToastWrapper from "../../components/toast/ToastWrapper";
+import { useSessionManagement } from "../../hooks/useSessionManagement";
+import { useEffect } from "react";
 
 const LogIn = () => {
   useDocumentTitle("Login");
 
   const { hidePassword } = useSelector((state) => state.loginSlice);
+  const { sessionExpiredMessage } = useSessionManagement();
+
+  useEffect(() => {
+    sessionExpiredMessage()
+  }, []);
 
   const {
     handleEmailChange,

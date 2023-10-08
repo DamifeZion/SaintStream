@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { colorBorderIfValue } from "../utils/colorBorder/login/colorBorderIfValue";
 import { loginSlice } from "../features/slices/loginSlice/loginSlice";
 import { useNavigate } from "react-router-dom";
-import { useLocalStorage } from "./useLocalStorage";
+import { useSessionStorage } from "./useSessionStorage";
 
 export const useLogin = () => {
   colorBorderIfValue();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const body = useSelector((state) => state.loginSlice);
+  const { setSession } = useSessionStorage();
 
   const handleEmailChange = (e) => {
     dispatch(loginSlice.actions.setEmail(e.target.value));
@@ -26,7 +27,6 @@ export const useLogin = () => {
   //Submits data
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { setToken } = useLocalStorage();
     const url = `${import.meta.env.VITE_SERVER}/user/login`;
 
     try {
@@ -43,12 +43,12 @@ export const useLogin = () => {
       }
 
       //store token in localStorage
-      setToken(import.meta.env.VITE_SESSION_KEY, json.token);
+      setSession(import.meta.env.VITE_SESSION_KEY, json.token);
       toast.success(json.message);
 
       setTimeout(() => {
         navigate("/movie_library", { replace: true });
-      }, 3500);
+      }, 2000);
     } catch (error) {
       toast.error(error.message);
     }

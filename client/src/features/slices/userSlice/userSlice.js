@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 //the user token is critical tofetch the user data as a param
 const initialState = {
-  user: null,
+  user: [],
   sessionToken: null,
+  sessionExpired: false,
   isLoading: false,
   success: false,
-  message: "",
 };
 
 export const fetchUserDataThunk = createAsyncThunk(
@@ -39,15 +39,14 @@ export const userSlice = createSlice({
       state.sessionToken = action.payload;
     },
 
-    setMessage: (state, action) => {
-      state.message = action.payload;
+    setSessionExpired: (state, action) => {
+      state.sessionExpired = action.payload;
     },
 
     logOut: (state) => {
       state.user = null;
       state.sessionToken = null;
-      window.confirm("Are you sure you want to logOut");
-      useLocalStorage().removeToken(import.meta.env.VITE_SESSION_KEY);
+      useSessionStorage().removeSession(import.meta.env.VITE_SESSION_KEY);
     },
   },
 
@@ -61,7 +60,7 @@ export const userSlice = createSlice({
       .addCase(fetchUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.success = action.payload.message || "Successfull";
-        state.user = action.payload;
+        state.user = action.payload || [];
       })
 
       .addCase(fetchUserDataThunk.rejected, (state, action) => {
