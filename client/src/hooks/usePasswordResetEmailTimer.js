@@ -21,8 +21,6 @@ const usePasswordResetEmailTimer = () => {
         clearInterval(interval);
       }
 
-      console.log(currentTime);
-      console.log(reset.expiresIn)
     }, 2000);
 
     return () => {
