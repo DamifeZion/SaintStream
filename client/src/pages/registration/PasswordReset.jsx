@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import logo from "../../assets/saintstream-logo.svg";
 import { IoIosArrowBack, IoMdEyeOff, IoMdEye } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
@@ -9,6 +9,7 @@ import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
+  const { id } = useParams();
 
   const { hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.passwordResetSlice
@@ -64,6 +65,8 @@ const PasswordReset = () => {
             >
               Password
             </label>
+
+            {id}
 
             <div className="relative">
               <input

@@ -3,7 +3,7 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 //the user token is critical tofetch the user data as a param
 const initialState = {
-  user: [],
+  user: null,
   sessionToken: null,
   isLoading: false,
   success: false,
@@ -42,7 +42,6 @@ export const userSlice = createSlice({
       state.user = null;
       state.sessionToken = null;
       useSessionStorage().removeSession(import.meta.env.VITE_SESSION_KEY);
-      window.location.href = "/login";
     },
   },
 

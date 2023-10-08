@@ -15,8 +15,12 @@ import { UserAuth } from "./middleWare/UserAuth";
 import { GuestAuth } from "./middleWare/GuestAuth";
 //User Pages Import
 import MovieLibrary from "./pages/auth/MovieLibrary";
+import usePasswordResetEmailTimer from "./hooks/usePasswordResetEmailTimer";
 
 function App() {
+  //below removes the email to reset after expiration
+  usePasswordResetEmailTimer()
+
   return (
     <div id="App">
       <Routes>
@@ -66,7 +70,7 @@ function App() {
         />
 
         <Route
-          path="/password_reset"
+          path="/password_reset/:id"
           element={
             <GuestAuth>
               <PasswordReset />

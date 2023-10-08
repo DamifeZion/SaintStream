@@ -8,10 +8,9 @@ import { useSessionManagement } from "../hooks/useSessionManagement";
 export const UserAuth = ({ children }) => {
   const dispatch = useDispatch();
   const { sessionToken, isLoading } = useSelector((state) => state.userSlice);
-  const { manageSession } = useSessionManagement();
 
   //manage session and log users out on token expiration
-  manageSession();
+  useSessionManagement();
 
   //Memoise the fetchUserDataThunk to prevent unnecessary re-render
   const fetchUser = useCallback(() => {
@@ -30,7 +29,7 @@ export const UserAuth = ({ children }) => {
   }
 
   if (isLoading) {
-    <LoadingLarge />;
+    return <LoadingLarge textWhileLoading={"Loading account"} />;
   }
 
   return <>{children}</>;

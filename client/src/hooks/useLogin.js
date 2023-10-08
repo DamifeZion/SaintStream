@@ -44,11 +44,8 @@ export const useLogin = () => {
 
       //store token in localStorage
       setSession(import.meta.env.VITE_SESSION_KEY, json.token);
-      toast.success(json.message);
-
-      setTimeout(() => {
-        navigate("/movie_library", { replace: true });
-      }, 1000);
+      navigate("/movie_library", { replace: true });
+      dispatch(loginSlice.actions.reset());
     } catch (error) {
       toast.error(error.message);
     }

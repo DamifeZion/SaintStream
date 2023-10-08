@@ -301,7 +301,7 @@ const forgotPassword = async (req, res) => {
       "reset-password.html", //html file name
       {
         username: user.userName,
-        resetLink: `${process.env.BASE_URL}/reset-password/${resetToken}`, //dynamic data
+        resetLink: `${process.env.CLIENT_URL}/password_reset/${resetToken}`, //dynamic data
       }
     );
 
@@ -309,7 +309,10 @@ const forgotPassword = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: `An email has been sent to ${user.email} for password reset`,
+      data: {
+        email: `${user.email}`,
+        expiresIn: Date.now() + 1 * 60 * 1000, //30mins
+      },
     });
   } catch (error) {
     res.status(500).json({

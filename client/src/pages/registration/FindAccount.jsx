@@ -1,14 +1,26 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/saintstream-logo.svg";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { IoIosArrowBack } from "react-icons/io";
-import { useSelector } from "react-redux";
 import { goBack } from "../../utils/goBack";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const FindAccount = () => {
   useDocumentTitle("Find My Account");
+  const navigate = useNavigate();
+  const { getStorage } = useLocalStorage();
 
-  const { email } = useSelector((state) => state.forgotPasswordSlice);
+  const [userEmail, setUserEmail] = useState();
+
+  //get email to reset from storage and if none return user
+  useEffect(() => {
+    const user = getStorage(import.meta.env.VITE_FORGOT_PASSWORD);
+    if (!user) {
+      return navigate("/forgot_password");
+    }
+    setUserEmail(user.email);
+  });
 
   return (
     <div className="justify-center min-h-screen overflow-y-scroll pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
@@ -46,14 +58,14 @@ const FindAccount = () => {
           </h1>
 
           <p className="mt-4">
-            If there’s a Saintstream account for <b>'{email}'</b>, we’ll send
-            you a reset link to create a new password.
+            If there’s a Saintstream account for <b>"{userEmail}"</b>, we’ll
+            send you a reset link to create a new password.
           </p>
 
           <p>
             Finally, if you don’t receive an email within 15 minutes, please
             check your spam folder and adjust your filtering by allowing emails
-            from Hulu.
+            from Saintstream.
           </p>
         </div>
       </div>

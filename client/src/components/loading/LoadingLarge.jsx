@@ -2,7 +2,7 @@ import React from "react";
 import loading from "../../assets/loading.png";
 import Navbar from "../navbar/Navbar";
 
-const LoadingLarge = ({ cont1Cn, cont2Cn, imgCn, labelCn }) => {
+const LoadingLarge = ({ cont1Cn, cont2Cn, imgCn, labelCn, textWhileLoading }) => {
   return (
     <div className={`${cont1Cn} h-screen flex flex-col`}>
       <div>
@@ -19,7 +19,7 @@ const LoadingLarge = ({ cont1Cn, cont2Cn, imgCn, labelCn }) => {
           className={`${imgCn} w-[30px]`}
         />
         <label htmlFor="loading" className={labelCn}>
-          Loading...
+          { textWhileLoading || 'Loading...'}
         </label>
       </div>
     </div>
