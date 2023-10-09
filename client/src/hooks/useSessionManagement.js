@@ -26,8 +26,8 @@ export const useSessionManagement = () => {
       const currentTime = new Date().getTime();
 
       //uncomment the below and fix the bug of showing the toast 3 times before redirecting to login
-      console.log("Decoded: " + tokenTime);
-      console.log("Current: " + currentTime);
+      // console.log("Decoded: " + tokenTime);
+      // console.log("Current: " + currentTime);
 
       //Show message & log user out on token expiration
       if (currentTime >= tokenTime) {
