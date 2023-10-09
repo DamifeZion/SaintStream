@@ -3,11 +3,13 @@ import { colorBorderIfValue } from "../utils/colorBorder/passwordReset/colorBord
 import { passwordResetSlice } from "../features/slices/passwordResetSlice/passwordResetSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
 
 export const usePasswordReset = (resetToken) => {
   colorBorderIfValue();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {removeStorage} = useLocalStorage()
   const body = useSelector((state) => state.passwordResetSlice);
 
   const handlePasswordChange = (e) => {
@@ -63,6 +65,8 @@ export const usePasswordReset = (resetToken) => {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
+      //remove the users data from the local storage & prevent from accessing.
+      removeStorage(import.meta.env.VITE_FORGOT_PASSWORD)
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
       toast.error(error.message);
