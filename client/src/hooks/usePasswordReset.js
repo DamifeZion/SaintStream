@@ -43,17 +43,13 @@ export const usePasswordReset = (resetToken) => {
       const json = await res.json();
 
       if (!res.ok) {
-        toast.error(json.message, {
+        return toast.error(json.message, {
           autoClose: 3000,
           closeOnClick: false,
           draggable: false,
           pauseOnHover: false,
           pauseOnFocusLoss: false,
         });
-
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
       }
 
       toast.success(json.message, {
