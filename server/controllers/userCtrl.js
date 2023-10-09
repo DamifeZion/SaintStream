@@ -289,9 +289,9 @@ const forgotPassword = async (req, res) => {
 
     //create token for user validation
     await resetTokenModel.create({
-      email: email,
-      token: resetToken,
-    });
+      email,
+      token: resetToken
+    })
 
     await sendMail(
       process.env.EMAIL_ANONYMOUS_USER, //email username
@@ -307,7 +307,7 @@ const forgotPassword = async (req, res) => {
       }
     );
 
-    console.log(`Email sent successfully - from userCtrl line: 275`);
+    console.log(`Email sent successfully - from userCtrl line: 317`);
 
     res.status(200).json({
       success: true,

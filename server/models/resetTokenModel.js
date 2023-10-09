@@ -14,8 +14,8 @@ const tokenSchema = mongoose.Schema(
 
     validated: {
       type: Boolean,
-      default: false,
       required: true,
+      default: false,
     },
   },
   {
@@ -24,6 +24,6 @@ const tokenSchema = mongoose.Schema(
   }
 );
 
-const resetTokenModel = mongoose.model("ResetPasswordToken", tokenSchema);
+const resetTokenModel = mongoose.model("resettokens", tokenSchema);
 
 module.exports = resetTokenModel;
