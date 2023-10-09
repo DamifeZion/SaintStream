@@ -119,7 +119,7 @@ const SignUp = () => {
 
               <i
                 onClick={handlePasswordToggle}
-                className={`absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-[--dark-gray] ${
+                className={`cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 text-2xl text-[--dark-gray] ${
                   !hidePassword && "text-[--green]"
                 }`}
               >

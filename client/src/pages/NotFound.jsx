@@ -6,8 +6,8 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle";
 export const NotFound = () => {
   useDocumentTitle("Saintstream");
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden relative">
-      <nav className="bg-[--black] px-[--px] absolute top-0 w-full z-[1000]">
+    <div className="flex flex-col overflow-x-hidden relative border border-red-600 min-h-[460px] 500:h-screen">
+      <nav className="bg-[--black] px-[--px] border border-blue-600 w-full z-[1000]">
         <NavLink
           to={"/"}
           className="flex items-center p-4 w-[180px] px-[--px] 400:w-[200px] 800:px-0"
@@ -18,12 +18,12 @@ export const NotFound = () => {
 
       <span
         id="overlay"
-        className="w-full h-screen absolute top-0 left-0 bg-black bg-opacity-20"
+        className="w-full h-full border border-green-600 absolute top-0 left-0 bg-black bg-opacity-40"
       />
 
       <div
         id="notFound"
-        className="flex flex-col items-center justify-center px-[--px] bg-404NotFound bg-cover h-screen text-center font-rubik bg-no-repeat"
+        className="flex flex-col items-center justify-center px-[--px] bg-404NotFound bg-cover h-full text-center font-rubik bg-no-repeat"
       >
         <h1 className="relative z-10 font-medium tracking-wide text-[28px] 400:text-4xl 500:text-[28px] 600:text-4xl 700:text-[42px] 800:text-6xl 900:text-5xl 1000:text-[52px] 1200:text-[62px] 1200:font-semibold">
           Lost your way?
