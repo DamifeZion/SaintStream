@@ -330,10 +330,19 @@ const resetPassword = async (req, res) => {
   const { password, confirmPassword } = req.body;
 
   try {
-    const decodedToken = jwt.verify(resetToken, process.env.SECRET);
+    if (!resetToken) {
+      return res.status(404).json({
+        status: false,
+        message:
+          "Reset token is missing. Please ensure you have the correct reset link or initiate the password reset process again.",
+      });
+    }
+
+    const decodedToken = jwt.verify(resetToken, process.env.SECRET_KEY);
 
     //getting user._id from decoded token
     const { _id } = decodedToken;
+    console.log(decodedToken);
 
     //check if the user._id from the decoded token matches a user in our database
     const user = await userModel.findOne({ _id });
@@ -341,8 +350,7 @@ const resetPassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message:
-          "We couldn't find a valid token for your password reset request. Please ensure you have the correct reset link or initiate the password reset process again.",
+        message: "User not found",
       });
     }
 
@@ -397,13 +405,14 @@ const resetPassword = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Password updated successfully. Redirect to login",
+      message: "Password updated successfully. Redirecting to login page...",
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message:
         "Your password reset link has expired. Please initiate the password reset process again.",
+      error: error.message,
     });
   }
 };
