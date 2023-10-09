@@ -289,7 +289,7 @@ const forgotPassword = async (req, res) => {
 
     //create token for user validation
     await resetTokenModel.create({
-      email,
+      email: email,
       token: resetToken,
     });
 
