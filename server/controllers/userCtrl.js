@@ -267,7 +267,7 @@ const editUserLoggedIn = async (req, res) => {
 //Post request to edit password
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-  
+
   try {
     if (!email) {
       return res.status(404).json({
@@ -302,6 +302,7 @@ const forgotPassword = async (req, res) => {
       "reset-password.html", //html file name
       {
         username: user.userName,
+        expiration: "30 minutes",
         resetLink: `${process.env.CLIENT_URL}/password_reset/${resetToken}`, //dynamic data
       }
     );

@@ -28,9 +28,7 @@ export const useForgotPassword = () => {
         headers: { "Content-Type": "application/json" },
       });
 
-      console.log(res)
       const json = await res.json();
-      console.log(json)
 
       if (!res.ok) {
         return toast.error(json.message);
