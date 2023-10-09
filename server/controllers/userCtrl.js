@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 
 //local modules
 const userModel = require("../models/userModel");
@@ -290,8 +291,8 @@ const forgotPassword = async (req, res) => {
     //create token for user validation
     await resetTokenModel.create({
       email,
-      token: resetToken
-    })
+      token: resetToken,
+    });
 
     await sendMail(
       process.env.EMAIL_ANONYMOUS_USER, //email username
@@ -313,7 +314,7 @@ const forgotPassword = async (req, res) => {
       success: true,
       data: {
         email: `${user.email}`,
-        expiresIn: Date.now() + 1 * 60 * 1000, //30mins
+        expiresIn: moment().add(30, "minutes"), //30mins
       },
     });
   } catch (error) {
