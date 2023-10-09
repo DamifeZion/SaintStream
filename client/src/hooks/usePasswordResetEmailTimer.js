@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import moment from "moment";
 
 const usePasswordResetEmailTimer = () => {
   const { getStorage, removeStorage } = useLocalStorage();
@@ -13,13 +14,14 @@ const usePasswordResetEmailTimer = () => {
         return null;
       }
 
-      const currentTime = new Date().getTime();
+      const currentTime = moment();
+      const expirationTime = reset.expiresIn;
+      const isExpired = currentTime.isAfter(expirationTime);
 
-      if (currentTime >= reset.expiresIn) {
+      if (isExpired) {
         removeStorage(emailToReset);
         clearInterval(interval);
       }
-
     }, 2000);
 
     return () => {
