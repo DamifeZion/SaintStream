@@ -65,7 +65,7 @@ export const usePasswordReset = (resetToken) => {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-      //remove the users data from the local storage & prevent from accessing.
+      //remove user data from local storage upon successful password change
       removeStorage(import.meta.env.VITE_FORGOT_PASSWORD)
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
