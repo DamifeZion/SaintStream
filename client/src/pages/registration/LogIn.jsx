@@ -22,7 +22,7 @@ const LogIn = () => {
   } = useLogin();
 
   return (
-    <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
+    <div className="justify-center min-h-screen overflow-y-scroll pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
       <div className="flex flex-col bg-[#0D0C0F] overflow-y-scroll h-screen 500:h-fit 500:rounded-3xl 500:py-6 500:w-5/6 500:border 500:border-[--dark-gray] max-w-[480px]">
         <nav className="flex flex-col px-[--px] py-4 500:hidden ">
           <button onClick={goBack} className="text-3xl w-fit">
