@@ -6,15 +6,16 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
 import ToastWrapper from "../../components/toast/ToastWrapper";
+import { useEffect } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const { hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.passwordResetSlice
   );
-
   const {
     handlePasswordChange,
     handleConfirmPasswordChange,
@@ -22,6 +23,22 @@ const PasswordReset = () => {
     handleConfirmPasswordToggle,
     handleSubmit,
   } = usePasswordReset(id);
+
+  const { getStorage } = useLocalStorage();
+  //Ensure that this page is only accesible from the forgot password referrer
+  useEffect(() => {
+    const isThereForgottenPasswordEmail = () => {
+      const forgotPasswordEmail = getStorage(
+        import.meta.env.VITE_FORGOT_PASSWORD
+      );
+
+      if (!forgotPasswordEmail) {
+        return navigate("/forgot_password");
+      }
+    };
+
+    isThereForgottenPasswordEmail();
+  }, [navigate, getStorage]);
 
   return (
     <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">

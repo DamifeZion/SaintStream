@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
-import { useNavigate } from "react-router-dom";
 
 const usePasswordResetEmailTimer = () => {
   const { getStorage, removeStorage } = useLocalStorage();
