@@ -267,7 +267,7 @@ const editUserLoggedIn = async (req, res) => {
 //Post request to edit password
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
-
+  
   try {
     if (!email) {
       return res.status(404).json({
