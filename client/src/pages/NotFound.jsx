@@ -18,7 +18,7 @@ export const NotFound = () => {
 
       <span
         id="overlay"
-        className="w-full h-full border border-green-600 absolute top-0 left-0 bg-black bg-opacity-40"
+        className="w-full h-full absolute top-0 left-0 bg-black bg-opacity-40"
       />
 
       <div
