@@ -412,9 +412,7 @@ const resetPassword = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message:
-        "Your password reset link has expired. Please initiate the password reset process again.",
-      error: error.message,
+      message: error.message,
     });
   }
 };

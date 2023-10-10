@@ -7,7 +7,6 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useLogin } from "../../hooks/useLogin";
 import ToastWrapper from "../../components/toast/ToastWrapper";
 
-
 const LogIn = () => {
   useDocumentTitle("Login");
 
@@ -21,8 +20,8 @@ const LogIn = () => {
   } = useLogin();
 
   return (
-    <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
-      <div className="flex flex-col bg-[#0D0C0F] h-screen 500:h-fit 500:rounded-3xl 500:py-6 500:w-5/6 500:border 500:border-[--dark-gray] max-w-[480px]">
+    <div className="justify-center min-h-screen pb-4 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center 500:overflow-y-scroll">
+      <div className="flex flex-col bg-[#0D0C0F] h-screen max-w-[480px] 500:h-fit 500:rounded-3xl 500:py-6 500:w-5/6 500:border 500:border-[--dark-gray] 500:overflow-y-scroll ">
         <nav className="flex flex-col px-[--px] py-4 500:hidden ">
           <button onClick={goBack} className="text-3xl w-fit">
             <IoIosArrowBack />
