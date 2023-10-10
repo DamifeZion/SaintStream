@@ -33,7 +33,7 @@ const PasswordReset = () => {
       );
 
       if (!forgotPasswordEmail) {
-        return navigate("/forgot_password");
+        return navigate("/login");
       }
     };
 

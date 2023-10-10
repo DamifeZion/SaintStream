@@ -9,7 +9,7 @@ export const usePasswordReset = (resetToken) => {
   colorBorderIfValue();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {removeStorage} = useLocalStorage()
+  const { removeStorage } = useLocalStorage();
   const body = useSelector((state) => state.passwordResetSlice);
 
   const handlePasswordChange = (e) => {
@@ -63,11 +63,10 @@ export const usePasswordReset = (resetToken) => {
       });
 
       setTimeout(() => {
-        navigate("/login");
+        //remove user data from local storage upon successful password change. Removal automatically redirects to login
+        removeStorage(import.meta.env.VITE_FORGOT_PASSWORD);
+        dispatch(passwordResetSlice.actions.reset());
       }, 3000);
-      //remove user data from local storage upon successful password change
-      removeStorage(import.meta.env.VITE_FORGOT_PASSWORD)
-      dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
       toast.error(error.message);
     }
