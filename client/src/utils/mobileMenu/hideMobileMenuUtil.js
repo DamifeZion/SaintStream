@@ -5,10 +5,11 @@ import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSl
 
 export const hideMobileMenuUtil = () => {
   const dispatch = useDispatch();
-  const {showMainMenu} = useSelector(state => state.mobileNavSlice)
+  const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
 
   const handleClick = useCallback(() => {
     dispatch(mobileNavSlice.actions.setShowMainMenu());
+    document.body.style = `overflow: auto;`;
   }, [dispatch]);
 
   useEffect(() => {
