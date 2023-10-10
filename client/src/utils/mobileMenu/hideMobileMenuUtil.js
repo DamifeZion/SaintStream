@@ -1,32 +1,33 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback } from "react";
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
+import { useEffect } from "react";
 
-export const hideMobileMenuUtil = () => {
+const handleMobileMenu = () => {
   const dispatch = useDispatch();
-  const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
 
-  const handleClick = useCallback(() => {
+  const toggleShowMainMenu = () => {
     dispatch(mobileNavSlice.actions.setShowMainMenu());
-    document.body.style = `overflow: auto;`;
-  }, [dispatch]);
+  };
 
+  //onclick on any of the menu item close the menu
   useEffect(() => {
     const mobileLinks = document.querySelectorAll("#mobile-links");
+
     mobileLinks.forEach((link) => {
-      if (showMainMenu) {
-        document.body.style = `overflow: hidden;`;
-      } else {
-        document.body.style = `overflow: auto;`;
-      }
-      link.addEventListener("click", handleClick);
+      link.addEventListener("click", toggleShowMainMenu);
     });
 
+    //clean up function
     return () => {
       mobileLinks.forEach((link) => {
-        link.removeEventListener("click", handleClick);
+        link.removeEventListener("click", toggleShowMainMenu);
       });
     };
-  }, [handleClick]);
+  }, []);
+
+  return {
+    toggleShowMainMenu,
+  };
 };
+
+export default handleMobileMenu;

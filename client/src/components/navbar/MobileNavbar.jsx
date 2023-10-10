@@ -11,9 +11,8 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
-import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
-import { hideMobileMenuUtil } from "../../utils/mobileMenu/hideMobileMenuUtil";
 import { userSlice } from "../../features/slices/userSlice/userSlice";
+import handleMobileMenu from "../../utils/mobileMenu/hideMobileMenuUtil";
 
 const browserLocation = window.location.pathname;
 const inActiveStyle = `tracking-wide w-full h-fit py-2 px-10 whitespace-nowrap text-center rounded-sm text-[--light-gray] hover:text-[--white] hover:bg-[#272C34] flex items-center justify-center gap-3`;
@@ -25,18 +24,8 @@ const MobileNavbar = () => {
   const { user } = useSelector((state) => state.userSlice);
   const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
 
-  const toggleShowMainMenu = () => {
-    if (!showMainMenu) {
-      document.body.style = `overflow: hidden;`;
-    } else {
-      document.body.style = `overflow: auto;`;
-    }
-
-    dispatch(mobileNavSlice.actions.setShowMainMenu());
-  };
-
   //hide menu on click on any of the navlinks
-  hideMobileMenuUtil();
+  const { toggleShowMainMenu } = handleMobileMenu();
 
   const handleLogOut = () => {
     dispatch(userSlice.actions.logOut());
@@ -84,7 +73,7 @@ const MobileNavbar = () => {
               className={`${
                 browserLocation === "/" ? activeStyle : inActiveStyle
               }`}
-              to={!user ? "/" : '/movie_library'}
+              to={!user ? "/" : "/movie_library"}
             >
               Home <FaHome />
             </NavLink>
