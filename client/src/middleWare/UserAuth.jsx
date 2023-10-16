@@ -4,6 +4,7 @@ import { useCallback, useEffect } from "react";
 
 import { fetchUserDataThunk } from "../features/slices/userSlice/userSlice";
 import { useSessionManagement } from "../hooks/useSessionManagement";
+import LoadingLarge from "../components/loading/LoadingLarge";
 
 export const UserAuth = ({ children }) => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ export const UserAuth = ({ children }) => {
 
   useSessionManagement();
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <LoadingLarge />;
 
   const fetchUser = useCallback(() => {
     dispatch(fetchUserDataThunk());

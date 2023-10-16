@@ -5,10 +5,12 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
 import LoadingSmall from "../../components/loading/LoadingSmall";
+import { useSelector } from "react-redux";
 
 const ForgotPassword = () => {
   useDocumentTitle("Forgot Password");
-  const { handleEmailChange, handleSubmit, isLoading } = useForgotPassword();
+  const { handleEmailChange, handleSubmit } = useForgotPassword();
+  const { isLoading } = useSelector((state) => state.forgotPasswordSlice);
 
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
