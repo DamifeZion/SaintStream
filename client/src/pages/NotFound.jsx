@@ -5,6 +5,8 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 export const NotFound = () => {
   useDocumentTitle("Saintstream");
+  const { user } = useSelector((state) => state.userSlice);
+
   return (
     <div className="flex flex-col overflow-x-hidden relative min-h-[460px] h-screen">
       <nav className="bg-[--black] px-[--px] w-full z-[1000]">
@@ -34,7 +36,7 @@ export const NotFound = () => {
           page
         </h3>
 
-        <NavLink to={"/"}>
+        <NavLink to={!user ? "/" : "/movie_library"}>
           <button className="relative z-10 bg-[--white] text-[--black] px-2 py-[6px] mt-2 rounded-md font-medium text-[8px] 400:text-sm 400:mt-3 500:text-xs 700:text-[12px] 700:mt-5 800:text-lg 800:p-3 900:text-md 900:py-2 900:px-3 1000:mt-7 1200:text-xl 1200:p-3">
             Saintstream Home
           </button>

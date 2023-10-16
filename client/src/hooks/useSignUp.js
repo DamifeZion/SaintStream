@@ -43,6 +43,7 @@ export const useSignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `${import.meta.env.VITE_SERVER}/user/register`;
+    dispatch(signUpSlice.actions.setIsLoading(true));
 
     try {
       const res = await fetch(url, {
@@ -54,9 +55,12 @@ export const useSignUp = () => {
       const json = await res.json();
 
       if (!res.ok) {
+        dispatch(signUpSlice.actions.setIsLoading(false));
         return toast.error(json.message);
       }
 
+      dispatch(signUpSlice.actions.setIsLoading(false));
+      
       toast.success(json.message);
 
       setTimeout(() => {

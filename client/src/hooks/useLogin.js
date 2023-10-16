@@ -28,6 +28,7 @@ export const useLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `${import.meta.env.VITE_SERVER}/user/login`;
+    dispatch(loginSlice.actions.setIsLoading(true));
 
     try {
       const res = await fetch(url, {
@@ -39,9 +40,11 @@ export const useLogin = () => {
       const json = await res.json();
 
       if (!res.ok) {
+        dispatch(loginSlice.actions.setIsLoading(false));
         return toast.error(json.message);
       }
 
+      dispatch(loginSlice.actions.setIsLoading(false));
       //store token in localStorage
       setSession(import.meta.env.VITE_SESSION_KEY, json.token);
       navigate("/movie_library", { replace: true });

@@ -34,6 +34,7 @@ export const usePasswordReset = (resetToken) => {
     const url = `${
       import.meta.env.VITE_SERVER
     }/user/reset-password/${resetToken}`;
+    dispatch(passwordResetSlice.actions.setIsLoading(true));
 
     try {
       const res = await fetch(url, {
@@ -45,6 +46,7 @@ export const usePasswordReset = (resetToken) => {
       const json = await res.json();
 
       if (!res.ok) {
+        dispatch(passwordResetSlice.actions.setIsLoading(false));
         return toast.error(json.message, {
           autoClose: 3000,
           closeOnClick: false,
@@ -54,6 +56,7 @@ export const usePasswordReset = (resetToken) => {
         });
       }
 
+      dispatch(passwordResetSlice.actions.setIsLoading(false));
       toast.success(json.message, {
         autoClose: 3000,
         closeOnClick: false,

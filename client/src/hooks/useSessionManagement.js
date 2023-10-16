@@ -12,15 +12,13 @@ export const useSessionManagement = () => {
   useEffect(() => {
     const session = getSession(import.meta.env.VITE_SESSION_KEY);
 
-    if (!session) {
-      return null;
-    }
+    if (!session) return;
 
     // Store the session key in the Redux store
     dispatch(userSlice.actions.setSessionToken(session));
 
     //check if session has expired, then log user out
-    const isSessionExpired = setInterval(() => {
+    const checkSession = () => {
       const { exp } = jwtDecode(session);
       const tokenTime = exp * 1000;
       const currentTime = new Date().getTime();
@@ -30,8 +28,8 @@ export const useSessionManagement = () => {
       // console.log("Current: " + currentTime);
 
       //Show message & log user out on token expiration
-      if (currentTime >= tokenTime) {
-        toast.info("Session has expired, please login again", {
+      if (currentTime >= tokenTime && !hasToasted) {
+        toast.info("Session expired", {
           position: "top-center",
           pauseOnFocusLoss: false,
           pauseOnHover: false,
@@ -42,13 +40,18 @@ export const useSessionManagement = () => {
         setTimeout(() => {
           dispatch(userSlice.actions.logOut());
         }, 3000);
+
+        hasToasted = true;
       }
-    }, 2000);
+    };
+
+    let hasToasted = false;
+    const interval = setInterval(checkSession, 2000);
 
     return () => {
-      clearInterval(isSessionExpired);
+      clearInterval(interval);
     };
-  }, []);
+  }, [dispatch]);
 
   return null;
 };

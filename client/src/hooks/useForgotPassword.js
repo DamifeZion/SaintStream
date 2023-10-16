@@ -20,6 +20,7 @@ export const useForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `${import.meta.env.VITE_SERVER}/user/forgot-password`;
+    dispatch(forgotPasswordSlice.actions.setIsLoading(true));
 
     try {
       const res = await fetch(url, {
@@ -31,9 +32,11 @@ export const useForgotPassword = () => {
       const json = await res.json();
 
       if (!res.ok) {
+        dispatch(forgotPasswordSlice.actions.setIsLoading(false));
         return toast.error(json.message);
       }
 
+      dispatch(forgotPasswordSlice.actions.setIsLoading(false));
       setStorage(import.meta.env.VITE_FORGOT_PASSWORD, json.data);
       navigate("/find_account");
       dispatch(passwordResetSlice.actions.reset());
