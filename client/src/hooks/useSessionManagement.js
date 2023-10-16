@@ -17,35 +17,32 @@ export const useSessionManagement = () => {
     // Store the session key in the Redux store
     dispatch(userSlice.actions.setSessionToken(session));
 
+    //Prevent multiple toast messages due to interval
+    let hasToasted = false;
+
     //check if session has expired, then log user out
     const checkSession = () => {
       const { exp } = jwtDecode(session);
       const tokenTime = exp * 1000;
       const currentTime = new Date().getTime();
 
-      //uncomment the below and fix the bug of showing the toast 3 times before redirecting to login
-      // console.log("Decoded: " + tokenTime);
-      // console.log("Current: " + currentTime);
+      console.log(currentTime, tokenTime);
 
       //Show message & log user out on token expiration
       if (currentTime >= tokenTime && !hasToasted) {
-        toast.info("Session expired", {
+        toast.warning("Session expired", {
           position: "top-center",
-          pauseOnFocusLoss: false,
           pauseOnHover: false,
           closeOnClick: false,
-          autoClose: 2800,
+          autoClose: 3000,
         });
 
-        setTimeout(() => {
-          dispatch(userSlice.actions.logOut());
-        }, 3000);
+        dispatch(userSlice.actions.logOut());
 
         hasToasted = true;
       }
     };
 
-    let hasToasted = false;
     const interval = setInterval(checkSession, 2000);
 
     return () => {

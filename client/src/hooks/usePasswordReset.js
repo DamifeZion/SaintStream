@@ -8,7 +8,6 @@ import { useLocalStorage } from "./useLocalStorage";
 export const usePasswordReset = (resetToken) => {
   colorBorderIfValue();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { removeStorage } = useLocalStorage();
   const body = useSelector((state) => state.passwordResetSlice);
 
@@ -61,7 +60,6 @@ export const usePasswordReset = (resetToken) => {
         autoClose: 3000,
         closeOnClick: false,
         draggable: false,
-        pauseOnHover: false,
         pauseOnFocusLoss: false,
       });
 

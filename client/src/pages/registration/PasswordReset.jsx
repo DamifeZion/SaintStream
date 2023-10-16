@@ -5,7 +5,6 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
-import ToastWrapper from "../../components/toast/ToastWrapper";
 import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
@@ -48,10 +47,6 @@ const PasswordReset = () => {
             <IoIosArrowBack />
           </button>
         </nav>
-
-        <div id="alert">
-          <ToastWrapper />
-        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">

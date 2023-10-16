@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
-import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const ForgotPassword = () => {
   useDocumentTitle("Forgot Password");
@@ -18,10 +17,6 @@ const ForgotPassword = () => {
             <IoIosArrowBack />
           </button>
         </nav>
-
-        <div id="alert">
-          <ToastWrapper />
-        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">

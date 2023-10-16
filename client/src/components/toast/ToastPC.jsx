@@ -1,14 +1,15 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 
-const ToastPC = () => {
+const ToastPC = ({ autoClose, pauseOnHover }) => {
   return (
     <div>
       <ToastContainer
         theme="dark"
         limit={3}
         newestOnTop={false}
-        autoClose={4000}
+        autoClose={autoClose}
+        pauseOnHover={pauseOnHover}
       />
     </div>
   );

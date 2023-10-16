@@ -402,8 +402,8 @@ const resetPassword = async (req, res) => {
       password: hash,
     });
 
-    //delete token model upon successful update
-    await resetTokenModel.findOneAndDelete({ token: resetToken });
+    //delete all token model set to true upon successful update
+    await resetTokenModel.deleteMany({ validated: true });
 
     res.status(200).json({
       success: true,

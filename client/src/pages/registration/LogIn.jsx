@@ -5,7 +5,6 @@ import { goBack } from "../../utils/goBack";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useLogin } from "../../hooks/useLogin";
-import ToastWrapper from "../../components/toast/ToastWrapper";
 
 const LogIn = () => {
   useDocumentTitle("Login");
@@ -27,10 +26,6 @@ const LogIn = () => {
             <IoIosArrowBack />
           </button>
         </nav>
-
-        <div id="alert">
-          <ToastWrapper />
-        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">

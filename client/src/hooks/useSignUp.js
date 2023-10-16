@@ -60,12 +60,10 @@ export const useSignUp = () => {
       }
 
       dispatch(signUpSlice.actions.setIsLoading(false));
-      
+
       toast.success(json.message);
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 3500);
+      navigate("/login");
 
       dispatch(signUpSlice.actions.reset());
     } catch (error) {

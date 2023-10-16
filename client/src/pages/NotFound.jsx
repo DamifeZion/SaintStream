@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/saintstream-logo.svg";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { useSelector } from "react-redux";
 
 export const NotFound = () => {
   useDocumentTitle("Saintstream");
@@ -11,7 +12,7 @@ export const NotFound = () => {
     <div className="flex flex-col overflow-x-hidden relative min-h-[460px] h-screen">
       <nav className="bg-[--black] px-[--px] w-full z-[1000]">
         <NavLink
-          to={"/"}
+          to={!user ? "/" : "/movie_library"}
           className="flex items-center p-4 w-[180px] px-[--px] 400:w-[200px] 800:px-0"
         >
           <img src={logo} alt="" />

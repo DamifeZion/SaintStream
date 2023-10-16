@@ -1,14 +1,15 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 
-const ToastMobile = () => {
+const ToastMobile = ({ autoClose, pauseOnHover }) => {
   return (
     <div>
       <ToastContainer
         limit={2}
         theme="dark"
         newestOnTop={false}
-        autoClose={3500}
+        autoClose={autoClose}
+        pauseOnHover={pauseOnHover}
       />
     </div>
   );

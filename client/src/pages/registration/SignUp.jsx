@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useSignUp } from "../../hooks/useSignUp";
-import ToastWrapper from "../../components/toast/ToastWrapper";
+import LoadingLarge from "../../components/loading/LoadingLarge";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");
@@ -22,25 +22,20 @@ const SignUp = () => {
     handleSubmit,
   } = useSignUp();
 
-  const { 
-    email, 
-    policy, 
-    hidePassword, 
-    hideConfirmPassword 
-  } = useSelector((state) => state.signUpSlice);
+  const { email, policy, hidePassword, hideConfirmPassword, isLoading } =
+    useSelector((state) => state.signUpSlice);
 
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 bg-[#08070A] 500:flex 500:flex-col 500:items-center">
+
+      {isLoading && <LoadingLarge />}
+
       <div className="flex flex-col bg-[#0D0C0F] overflow-y-scroll h-screen 400:py-6  500:h-fit 500:rounded-3xl 500:py-6 500:w-5/6 500:border 500:border-[--dark-gray] max-w-[480px]">
         <nav className="flex flex-col px-[--px] py-4 500:hidden ">
           <button onClick={goBack} className="text-3xl w-fit">
             <IoIosArrowBack />
           </button>
         </nav>
-
-        <div id="alert">
-          <ToastWrapper />
-        </div>
 
         <>
           <div className="flex items-center justify-center px-[--px] 500:justify-between">
@@ -162,7 +157,7 @@ const SignUp = () => {
               htmlFor="policy"
               className={`${
                 policy && "border-0 "
-              } flex border rounded-full overflow-hidden relative w-5 h-5 400:w-6 400:h-6`}
+              } flex cursor-pointer border rounded-full overflow-hidden relative w-5 h-5 400:w-6 400:h-6`}
             >
               <input
                 id="policy"
