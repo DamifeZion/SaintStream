@@ -7,12 +7,13 @@ import { goBack } from "../../utils/goBack";
 import { usePasswordReset } from "../../hooks/usePasswordReset";
 import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import LoadingSmall from "../../components/loading/LoadingSmall";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
   const { id } = useParams();
   const navigate = useNavigate();
-  const { hidePassword, hideConfirmPassword } = useSelector(
+  const { hidePassword, hideConfirmPassword, isLoading } = useSelector(
     (state) => state.passwordResetSlice
   );
   const {
@@ -68,6 +69,13 @@ const PasswordReset = () => {
             Reset your password
           </small>
         </>
+
+        {isLoading && (
+          <span
+            id="loading-psuedo-element"
+            className="absolute top-0 left-0 z-10 w-full h-full"
+          />
+        )}
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-4">
           <>
@@ -132,9 +140,15 @@ const PasswordReset = () => {
             onClick={handleSubmit}
             id="submitBtn"
             type="submit"
-            className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
+            className={`relative mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider h-12 cursor-pointer`}
           >
-            Continue
+            {isLoading ? (
+              <span className="top-0 left-0 w-full h-full rounded-md bg-[#ECF1F6] flex items-center justify-center">
+                <LoadingSmall />
+              </span>
+            ) : (
+              "Continue"
+            )}
           </button>
 
           <small className="mt-8 text-center text-[#a3a9af] font-medium">

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useSignUp } from "../../hooks/useSignUp";
-import LoadingLarge from "../../components/loading/LoadingLarge";
+import LoadingSmall from "../../components/loading/LoadingSmall";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");
@@ -27,9 +27,6 @@ const SignUp = () => {
 
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 bg-[#08070A] 500:flex 500:flex-col 500:items-center">
-
-      {isLoading && <LoadingLarge />}
-
       <div className="flex flex-col bg-[#0D0C0F] overflow-y-scroll h-screen 400:py-6  500:h-fit 500:rounded-3xl 500:py-6 500:w-5/6 500:border 500:border-[--dark-gray] max-w-[480px]">
         <nav className="flex flex-col px-[--px] py-4 500:hidden ">
           <button onClick={goBack} className="text-3xl w-fit">
@@ -57,6 +54,13 @@ const SignUp = () => {
             Resister to enjoy the features
           </small>
         </>
+
+        {isLoading && (
+          <span
+            id="loading-psuedo-element"
+            className="absolute top-0 left-0 z-10 w-full h-full"
+          />
+        )}
 
         <form action="" className="flex flex-col px-[--px] justify-center mt-6">
           <>
@@ -197,12 +201,18 @@ const SignUp = () => {
           </div>
 
           <button
-            id="submitBtn"
             onClick={handleSubmit}
+            id="submitBtn"
             type="submit"
-            className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
+            className={`relative mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider h-12 cursor-pointer`}
           >
-            Continue
+            {isLoading ? (
+              <span className="top-0 left-0 w-full h-full rounded-md bg-[#ECF1F6] flex items-center justify-center">
+                <LoadingSmall />
+              </span>
+            ) : (
+              "Continue"
+            )}
           </button>
 
           <small className="mt-8 text-center text-[#a3a9af] font-medium">

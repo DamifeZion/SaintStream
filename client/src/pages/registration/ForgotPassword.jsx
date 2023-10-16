@@ -4,10 +4,11 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
+import LoadingSmall from "../../components/loading/LoadingSmall";
 
 const ForgotPassword = () => {
   useDocumentTitle("Forgot Password");
-  const { handleEmailChange, handleSubmit } = useForgotPassword();
+  const { handleEmailChange, handleSubmit, isLoading } = useForgotPassword();
 
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
@@ -40,6 +41,13 @@ const ForgotPassword = () => {
           </small>
         </>
 
+        {isLoading && (
+          <span
+            id="loading-psuedo-element"
+            className="absolute top-0 left-0 z-10 w-full h-full"
+          />
+        )}
+
         <form action="" className="flex flex-col px-[--px] justify-center mt-6">
           <>
             <label
@@ -57,14 +65,19 @@ const ForgotPassword = () => {
               placeholder="Enter Email"
             />
           </>
-
           <button
+            onClick={handleSubmit}
             id="submitBtn"
             type="submit"
-            onClick={handleSubmit}
-            className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 500:mt-10"
+            className={`relative mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider h-12 cursor-pointer`}
           >
-            Send me a reset link
+            {isLoading ? (
+              <span className="top-0 left-0 w-full h-full rounded-md bg-[#ECF1F6] flex items-center justify-center">
+                <LoadingSmall />
+              </span>
+            ) : (
+              "Send me a reset link"
+            )}
           </button>
         </form>
       </div>

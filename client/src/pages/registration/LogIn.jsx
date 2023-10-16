@@ -5,11 +5,12 @@ import { goBack } from "../../utils/goBack";
 import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useLogin } from "../../hooks/useLogin";
+import LoadingSmall from "../../components/loading/LoadingSmall";
 
 const LogIn = () => {
   useDocumentTitle("Login");
 
-  const { hidePassword } = useSelector((state) => state.loginSlice);
+  const { hidePassword, isLoading } = useSelector((state) => state.loginSlice);
 
   const {
     handleEmailChange,
@@ -45,7 +46,17 @@ const LogIn = () => {
           </small>
         </>
 
-        <form action="" className="flex flex-col px-[--px] justify-center mt-6">
+        {isLoading && (
+          <span
+            id="loading-psuedo-element"
+            className="absolute top-0 left-0 z-10 w-full h-full"
+          />
+        )}
+
+        <form
+          action=""
+          className="relative flex flex-col px-[--px] justify-center mt-6"
+        >
           <>
             <label
               htmlFor="email"
@@ -103,9 +114,15 @@ const LogIn = () => {
             onClick={handleSubmit}
             id="submitBtn"
             type="submit"
-            className="mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider py-3 "
+            className={`relative mt-6 bg-[#ECF1F6] text-[#9CA4AB] font-semibold text-md rounded-md tracking-wider h-12 cursor-pointer`}
           >
-            Login
+            {isLoading ? (
+              <span className="top-0 left-0 w-full h-full rounded-md bg-[#ECF1F6] flex items-center justify-center">
+                <LoadingSmall />
+              </span>
+            ) : (
+              "Login"
+            )}
           </button>
 
           <small className="mt-8 text-center text-[#a3a9af] font-medium">
