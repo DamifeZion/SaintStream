@@ -26,8 +26,6 @@ export const useSessionManagement = () => {
       const tokenTime = exp * 1000;
       const currentTime = new Date().getTime();
 
-      console.log(currentTime, tokenTime);
-
       //Show message & log user out on token expiration
       if (currentTime >= tokenTime && !hasToasted) {
         toast.warning("Session expired", {

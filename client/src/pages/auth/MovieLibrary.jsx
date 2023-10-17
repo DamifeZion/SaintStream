@@ -12,7 +12,7 @@ const MovieLibrary = () => {
   return (
     <div>
       <Navbar />
-      <LoadingLarge textWhileLoading={"Loading account"} />
+      Movie Library
     </div>
   );
 };

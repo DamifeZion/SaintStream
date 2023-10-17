@@ -29,7 +29,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
     >
       <NavLink
         to="/"
-        className={`${logoCn} z-[1000] ${user ? "w-[170px]" : "w-[230px]"} `}
+        className={`${logoCn} z-[1000] ${user ? "w-[200px]" : "w-[230px]"} `}
       >
         <img src={logo} alt="" />
       </NavLink>

@@ -3,6 +3,7 @@ import { colorBorderIfValue } from "../utils/colorBorder/signUp/colorBorderIfVal
 import { signUpSlice } from "../features/slices/signUpSlice/signUpSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSignUpMutation } from "../features/api/userApi";
 
 export const useSignUp = () => {
   colorBorderIfValue();
@@ -42,33 +43,32 @@ export const useSignUp = () => {
   //Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_SERVER}/user/register`;
-    dispatch(signUpSlice.actions.setIsLoading(true));
+    
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-      });
+    // try {
+    //   const res = await fetch(url, {
+    //     method: "POST",
+    //     body: JSON.stringify(body),
+    //     headers: { "Content-Type": "application/json" },
+    //   });
 
-      const json = await res.json();
+    //   const json = await res.json();
 
-      if (!res.ok) {
-        dispatch(signUpSlice.actions.setIsLoading(false));
-        return toast.error(json.message);
-      }
+    //   if (!res.ok) {
+    //     dispatch(signUpSlice.actions.setIsLoading(false));
+    //     return toast.error(json.message);
+    //   }
 
-      dispatch(signUpSlice.actions.setIsLoading(false));
+    //   dispatch(signUpSlice.actions.setIsLoading(false));
 
-      toast.success(json.message);
+    //   toast.success(json.message);
 
-      navigate("/login");
+    //   navigate("/login");
 
-      dispatch(signUpSlice.actions.reset());
-    } catch (error) {
-      toast.error(error.message);
-    }
+    //   dispatch(signUpSlice.actions.reset());
+    // } catch (error) {
+    //   toast.error(error.message);
+    // }
   };
 
   return {

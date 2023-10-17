@@ -8,14 +8,17 @@ import { usePasswordReset } from "../../hooks/usePasswordReset";
 import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import LoadingSmall from "../../components/loading/LoadingSmall";
+import { usePasswordResetMutation } from "../../features/api/userApi";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
   const { id } = useParams();
   const navigate = useNavigate();
-  const { hidePassword, hideConfirmPassword, isLoading } = useSelector(
+  const { hidePassword, hideConfirmPassword } = useSelector(
     (state) => state.passwordResetSlice
   );
+  const { isLoading } = usePasswordResetMutation();
+
   const {
     handlePasswordChange,
     handleConfirmPasswordChange,

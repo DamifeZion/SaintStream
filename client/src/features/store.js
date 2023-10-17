@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
 //Slices
 import { userSlice } from "./slices/userSlice/userSlice";
@@ -8,9 +8,11 @@ import { loginSlice } from "./slices/loginSlice/loginSlice";
 import { signUpSlice } from "./slices/signUpSlice/signUpSlice";
 import { forgotPasswordSlice } from "./slices/forgotPasswordSlice/forgotPasswordSlice";
 import { passwordResetSlice } from "./slices/passwordResetSlice/passwordResetSlice.js";
+import { userApi } from "./api/userApi";
 
 const store = configureStore({
   reducer: {
+    //Slices
     userSlice: userSlice.reducer,
     faqSlice: faqSlice.reducer,
     mobileNavSlice: mobileNavSlice.reducer,
@@ -18,7 +20,13 @@ const store = configureStore({
     signUpSlice: signUpSlice.reducer,
     forgotPasswordSlice: forgotPasswordSlice.reducer,
     passwordResetSlice: passwordResetSlice.reducer,
+
+    //Apis
+    [userApi.reducerPath]: userApi.reducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userApi.middleware),
 });
 
 export default store;

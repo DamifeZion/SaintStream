@@ -7,6 +7,7 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useSignUp } from "../../hooks/useSignUp";
 import LoadingSmall from "../../components/loading/LoadingSmall";
+import { useSignUpMutation } from "../../features/api/userApi";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");
@@ -22,8 +23,11 @@ const SignUp = () => {
     handleSubmit,
   } = useSignUp();
 
-  const { email, policy, hidePassword, hideConfirmPassword, isLoading } =
-    useSelector((state) => state.signUpSlice);
+  const { email, policy, hidePassword, hideConfirmPassword } = useSelector(
+    (state) => state.signUpSlice
+  );
+
+  const { isLoading } = useSignUpMutation();
 
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 bg-[#08070A] 500:flex 500:flex-col 500:items-center">

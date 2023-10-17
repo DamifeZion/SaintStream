@@ -8,7 +8,6 @@ export const passwordResetSlice = createSlice({
     confirmPassword: "",
     hidePassword: true,
     hideConfirmPassword: true,
-    isLoading: false,
   },
 
   reducers: {
@@ -28,16 +27,11 @@ export const passwordResetSlice = createSlice({
       state.hideConfirmPassword = !state.hideConfirmPassword;
     },
 
-    setIsLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
-
     reset: (state) => {
       state.password = "";
       state.confirmPassword = "";
       state.hidePassword = true;
       state.hideConfirmPassword = true;
-      state.isLoading = false;
     },
   },
 });
