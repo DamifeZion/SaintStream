@@ -5,14 +5,13 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useForgotPassword } from "../../hooks/useForgotPassword";
 import LoadingSmall from "../../components/loading/LoadingSmall";
-import { useForgotPasswordMutation } from "../../features/api/userApi";
 import { useSelector } from "react-redux";
 
 const ForgotPassword = () => {
   useDocumentTitle("Forgot Password");
   const { handleEmailChange, handleSubmit } = useForgotPassword();
   const { isLoading } = useSelector((state) => state.forgotPasswordSlice);
-  
+
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 500:bg-[#08070A] 500:flex 500:flex-col 500:items-center">
       <div className="flex flex-col bg-[#0D0C0F] h-screen 400:py-6  500:h-fit 500:rounded-3xl 500:py-14 500:w-5/6 500:border 500:border-[--dark-gray] max-w-[480px]">

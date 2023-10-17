@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useLogin } from "../../hooks/useLogin";
 import LoadingSmall from "../../components/loading/LoadingSmall";
-import { useLoginMutation } from "../../features/api/userApi";
 
 const LogIn = () => {
   useDocumentTitle("Login");

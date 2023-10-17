@@ -7,7 +7,6 @@ import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { goBack } from "../../utils/goBack";
 import { useSignUp } from "../../hooks/useSignUp";
 import LoadingSmall from "../../components/loading/LoadingSmall";
-import { useSignUpMutation } from "../../features/api/userApi";
 
 const SignUp = () => {
   useDocumentTitle("Sign Up");

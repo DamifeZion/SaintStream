@@ -8,7 +8,6 @@ import { usePasswordReset } from "../../hooks/usePasswordReset";
 import { useEffect } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import LoadingSmall from "../../components/loading/LoadingSmall";
-import { usePasswordResetMutation } from "../../features/api/userApi";
 
 const PasswordReset = () => {
   useDocumentTitle("Password Reset");
