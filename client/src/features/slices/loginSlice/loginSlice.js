@@ -7,7 +7,6 @@ export const loginSlice = createSlice({
     email: "",
     password: "",
     hidePassword: true,
-    isLoading: false,
   },
 
   reducers: {
@@ -30,7 +29,6 @@ export const loginSlice = createSlice({
     reset: (state) => {
       state.email = "";
       state.password = "";
-      state.isLoading = false;
     },
   },
 });

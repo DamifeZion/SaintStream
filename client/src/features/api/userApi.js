@@ -25,11 +25,11 @@ export const userApi = createApi({
     }),
 
     signUp: builder.mutation({
-      query: ({ ...values }) => {
+      query: (body) => {
         return {
           url: api.SIGNUP,
           method: "POST",
-          body: { ...values },
+          body,
         };
       },
     }),

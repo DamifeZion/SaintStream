@@ -10,6 +10,7 @@ export const useSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const body = useSelector((state) => state.signUpSlice);
+  const [signUpUser] = useSignUpMutation();
 
   const handleUsernameChange = (e) => {
     dispatch(signUpSlice.actions.setUserName(e.target.value));
@@ -43,7 +44,21 @@ export const useSignUp = () => {
   //Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    try {
+      const response = await signUpUser(body);
+      if (signUpUser.error) {
+        console.log(signUpUser.error); // Log the error object
+        toast.error(signUpUser.error.message); // Display the error message
+      } else {
+        const json = response.data;
+        console.log(json);
+        toast.success(json?.message); // Use optional chaining to access the message property
+      }
+    } catch (error) {
+      console.log(error); // Log any unexpected errors
+      toast.error("An error occurred while signing up."); // Display a generic error message
+    }
 
     // try {
     //   const res = await fetch(url, {

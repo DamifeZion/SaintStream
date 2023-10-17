@@ -27,7 +27,7 @@ const SignUp = () => {
     (state) => state.signUpSlice
   );
 
-  const { isLoading } = useSignUpMutation();
+  const [data, { isLoading }] = useSignUpMutation();
 
   return (
     <div className="justify-center min-h-screen bg-[--black] 400:py-6 bg-[#08070A] 500:flex 500:flex-col 500:items-center">
