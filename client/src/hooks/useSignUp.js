@@ -4,13 +4,16 @@ import { signUpSlice } from "../features/slices/signUpSlice/signUpSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../features/api/userApi";
+import { loginSlice } from "../features/slices/loginSlice/loginSlice";
 
 export const useSignUp = () => {
   colorBorderIfValue();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const body = useSelector((state) => state.signUpSlice);
-  const [signUpUser] = useSignUpMutation();
+  const [signUpUser, { isLoading }] = useSignUpMutation();
+  //update the store for conditional rendering else where
+  dispatch(signUpSlice.actions.setIsLoading(isLoading));
 
   const handleUsernameChange = (e) => {
     dispatch(signUpSlice.actions.setUserName(e.target.value));
@@ -46,44 +49,13 @@ export const useSignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await signUpUser(body);
-      if (signUpUser.error) {
-        console.log(signUpUser.error); // Log the error object
-        toast.error(signUpUser.error.message); // Display the error message
-      } else {
-        const json = response.data;
-        console.log(json);
-        toast.success(json?.message); // Use optional chaining to access the message property
-      }
+      const res = await signUpUser(body)?.unwrap();
+      toast.success(res?.message);
+      navigate("/login");
+      dispatch(loginSlice.actions.reset());
     } catch (error) {
-      console.log(error); // Log any unexpected errors
-      toast.error("An error occurred while signing up."); // Display a generic error message
+      toast.error(error?.data?.message);
     }
-
-    // try {
-    //   const res = await fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify(body),
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-
-    //   const json = await res.json();
-
-    //   if (!res.ok) {
-    //     dispatch(signUpSlice.actions.setIsLoading(false));
-    //     return toast.error(json.message);
-    //   }
-
-    //   dispatch(signUpSlice.actions.setIsLoading(false));
-
-    //   toast.success(json.message);
-
-    //   navigate("/login");
-
-    //   dispatch(signUpSlice.actions.reset());
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
   };
 
   return {

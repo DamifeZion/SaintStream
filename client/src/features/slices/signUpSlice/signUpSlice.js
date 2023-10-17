@@ -11,6 +11,7 @@ export const signUpSlice = createSlice({
     policy: false,
     hidePassword: true,
     hideConfirmPassword: true,
+    isLoading: false,
   },
 
   reducers: {
@@ -42,12 +43,17 @@ export const signUpSlice = createSlice({
       state.hideConfirmPassword = !state.hideConfirmPassword;
     },
 
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+
     reset: (state) => {
       state.userName = "";
       state.email = "";
       state.password = "";
       state.confirmPassword = "";
       state.policy = false;
+      state.isLoading = false;
     },
   },
 });

@@ -11,9 +11,7 @@ import { useLoginMutation } from "../../features/api/userApi";
 const LogIn = () => {
   useDocumentTitle("Login");
 
-  const { hidePassword } = useSelector((state) => state.loginSlice);
-
-  const { isLoading } = useLoginMutation();
+  const { hidePassword, isLoading } = useSelector((state) => state.loginSlice);
 
   const {
     handleEmailChange,

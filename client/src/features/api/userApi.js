@@ -15,11 +15,11 @@ export const userApi = createApi({
     }),
 
     login: builder.mutation({
-      query: ({ ...values }) => {
+      query: (body) => {
         return {
           url: api.LOGIN,
           method: "POST",
-          body: { ...values },
+          body,
         };
       },
     }),
@@ -36,22 +36,22 @@ export const userApi = createApi({
 
     //takes in only email as body to send reset token
     forgotPassword: builder.mutation({
-      query: ({ ...values }) => {
+      query: (body) => {
         return {
           url: api.FORGOTPASSWORD,
           method: "POST",
-          body: { ...values },
+          body,
         };
       },
     }),
 
     //collect resetToken as route params, password and confirmPassword as body.
     passwordReset: builder.mutation({
-      query: (resetToken, { ...values }) => {
+      query: (resetToken, body) => {
         return {
           url: `${api.RESETPASSWORD}/${resetToken}`,
           method: "POST",
-          body: { ...values },
+          body,
         };
       },
     }),

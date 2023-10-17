@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useLocalStorage } from "./useLocalStorage";
 import { passwordResetSlice } from "../features/slices/passwordResetSlice/passwordResetSlice";
+import { useForgotPasswordMutation } from "../features/api/userApi";
 
 export const useForgotPassword = () => {
   colorBorderIfValue();
@@ -12,6 +13,8 @@ export const useForgotPassword = () => {
   const navigate = useNavigate();
   const { setStorage } = useLocalStorage();
   const body = useSelector((state) => state.forgotPasswordSlice);
+  const [userForgotPassword, { isLoading }] = useForgotPasswordMutation();
+  dispatch(forgotPasswordSlice.actions.setIsLoading(isLoading));
 
   const handleEmailChange = (e) => {
     dispatch(forgotPasswordSlice.actions.setEmail(e.target.value));
@@ -19,29 +22,14 @@ export const useForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = `${import.meta.env.VITE_SERVER}/user/forgot-password`;
-    dispatch(forgotPasswordSlice.actions.setIsLoading(true));
 
     try {
-      const res = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const json = await res.json();
-
-      if (!res.ok) {
-        dispatch(forgotPasswordSlice.actions.setIsLoading(false));
-        return toast.error(json.message);
-      }
-
-      dispatch(forgotPasswordSlice.actions.setIsLoading(false));
-      setStorage(import.meta.env.VITE_FORGOT_PASSWORD, json.data);
+      const res = await userForgotPassword(body)?.unwrap();
+      setStorage(import.meta.env.VITE_FORGOT_PASSWORD, res?.data);
       navigate("/find_account");
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error?.data?.message);
     }
   };
 

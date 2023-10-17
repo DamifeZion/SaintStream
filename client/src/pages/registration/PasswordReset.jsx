@@ -14,10 +14,9 @@ const PasswordReset = () => {
   useDocumentTitle("Password Reset");
   const { id } = useParams();
   const navigate = useNavigate();
-  const { hidePassword, hideConfirmPassword } = useSelector(
+  const { hidePassword, hideConfirmPassword, isLoading } = useSelector(
     (state) => state.passwordResetSlice
   );
-  const { isLoading } = usePasswordResetMutation();
 
   const {
     handlePasswordChange,
