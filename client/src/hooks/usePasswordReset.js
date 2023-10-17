@@ -36,10 +36,12 @@ export const usePasswordReset = (resetToken) => {
 
     try {
       const res = await resetUserPassword(resetToken, body)?.unwrap();
+      console.log('res ', res)
       toast.success(res?.message);
       removeStorage(import.meta.env.VITE_FORGOT_PASSWORD);
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
+      console.log('error', error)
       toast.error(error?.data?.message);
     }
   };
