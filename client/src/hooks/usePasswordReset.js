@@ -4,16 +4,15 @@ import { passwordResetSlice } from "../features/slices/passwordResetSlice/passwo
 import { toast } from "react-toastify";
 import { useLocalStorage } from "./useLocalStorage";
 import { useForgotPasswordMutation } from "../features/api/userApi";
-import { forgotPasswordSlice } from "../features/slices/forgotPasswordSlice/forgotPasswordSlice";
 
 export const usePasswordReset = (resetToken) => {
-  colorBorderIfValue();
+  colorBorderIfValue()
   const dispatch = useDispatch();
   const { removeStorage } = useLocalStorage();
   const body = useSelector((state) => state.passwordResetSlice);
   const [resetUserPassword, { isLoading }] = useForgotPasswordMutation();
   //update the store for conditional rendering else where
-  dispatch(forgotPasswordSlice.actions.setIsLoading(isLoading));
+  dispatch(passwordResetSlice.actions.setIsLoading(isLoading));
 
   const handlePasswordChange = (e) => {
     dispatch(passwordResetSlice.actions.setPassword(e.target.value));
@@ -36,12 +35,12 @@ export const usePasswordReset = (resetToken) => {
 
     try {
       const res = await resetUserPassword(resetToken, body)?.unwrap();
-      console.log('res ', res)
+      console.log("res ", res);
       toast.success(res?.message);
       removeStorage(import.meta.env.VITE_FORGOT_PASSWORD);
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
-      console.log('error', error)
+      console.log("error", error);
       toast.error(error?.data?.message);
     }
   };
