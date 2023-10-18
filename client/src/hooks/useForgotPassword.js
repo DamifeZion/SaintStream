@@ -13,8 +13,7 @@ export const useForgotPassword = () => {
   const navigate = useNavigate();
   const { setStorage } = useLocalStorage();
   const body = useSelector((state) => state.forgotPasswordSlice);
-  const [userForgotPassword, { isLoading }] = useForgotPasswordMutation();
-  dispatch(forgotPasswordSlice.actions.setIsLoading(isLoading));
+  const [userForgotPassword] = useForgotPasswordMutation();
 
   const handleEmailChange = (e) => {
     dispatch(forgotPasswordSlice.actions.setEmail(e.target.value));
@@ -22,13 +21,16 @@ export const useForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(forgotPasswordSlice.actions.setIsLoading(true));
 
     try {
       const res = await userForgotPassword(body)?.unwrap();
+      dispatch(forgotPasswordSlice.actions.setIsLoading(false));
       setStorage(import.meta.env.VITE_FORGOT_PASSWORD, res?.data);
       navigate("/find_account");
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
+      dispatch(forgotPasswordSlice.actions.setIsLoading(false));
       toast.error(error?.data?.message);
     }
   };

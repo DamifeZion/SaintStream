@@ -6,13 +6,11 @@ import { useLocalStorage } from "./useLocalStorage";
 import { useForgotPasswordMutation } from "../features/api/userApi";
 
 export const usePasswordReset = (resetToken) => {
-  colorBorderIfValue()
+  colorBorderIfValue();
   const dispatch = useDispatch();
   const { removeStorage } = useLocalStorage();
   const body = useSelector((state) => state.passwordResetSlice);
-  const [resetUserPassword, { isLoading }] = useForgotPasswordMutation();
-  //update the store for conditional rendering else where
-  dispatch(passwordResetSlice.actions.setIsLoading(isLoading));
+  const [resetUserPassword] = useForgotPasswordMutation();
 
   const handlePasswordChange = (e) => {
     dispatch(passwordResetSlice.actions.setPassword(e.target.value));
@@ -32,14 +30,17 @@ export const usePasswordReset = (resetToken) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(passwordResetSlice.actions.setIsLoading(true));
 
     try {
       const res = await resetUserPassword(resetToken, body)?.unwrap();
       console.log("res ", res);
+      dispatch(passwordResetSlice.actions.setIsLoading(false));
       toast.success(res?.message);
       removeStorage(import.meta.env.VITE_FORGOT_PASSWORD);
       dispatch(passwordResetSlice.actions.reset());
     } catch (error) {
+      dispatch(passwordResetSlice.actions.setIsLoading(false));
       console.log("error", error);
       toast.error(error?.data?.message);
     }

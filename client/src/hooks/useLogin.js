@@ -12,9 +12,7 @@ export const useLogin = () => {
   const dispatch = useDispatch();
   const body = useSelector((state) => state.loginSlice);
   const { setSession } = useSessionStorage();
-  const [loginUser, { isLoading }] = useLoginMutation();
-  //update the store for conditional rendering else where
-  dispatch(loginSlice.actions.setIsLoading(isLoading));
+  const [loginUser] = useLoginMutation();
 
   const handleEmailChange = (e) => {
     dispatch(loginSlice.actions.setEmail(e.target.value));
@@ -31,14 +29,17 @@ export const useLogin = () => {
   //Submits data
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(loginSlice.actions.setIsLoading(true));
 
     try {
       const res = await loginUser(body).unwrap();
+      dispatch(loginSlice.actions.setIsLoading(false));
       toast.success(res?.message);
       navigate("/movie_library");
       setSession(import.meta.env.VITE_SESSION_KEY, res?.token);
       dispatch(loginSlice.actions.reset());
     } catch (error) {
+      dispatch(loginSlice.actions.setIsLoading(false));
       toast.error(error?.data?.message);
     }
   };

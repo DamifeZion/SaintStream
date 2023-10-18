@@ -11,9 +11,7 @@ export const useSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const body = useSelector((state) => state.signUpSlice);
-  const [signUpUser, { isLoading }] = useSignUpMutation();
-  //update the store for conditional rendering else where
-  dispatch(signUpSlice.actions.setIsLoading(isLoading));
+  const [signUpUser] = useSignUpMutation();
 
   const handleUsernameChange = (e) => {
     dispatch(signUpSlice.actions.setUserName(e.target.value));
@@ -47,13 +45,16 @@ export const useSignUp = () => {
   //Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(signUpSlice.actions.setIsLoading(true));
 
     try {
       const res = await signUpUser(body)?.unwrap();
+      dispatch(signUpSlice.actions.setIsLoading(false));
       toast.success(res?.message);
       navigate("/login");
       dispatch(loginSlice.actions.reset());
     } catch (error) {
+      dispatch(signUpSlice.actions.setIsLoading(false));
       toast.error(error?.data?.message);
     }
   };
