@@ -117,7 +117,7 @@ const createUser = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Registration successful! Redirecting...",
+      message: "Registration successful! Login with your details",
     });
   } catch (error) {
     res.status(500).json({
@@ -407,7 +407,7 @@ const resetPassword = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Password updated successfully. Redirecting to login page...",
+      message: "Password updated successfully",
     });
   } catch (error) {
     res.status(500).json({

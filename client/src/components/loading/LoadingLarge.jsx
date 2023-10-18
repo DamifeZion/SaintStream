@@ -12,8 +12,8 @@ const LoadingLarge = ({
 }) => {
   return (
     <div className={`${cont1Cn} h-screen flex flex-col items-center justify-center`}>
-      <div style={navbarStyle}>
-        <Navbar logoCn="w-[200px]" />
+      <div style={navbarStyle} className="absolute top-0 left-0 right-0">
+        <Navbar logoCn="w-[200px]" screensCn='hidden'/>
       </div>
 
       <div className={`${cont2Cn} flex flex-col gap-4 items-center justify-center select-none`}>
