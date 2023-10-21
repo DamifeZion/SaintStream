@@ -11,8 +11,8 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
-import { userSlice } from "../../features/slices/userSlice/userSlice";
-import handleMobileMenu from "../../utils/mobileMenu/hideMobileMenuUtil";
+import { userSlice } from "../../../features/slices/userSlice/userSlice";
+import handleMobileMenu from "../../../utils/mobileMenu/hideMobileMenuUtil";
 
 const browserLocation = window.location.pathname;
 const inActiveStyle = `tracking-wide w-full h-fit py-2 px-10 whitespace-nowrap text-center rounded-sm text-[--light-gray] hover:text-[--white] hover:bg-[#272C34] flex items-center justify-center gap-3`;

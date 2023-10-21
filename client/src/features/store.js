@@ -9,6 +9,7 @@ import { signUpSlice } from "./slices/signUpSlice/signUpSlice";
 import { forgotPasswordSlice } from "./slices/forgotPasswordSlice/forgotPasswordSlice";
 import { passwordResetSlice } from "./slices/passwordResetSlice/passwordResetSlice.js";
 import { userApi } from "./api/userApi";
+import { pcNavbarSlice } from "./slices/pcNavBarSlice/pcNavbarSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     userSlice: userSlice.reducer,
     faqSlice: faqSlice.reducer,
     mobileNavSlice: mobileNavSlice.reducer,
+    pcNavbarSlice: pcNavbarSlice.reducer,
     loginSlice: loginSlice.reducer,
     signUpSlice: signUpSlice.reducer,
     forgotPasswordSlice: forgotPasswordSlice.reducer,

@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/saintstream-logo.svg";
-import PCNavbar from "./PCNavbar";
-import MobileNavbar from "./MobileNavbar";
+import PCNavbar from "./pcNavbar/PCNavbar";
+import MobileNavbar from "./mobileNavbar/MobileNavbar";
 import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
@@ -25,11 +25,11 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
   return (
     <div
       id="template"
-      className={`${contCn} flex items-center justify-between h-[60px] px-[--px] relative py-10`}
+      className={`${contCn} flex items-center justify-between h-[70px] border px-[--px] relative`}
     >
       <NavLink
         to="/"
-        className={`${logoCn} z-[1000] ${user ? "w-[200px]" : "w-[230px]"} `}
+        className={`${logoCn} z-[1000] ${user ? "w-[180px]" : "w-[220px]"} `}
       >
         <img src={logo} alt="" />
       </NavLink>

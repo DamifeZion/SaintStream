@@ -136,7 +136,7 @@ const loginUser = async (req, res) => {
     if (!email || !password) {
       return res.status(404).json({
         success: false,
-        message: "All fields must be field",
+        message: "All fields must be filled",
       });
     }
 

@@ -1,8 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { PiCaretDown } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
-import { userSlice } from "../../features/slices/userSlice/userSlice";
+import { userSlice } from "../../../features/slices/userSlice/userSlice";
+import userImage from "../../../assets/user.svg";
+import ProfileDropdown from "./ProfileDropdown";
+import { pcNavbarSlice } from "../../../features/slices/pcNavBarSlice/pcNavbarSlice";
 
 const browserLocation = window.location.pathname;
 const activeStyle = `text-[--green] font-extrabold`;
@@ -10,10 +15,17 @@ const activeStyle = `text-[--green] font-extrabold`;
 const PCNavbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userSlice);
+  const { showProfileDropdown } = useSelector((state) => state.pcNavbarSlice);
 
   const handleLogout = () => {
     dispatch(userSlice.actions.logOut());
   };
+
+  const toggleProfileDropdown = () => {
+    dispatch(pcNavbarSlice.actions.toggleProfileDropdown());
+  };
+
+  console.log(showProfileDropdown);
 
   return (
     <div className=" flex w-full text-md">
@@ -21,7 +33,7 @@ const PCNavbar = () => {
         <ul className="flex items-center gap-4 text-[--lighter-gray]">
           <NavLink
             className={`${browserLocation === "/" && activeStyle}`}
-            to={!user ? "/" : '/movie_library'}
+            to={!user ? "/" : "/movie_library"}
           >
             Home
           </NavLink>
@@ -58,18 +70,43 @@ const PCNavbar = () => {
 
       <div className="flex items-center font-medium ml-auto">
         {user && (
-          <button className="p-2 text-lg bg-[--light-gray] rounded-full">
-            <BiSearch />
-          </button>
+          <div className="flex items-center gap-3">
+            <button className="p-[2px] text-1xl rounded-full">
+              <BiSearch />
+            </button>
+
+            <button className="p-[2px] text-1xl rounded-full">
+              <IoNotificationsOutline />
+            </button>
+
+            <button
+              id="profile"
+              onClick={toggleProfileDropdown}
+              className="relative flex items-center"
+            >
+              <span
+                id="profile-img"
+                className="w-[26px] h-[26px] border rounded-full"
+              >
+                <img
+                  src={user?.image ? `${user.image}` : userImage}
+                  alt="profile image"
+                  className="w-full h-full object-cover"
+                />
+              </span>
+
+              <span className="ml-1 text-[--action-white] text-lg">
+                <PiCaretDown />
+              </span>
+            </button>
+
+            <div id="dropDown-menu" className={`${showProfileDropdown ? 'visible' : 'hidden'}`}>
+              <ProfileDropdown />
+            </div>
+          </div>
         )}
 
-        {/* Below is temporarily disabled based for design enhancement*/}
-
-        {/* <button className="ml-2 py-[5px] px-4 border border-[--light-gray] hover:bg-[--green-dark] hover:border-[--green-dark] transition-bg ease duration-150 rounded-sm">
-          Sign in
-        </button> */}
-
-        <NavLink
+        {/* <NavLink
           onClick={handleLogout}
           to={`${user ? "" : "/login"}`}
           className={`ml-4 py-[6px] px-4 rounded-md transition-bg ease duration-150 font-semibold ${
@@ -79,7 +116,7 @@ const PCNavbar = () => {
           }`}
         >
           {user ? "Sign out" : "Sign in"}
-        </NavLink>
+        </NavLink> */}
       </div>
     </div>
   );
