@@ -6,26 +6,28 @@ import { useSessionManagement } from "../hooks/useSessionManagement";
 import { useGetUserQuery } from "../features/api/userApi";
 import { toast } from "react-toastify";
 import LoadingSmall from "../components/loading/LoadingSmall";
+import NetworkError from "../components/networkError/NetworkError";
 
 export const UserAuth = ({ children }) => {
   //below handles the session token
   useSessionManagement();
-  
   const dispatch = useDispatch();
-
   const { sessionToken } = useSelector((state) => state.userSlice);
+
   const {
     data: userData,
     isLoading,
     isSuccess,
+    isError,
     error,
+    refetch,
   } = useGetUserQuery(sessionToken);
 
   if (!sessionToken) {
     return <Navigate to={"/login"} />;
   }
 
-  if (sessionToken && isLoading) {
+  if (isLoading) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
         <LoadingSmall />
@@ -33,8 +35,13 @@ export const UserAuth = ({ children }) => {
     );
   }
 
-  if (isSuccess) {
+  if (isSuccess && userData) {
     dispatch(userSlice.actions.setUser(userData.user));
+  }
+
+  if (isError) {
+    toast.error(error.error)
+    return <NetworkError onRetryClick={refetch} />;
   }
 
   return children;
