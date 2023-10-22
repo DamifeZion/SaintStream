@@ -14,7 +14,7 @@ const activeStyle = `text-[--green] font-extrabold`;
 
 const PCNavbar = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.userSlice);
+  const { user, sessionToken } = useSelector((state) => state.userSlice);
   const { showProfileDropdown } = useSelector((state) => state.pcNavbarSlice);
 
   const handleLogout = () => {
@@ -25,15 +25,25 @@ const PCNavbar = () => {
     dispatch(pcNavbarSlice.actions.toggleProfileDropdown());
   };
 
-  console.log(showProfileDropdown);
-
   return (
-    <div className=" flex w-full text-md">
-      {user && (
+    <div className=" flex w-full text-md border">
+      {/* user is not signed in */}
+      {!sessionToken && (
+        <NavLink
+          onClick={handleLogout}
+          to="/login"
+          className={`ml-auto py-[6px] px-4 rounded-md transition-bg ease duration-150 font-semibold bg-[--green] hover:bg-[--green-dark]`}
+        >
+          Sign in
+        </NavLink>
+      )}
+
+      {/* user is signed in center links*/}
+      {sessionToken && (
         <ul className="flex items-center gap-4 text-[--lighter-gray]">
           <NavLink
             className={`${browserLocation === "/" && activeStyle}`}
-            to={!user ? "/" : "/movie_library"}
+            to={!sessionToken ? "/" : "/movie_library"}
           >
             Home
           </NavLink>
@@ -68,25 +78,26 @@ const PCNavbar = () => {
         </ul>
       )}
 
-      <div className="flex items-center font-medium ml-auto">
-        {user && (
-          <div className="flex items-center gap-3">
-            <button className="p-[2px] text-1xl rounded-full">
+      {/* User is signed in right stuffs */}
+      {sessionToken && (
+        <div className="flex items-center font-medium ml-auto">
+          <div className="flex items-center gap-3 relative">
+            <button className="p-[2px] text-1xl rounded-full hover:text-[--green] transition-all ease-linear duration-150">
               <BiSearch />
             </button>
 
-            <button className="p-[2px] text-1xl rounded-full">
+            <button className="p-[2px] text-1xl rounded-full hover:text-[--green] transition-all ease-linear duration-150">
               <IoNotificationsOutline />
             </button>
 
             <button
               id="profile"
               onClick={toggleProfileDropdown}
-              className="relative flex items-center"
+              className="relative flex items-center group"
             >
               <span
                 id="profile-img"
-                className="w-[26px] h-[26px] border rounded-full"
+                className="w-[26px] h-[26px] border group-hover:border-[--green] transition-all ease-linear duration-150 rounded-full"
               >
                 <img
                   src={user?.image ? `${user.image}` : userImage}
@@ -95,29 +106,26 @@ const PCNavbar = () => {
                 />
               </span>
 
-              <span className="ml-1 text-[--action-white] text-lg">
+              <span
+                className={`ml-1 text-[--action-white] text-lg group-hover:text-[--green] transition-all ease-linear duration-150 ${
+                  showProfileDropdown && "rotate-180"
+                }`}
+              >
                 <PiCaretDown />
               </span>
             </button>
 
-            <div id="dropDown-menu" className={`${showProfileDropdown ? 'visible' : 'hidden'}`}>
+            <div
+              id="dropDown-menu"
+              className={`absolute right-0 overflow-hdden -bottom-[197px] border transition-all duration-300 ${
+                showProfileDropdown && "visible opacity-100"
+              } ${!showProfileDropdown && "invisible opacity-0 "}`}
+            >
               <ProfileDropdown />
             </div>
           </div>
-        )}
-
-        {/* <NavLink
-          onClick={handleLogout}
-          to={`${user ? "" : "/login"}`}
-          className={`ml-4 py-[6px] px-4 rounded-md transition-bg ease duration-150 font-semibold ${
-            user
-              ? "bg-[--danger] hover:bg-[--danger-dark]"
-              : "bg-[--green] hover:bg-[--green-dark]"
-          }`}
-        >
-          {user ? "Sign out" : "Sign in"}
-        </NavLink> */}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

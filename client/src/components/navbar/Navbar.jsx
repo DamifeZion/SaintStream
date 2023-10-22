@@ -10,7 +10,7 @@ import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSl
 const Navbar = ({ contCn, logoCn, screensCn }) => {
   const dispatch = useDispatch();
   const isSmall = useMediaQuery("(max-width: 1024px)");
-  const { user } = useSelector((state) => state.userSlice);
+  const { sessionToken } = useSelector((state) => state.userSlice);
   const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
 
   const toggleShowMainMenu = () => {
@@ -29,7 +29,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
     >
       <NavLink
         to="/"
-        className={`${logoCn} z-[1000] ${user ? "w-[180px]" : "w-[220px]"} `}
+        className={`${logoCn} z-[1000] ${sessionToken ? "w-[180px]" : "w-[220px]"} `}
       >
         <img src={logo} alt="" />
       </NavLink>

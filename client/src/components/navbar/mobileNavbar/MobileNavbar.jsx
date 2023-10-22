@@ -21,7 +21,7 @@ const activeStyle = `tracking-wide w-full h-fit py-2 px-10 whitespace-nowrap tex
 
 const MobileNavbar = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.userSlice);
+  const { user, sessionToken } = useSelector((state) => state.userSlice);
   const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
 
   //hide menu on click on any of the navlinks
@@ -34,7 +34,7 @@ const MobileNavbar = () => {
   return (
     <div className="flex flex-col text-lg font-semibold relative z-[1000]">
       <div className="flex items-center justify-center gap-3">
-        {user && (
+        {sessionToken && (
           <button className="p-1 text-3xl bg-[--green] rounded-full">
             <BiSearch />
           </button>
@@ -52,7 +52,7 @@ const MobileNavbar = () => {
           showMainMenu ? "visible " : "translate-x-6 invisible opacity-0"
         } transition-all ease-linear duration-200 overflow-y-scroll bg-[#121014] absolute top-12 right-0 py-3 px-[4px] rounded-md flex flex-col-reverse gap-1 max-h-[60vh]`}
       >
-        {!user && (
+        {!sessionToken && (
           <ul className="flex flex-col text-center">
             <NavLink
               id="mobile-links"
@@ -66,14 +66,14 @@ const MobileNavbar = () => {
           </ul>
         )}
 
-        {user && (
+        {sessionToken && (
           <ul className="flex flex-col">
             <NavLink
               id="mobile-links"
               className={`${
                 browserLocation === "/" ? activeStyle : inActiveStyle
               }`}
-              to={!user ? "/" : "/movie_library"}
+              to={!sessionToken ? "/" : "/movie_library"}
             >
               Home <FaHome />
             </NavLink>

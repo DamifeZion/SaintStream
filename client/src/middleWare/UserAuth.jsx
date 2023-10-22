@@ -1,41 +1,41 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import { useSessionManagement } from "../hooks/useSessionManagement";
-import LoadingLarge from "../components/loading/LoadingLarge";
-import { useGetUserQuery } from "../features/api/userApi";
-import { userSlice } from "../features/slices/userSlice/userSlice";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { userSlice } from "../features/slices/userSlice/userSlice";
+import { useSessionManagement } from "../hooks/useSessionManagement";
+import { useGetUserQuery } from "../features/api/userApi";
 import { toast } from "react-toastify";
-import Navbar from "../components/navbar/Navbar";
+import LoadingSmall from "../components/loading/LoadingSmall";
 
 export const UserAuth = ({ children }) => {
+  //below handles the session token
+  useSessionManagement();
+  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const { sessionToken } = useSelector((state) => state.userSlice);
-  const { data: user, isLoading, isError } = useGetUserQuery(sessionToken);
+  const {
+    data: userData,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetUserQuery(sessionToken);
 
-  useEffect(() => {
-    if (!sessionToken) navigate("/login");
-  }, [sessionToken, isLoading]);
+  if (!sessionToken) {
+    return <Navigate to={"/login"} />;
+  }
 
-  if (sessionToken && !user) {
+  if (sessionToken && isLoading) {
     return (
-      <div>
-        <Navbar logoCn={'w-[20px]'}/>
-        {toast.error("No internet connection")}
+      <div className="h-screen w-full flex items-center justify-center">
+        <LoadingSmall />
       </div>
     );
   }
 
-  //update the userData in the store
-  if (user) {
-    dispatch(userSlice.actions.setUser(user.user));
+  if (isSuccess) {
+    dispatch(userSlice.actions.setUser(userData.user));
   }
 
-  useSessionManagement();
-
-  if (isLoading) return <LoadingLarge navbarStyle={{ display: "hidden" }} />;
-
-  return <>{children}</>;
+  return children;
 };

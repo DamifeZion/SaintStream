@@ -19,7 +19,7 @@ import usePasswordResetEmailTimer from "./hooks/usePasswordResetEmailTimer";
 
 function App() {
   //below removes the email to reset after expiration
-  usePasswordResetEmailTimer()
+  usePasswordResetEmailTimer();
 
   return (
     <div id="App">
