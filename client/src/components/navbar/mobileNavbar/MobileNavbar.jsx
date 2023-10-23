@@ -6,6 +6,7 @@ import { userSlice } from "../../../features/slices/userSlice/userSlice";
 import { mobileNavSlice } from "../../../features/slices/mobileNavSlice/mobileNavSlice";
 import ProfileDropdownMobile from "./ProfileDropdownMobile";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
+import SearchFilter from "../SearchFilter";
 
 const browserLocation = window.location.pathname;
 
@@ -139,7 +140,11 @@ const MobileNavbar = () => {
         </div>
 
         {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
-        {searchValue && <div id="search-filter"></div>}
+        {searchValue && (
+          <div id="search-filter">
+            <SearchFilter />
+          </div>
+        )}
       </div>
     </div>
   );

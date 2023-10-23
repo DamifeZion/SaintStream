@@ -9,6 +9,7 @@ import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
 import { setSearchValue } from "../../features/slices/searchBarSlice/searchBarSlice";
+import SearchFilter from "./SearchFilter";
 
 const Navbar = ({ contCn, logoCn, screensCn }) => {
   const dispatch = useDispatch();
@@ -76,7 +77,11 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
             </div>
 
             {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
-            {searchValue && <div id="search-filter"></div>}
+            {searchValue && (
+              <div id="search-filter">
+                <SearchFilter />
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -9,6 +9,7 @@ import userImage from "../../../assets/user.svg";
 import ProfileDropdownPC from "./ProfileDropdownPC";
 import { pcNavbarSlice } from "../../../features/slices/pcNavBarSlice/pcNavbarSlice";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
+import SearchFilter from "../SearchFilter";
 
 const browserLocation = window.location.pathname;
 const activeStyle = `text-[--green] font-extrabold`;
@@ -99,7 +100,11 @@ const PCNavbar = () => {
             </div>
 
             {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
-            {searchValue && <div id="search-result"></div>}
+            {searchValue && (
+              <div id="search-result">
+                <SearchFilter />
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-3 relative">
