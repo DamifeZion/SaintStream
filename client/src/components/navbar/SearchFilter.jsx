@@ -2,7 +2,7 @@ import React from 'react'
 
 const SearchFilter = () => {
   return (
-    <div className='top-0'>
+    <div className='t'>
       Search Filter
     </div>
   )

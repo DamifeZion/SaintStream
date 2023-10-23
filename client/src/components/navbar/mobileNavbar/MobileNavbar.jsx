@@ -141,7 +141,7 @@ const MobileNavbar = () => {
 
         {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
         {searchValue && (
-          <div id="search-filter">
+          <div id="small-screen-search-filter" className="">
             <SearchFilter />
           </div>
         )}

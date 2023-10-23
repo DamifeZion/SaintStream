@@ -78,7 +78,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
 
             {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
             {searchValue && (
-              <div id="search-filter">
+              <div id="medium-screen-search-filter" className="">
                 <SearchFilter />
               </div>
             )}

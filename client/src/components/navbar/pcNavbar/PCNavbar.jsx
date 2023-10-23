@@ -101,7 +101,7 @@ const PCNavbar = () => {
 
             {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
             {searchValue && (
-              <div id="search-result">
+              <div id="large-screen-search-filter">
                 <SearchFilter />
               </div>
             )}
