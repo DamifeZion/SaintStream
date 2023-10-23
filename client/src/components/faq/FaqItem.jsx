@@ -6,7 +6,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 const FaqItem = ({ data }) => {
   const dispatch = useDispatch();
   const { selectedIndex, showDropdown } = useSelector(
-    (state) => state.faqSlice
+    (state) => state.faqSlice,
   );
   //check if the index in the slice is equal to the item index
   const selectedItem = selectedIndex === data.id;

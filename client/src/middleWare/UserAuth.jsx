@@ -19,7 +19,6 @@ export const UserAuth = ({ children }) => {
     isLoading,
     isSuccess,
     isError,
-    error,
     refetch,
   } = useGetUserQuery(sessionToken);
 
@@ -30,17 +29,16 @@ export const UserAuth = ({ children }) => {
   if (isLoading) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
-        <LoadingSmall />
+        <LoadingSmall className={"w-[35px]"} />
       </div>
     );
   }
 
   if (isSuccess && userData) {
-    dispatch(userSlice.actions.setUser(userData.user));
+    dispatch(userSlice.actions.setUser(userData?.user));
   }
 
   if (isError) {
-    toast.error(error.error)
     return <NetworkError onRetryClick={refetch} />;
   }
 

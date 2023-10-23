@@ -14,7 +14,7 @@ const PasswordReset = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { hidePassword, hideConfirmPassword, isLoading } = useSelector(
-    (state) => state.passwordResetSlice
+    (state) => state.passwordResetSlice,
   );
 
   const {
@@ -30,7 +30,7 @@ const PasswordReset = () => {
   useEffect(() => {
     const isThereForgottenPasswordEmail = () => {
       const forgotPasswordEmail = getStorage(
-        import.meta.env.VITE_FORGOT_PASSWORD
+        import.meta.env.VITE_FORGOT_PASSWORD,
       );
 
       if (!forgotPasswordEmail) {

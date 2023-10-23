@@ -18,8 +18,7 @@ export const faqSlice = createSlice({
     },
 
     reset: (state) => {
-      state.selectedIndex = null, 
-      state.showDropdown = false;
+      (state.selectedIndex = null), (state.showDropdown = false);
     },
   },
 });

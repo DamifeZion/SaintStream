@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 export const colorBorderIfValue = () => {
   const { password, confirmPassword } = useSelector(
-    (state) => state.passwordResetSlice
+    (state) => state.passwordResetSlice,
   );
 
   useEffect(() => {

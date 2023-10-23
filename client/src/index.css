@@ -20,12 +20,12 @@
   --green-dark: #056040; /*#056040 for the "More" button*/
 
   /* Background */
-  --black: #0d0c0f; /*site color*/
+  --black: #060606; /*site color*/
+  --light-black: #1c1c1c;
   --green: #00925d;
   --dark-gray: #28262d;
   --dark-gray-light: #38363d;
   --danger: #ff0000;
-  --danger-dark: #ff0000;
 
   /* Background Image */
 

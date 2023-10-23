@@ -1,20 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { RiAccountPinCircleLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../../../features/slices/userSlice/userSlice";
 
-const ProfileDropdown = ({ id, contCn }) => {
+const ProfileDropdownPC = ({ id, contCn }) => {
   const dispatch = useDispatch();
 
   const listStyle =
-    "py-2 px-6 text-[14px] hover:bg-[--green] bg-opacity-10 rounded-sm flex justify-between items-center";
+    "py-2 px-6 text-[14px] hover:bg-[--green] bg-opacity-10 rounded-sm flex justify-between items-center border-b border-[#1f1d22] hover:bg-green-600 ";
 
   return (
-    <ul id={id} className={`${contCn} py-1 px-1 bg-[--black] rounded-md`}>
+    <ul id={id} className={`${contCn} shadow-sm bg-[--dark-gray] rounded-md overflow-hidden`}>
       <NavLink>
-        <li className={listStyle}>
-          Account <RiAccountPinCircleLine fontSize={16} />
-        </li>
+        <li className={listStyle}>Account</li>
       </NavLink>
 
       <NavLink>
@@ -32,7 +29,7 @@ const ProfileDropdown = ({ id, contCn }) => {
       <NavLink>
         <li
           onClick={() => dispatch(userSlice.actions.logOut())}
-          className={listStyle}
+          className={`py-2 px-6 text-[14px] bg-opacity-10 rounded-sm flex justify-between items-center hover:bg-[--danger]`}
         >
           Logout
         </li>
@@ -41,4 +38,4 @@ const ProfileDropdown = ({ id, contCn }) => {
   );
 };
 
-export default ProfileDropdown;
+export default ProfileDropdownPC;

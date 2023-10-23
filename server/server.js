@@ -8,7 +8,7 @@ const path = require("path");
 //Initialize dependencies
 app.use(
   cors({
-    origin: "*",
+    origin: "",
   })
 );
 app.use(express.json());

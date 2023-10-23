@@ -6,8 +6,9 @@ import { PiCaretDown } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { userSlice } from "../../../features/slices/userSlice/userSlice";
 import userImage from "../../../assets/user.svg";
-import ProfileDropdown from "./ProfileDropdown";
+import ProfileDropdownPC from "./ProfileDropdownPC";
 import { pcNavbarSlice } from "../../../features/slices/pcNavBarSlice/pcNavbarSlice";
+import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
 
 const browserLocation = window.location.pathname;
 const activeStyle = `text-[--green] font-extrabold`;
@@ -16,6 +17,7 @@ const PCNavbar = () => {
   const dispatch = useDispatch();
   const { user, sessionToken } = useSelector((state) => state.userSlice);
   const { showProfileDropdown } = useSelector((state) => state.pcNavbarSlice);
+  const { searchValue } = useSelector((state) => state.searchBarSlice);
 
   const handleLogout = () => {
     dispatch(userSlice.actions.logOut());
@@ -26,7 +28,7 @@ const PCNavbar = () => {
   };
 
   return (
-    <div className=" flex w-full text-md border">
+    <div className=" flex w-full text-md">
       {/* user is not signed in */}
       {!sessionToken && (
         <NavLink
@@ -42,7 +44,7 @@ const PCNavbar = () => {
       {sessionToken && (
         <ul className="flex items-center gap-4 text-[--lighter-gray]">
           <NavLink
-            className={`${browserLocation === "/" && activeStyle}`}
+            className={`${browserLocation === "/movie_library" && activeStyle}`}
             to={!sessionToken ? "/" : "/movie_library"}
           >
             Home
@@ -80,16 +82,27 @@ const PCNavbar = () => {
 
       {/* User is signed in right stuffs */}
       {sessionToken && (
-        <div className="flex items-center font-medium ml-auto">
+        <div className="flex items-center font-medium ml-auto max-w-[300px]">
+          <div id="search-bar">
+            <div id="search-input" className="relative mr-3">
+              <input
+                type="search"
+                onChange={(e) => dispatch(setSearchValue(e.target.value))}
+                placeholder="Enter movie name"
+                className="w-full h-full bg-[--light-black] px-5 pr-9 py-3 rounded-full outline-none text-[--lighter-gray] placeholder:text-[--highlight-gray]"
+              />
+
+              <BiSearch
+                strokeWidth={1.5}
+                className="absolute top-1/2 -translate-y-1/2 right-3 text-[--highlight-gray] text-xl"
+              />
+            </div>
+
+            {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
+            {searchValue && <div id="search-result"></div>}
+          </div>
+
           <div className="flex items-center gap-3 relative">
-            <button className="p-[2px] text-1xl rounded-full hover:text-[--green] transition-all ease-linear duration-150">
-              <BiSearch />
-            </button>
-
-            <button className="p-[2px] text-1xl rounded-full hover:text-[--green] transition-all ease-linear duration-150">
-              <IoNotificationsOutline />
-            </button>
-
             <button
               id="profile"
               onClick={toggleProfileDropdown}
@@ -107,7 +120,7 @@ const PCNavbar = () => {
               </span>
 
               <span
-                className={`ml-1 text-[--action-white] text-lg group-hover:text-[--green] transition-all ease-linear duration-150 ${
+                className={`ml-1 text-[--action-white] text-lg group-hover:text-[--green] transition-all ease-linear duration-150  ${
                   showProfileDropdown && "rotate-180"
                 }`}
               >
@@ -117,11 +130,12 @@ const PCNavbar = () => {
 
             <div
               id="dropDown-menu"
-              className={`absolute right-0 overflow-hdden -bottom-[197px] border transition-all duration-300 ${
+              onClick={toggleProfileDropdown}
+              className={`absolute right-0 overflow-hdden -bottom-[210px] transition-all duration-300 ${
                 showProfileDropdown && "visible opacity-100"
               } ${!showProfileDropdown && "invisible opacity-0 "}`}
             >
-              <ProfileDropdown />
+              <ProfileDropdownPC />
             </div>
           </div>
         </div>

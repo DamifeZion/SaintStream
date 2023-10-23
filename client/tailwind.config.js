@@ -32,6 +32,10 @@ export default {
         "404NotFound": "url(/src/assets/pageNotFound.png)",
       },
 
+      boxShadow: {
+        navbarDropdown: "0px 0px 10px rgba(10, 233, 233, .3)",
+      },
+
       fontSize: {
         xs: "10px",
         sm: "12px",
