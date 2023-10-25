@@ -14,9 +14,9 @@ const Home = () => {
         <span className="absolute inset-0 bg-homeHeroGradient z-[1] w-full h-full" />
 
         <div className="relative z-50">
-          <Navbar />
+          <Navbar contCn={"backdrop-blur-none bg-transparent"} />
 
-          <div className="flex relative flex-col items-center justify-center text-center font-inter px-[--px] overflow-hidden h-[70vh] max-h-[650px] 700:h-[60vh] 1000:h-[86.5vh] 1280:h-[82vh]">
+          <div className="flex relative flex-col items-center justify-center text-center font-inter px-[--px] overflow-hidden min-h-[350px] h-[70vh] max-h-[650px] 700:h-[60vh] 1000:h-[86.5vh] 1280:h-[82vh]">
             <h1
               id="template"
               className="text-[33px] font-black leading-snug 500:text-[31px] 1000:text-[45px] 1200:text-5xl"
