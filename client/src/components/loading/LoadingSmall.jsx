@@ -1,10 +1,10 @@
 import React from "react";
-import loadingSpinner from "../../assets/loading.png";
+import { twMerge } from "tailwind-merge";
 
 const LoadingSmall = ({ className }) => {
   return (
     <svg
-      className={`${className} w-[20px] text-[--green] animate-spin`}
+      className={twMerge("w-[20px] text-[--green] animate-spin", className)}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

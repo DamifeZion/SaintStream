@@ -6,7 +6,7 @@ import { userSlice } from "../../../features/slices/userSlice/userSlice";
 import { mobileNavSlice } from "../../../features/slices/mobileNavSlice/mobileNavSlice";
 import ProfileDropdownMobile from "./ProfileDropdownMobile";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
-import SearchFilter from "../SearchFilter";
+import Search from "../search/Search";
 
 const browserLocation = window.location.pathname;
 
@@ -54,7 +54,7 @@ const MobileNavbar = () => {
         <ul
           id="drop-downMenu"
           className={`${
-            showMainMenu ? "opacity-100" : "opacity-0"
+            showMainMenu ? "opacity-100 visible" : "opacity-0 invisible"
           } ease-linear duration-150 max-h-[60vh] w-full transition-opacity absolute left-1/2 -translate-x-1/2 top-[80px] overflow-y-scroll overflow-x-hidden px-[--px] rounded-t-lg`}
         >
           <ol className="flex flex-col bg-[--dark-gray] w-full h-full rounded-t-lg">
@@ -124,25 +124,26 @@ const MobileNavbar = () => {
         id="mobile-screen-search-bar"
         className={`${
           showSearchBar ? "scale-100" : "scale-0"
-        } absolute top-[79px] left-0 w-full transition-scale ease-linear duration-100 px-[--px]`}
+        } hidden z-[-1] max-[635px]:block absolute top-[79px] left-0 w-full transition-scale ease-linear duration-100 px-[--px]`}
       >
         <div id="search-input">
           <input
             type="search"
+            value={searchValue}
             onChange={(e) => dispatch(setSearchValue(e.target.value))}
             placeholder="Enter movie name"
             className="shadow-md w-full h-full bg-[--dark-gray] pl-5 pr-[45px] py-4 text-md rounded-full outline-none text-[--lighter-gray] placeholder:text-[--highlight-gray]"
           />
 
-          <button className="absolute top-1/2 -translate-y-1/2 right-6 text-1xl text-[--action-white] rounded-full">
+          <button className="absolute top-1/2 -translate-y-1/2 right-8 text-1xl text-[--action-white] rounded-full">
             <BiSearch strokeWidth={1.5} />
           </button>
         </div>
 
         {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
         {searchValue && (
-          <div id="small-screen-search-filter" className="">
-            <SearchFilter />
+          <div id="small-screen-search-filter" className="absolute w-full max-w-[93%]">
+            <Search />
           </div>
         )}
       </div>

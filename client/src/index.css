@@ -9,6 +9,7 @@
 :root {
   --px: 30px;
   --py: 29px;
+  --nav-height: 80px;
 
   /* Colors */
   --white: #ffffff; /*White for headers and call to actions*/
@@ -48,13 +49,14 @@ html {
 body {
   background: #121014;
   transition: linear 0.2s;
-  color: #fff;
+  color: var(--action-white);
   font-family: "Inter", sans-serif;
 
   height: -webkit-fill-available;
 }
 
-#template {
+#template,
+.template {
   margin-inline: auto;
   width: 100%;
   max-width: 1280px;
@@ -85,6 +87,10 @@ img {
 .overflow-x-auto,
 .overflow-x-scroll {
   scrollbar-width: none;
+}
+
+.active-home-header-slider-btn {
+  background: var(--action-white);
 }
 
 @media (width <= 768px) {

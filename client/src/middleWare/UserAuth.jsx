@@ -19,6 +19,7 @@ export const UserAuth = ({ children }) => {
     isLoading,
     isSuccess,
     isError,
+    error,
     refetch,
   } = useGetUserQuery(sessionToken);
 

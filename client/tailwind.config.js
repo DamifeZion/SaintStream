@@ -30,6 +30,9 @@ export default {
           "linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.2) 50%)",
 
         "404NotFound": "url(/src/assets/pageNotFound.png)",
+
+        movie_library_header_gradient:
+          "linear-gradient(to top, rgba(0, 0, 0, .65) 70%, rgba(0, 0, 0, 0) 100%);",
       },
 
       boxShadow: {

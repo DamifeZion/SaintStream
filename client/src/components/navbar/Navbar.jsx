@@ -8,8 +8,8 @@ import MobileNavbar from "./mobileNavbar/MobileNavbar";
 import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
-import { setSearchValue } from "../../features/slices/searchBarSlice/searchBarSlice";
-import SearchFilter from "./SearchFilter";
+import { searchBarSlice, setSearchValue } from "../../features/slices/searchBarSlice/searchBarSlice";
+import Search from "./search/Search";
 
 const Navbar = ({ contCn, logoCn, screensCn }) => {
   const dispatch = useDispatch();
@@ -17,6 +17,8 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
   const { sessionToken } = useSelector((state) => state.userSlice);
   const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
   const { searchValue } = useSelector((state) => state.searchBarSlice);
+
+  // Note: 635px is very important for the nav search with ctrl + f to see
 
   const toggleShowMainMenu = () => {
     if (!showMainMenu) {
@@ -30,11 +32,11 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
   return (
     <div
       id="template"
-      className={`${contCn} flex items-center justify-between h-[80px] border px-[--px] relative`}
+      className={`${contCn} bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg flex items-center justify-between h-[80px] px-[--px] relative z-[10000]`}
     >
       <div
         id="menu-btn-&-logo"
-        className="flex items-center gap-4  max-[375px]:gap-2 lg:w-fit"
+        className="flex items-center gap-4  max-[375px]:gap-2 lg:w-fit relative"
       >
         {isSmall && sessionToken && (
           <button
@@ -66,6 +68,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
             >
               <input
                 type="search"
+                value={searchValue}
                 onChange={(e) => dispatch(setSearchValue(e.target.value))}
                 placeholder="Enter movie name"
                 className="w-full h-full bg-[--light-black] pl-5 pr-[45px] py-[13px] text-md rounded-full outline-none text-[--lighter-gray] placeholder:text-[--highlight-gray]"
@@ -78,8 +81,11 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
 
             {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
             {searchValue && (
-              <div id="medium-screen-search-filter" className="">
-                <SearchFilter />
+              <div
+                id="medium-screen-search-filter"
+                className="hidden min-[635px]:block absolute top-[70px] max-w-[280px] w-full"
+              >
+                <Search />
               </div>
             )}
           </div>

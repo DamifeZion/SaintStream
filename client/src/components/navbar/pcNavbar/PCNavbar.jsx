@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
 import { PiCaretDown } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { userSlice } from "../../../features/slices/userSlice/userSlice";
@@ -9,10 +9,11 @@ import userImage from "../../../assets/user.svg";
 import ProfileDropdownPC from "./ProfileDropdownPC";
 import { pcNavbarSlice } from "../../../features/slices/pcNavBarSlice/pcNavbarSlice";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
-import SearchFilter from "../SearchFilter";
+import Search from "../search/Search";
 
 const browserLocation = window.location.pathname;
-const activeStyle = `text-[--green] font-extrabold`;
+const inActiveStyle = `text-[--active-white] font-semibold text-md`;
+const activeStyle = ` text-[--green] font-extrabold text-md`;
 
 const PCNavbar = () => {
   const dispatch = useDispatch();
@@ -45,35 +46,45 @@ const PCNavbar = () => {
       {sessionToken && (
         <ul className="flex items-center gap-4 text-[--lighter-gray]">
           <NavLink
-            className={`${browserLocation === "/movie_library" && activeStyle}`}
+            className={`${
+              browserLocation === "/movie_library" ? activeStyle : inActiveStyle
+            }`}
             to={!sessionToken ? "/" : "/movie_library"}
           >
             Home
           </NavLink>
 
           <NavLink
-            className={`${browserLocation === "/discover" && activeStyle}`}
+            className={`${
+              browserLocation === "/discover" ? activeStyle : inActiveStyle
+            }`}
             to={"/discover"}
           >
             Discover
           </NavLink>
 
           <NavLink
-            className={`${browserLocation === "/movie_release" && activeStyle}`}
+            className={`${
+              browserLocation === "/movie_release" ? activeStyle : inActiveStyle
+            }`}
             to={"/movie_release"}
           >
             Movie Release
           </NavLink>
 
           <NavLink
-            className={`${browserLocation === "/forum" && activeStyle}`}
+            className={`${
+              browserLocation === "/forum" ? activeStyle : inActiveStyle
+            }`}
             to={"/forum"}
           >
             Forum
           </NavLink>
 
           <NavLink
-            className={`${browserLocation === "/about" && activeStyle}`}
+            className={`${
+              browserLocation === "/about" ? activeStyle : inActiveStyle
+            }`}
             to={"/about"}
           >
             About
@@ -88,6 +99,7 @@ const PCNavbar = () => {
             <div id="search-input" className="relative mr-3">
               <input
                 type="search"
+                value={searchValue}
                 onChange={(e) => dispatch(setSearchValue(e.target.value))}
                 placeholder="Enter movie name"
                 className="w-full h-full bg-[--light-black] px-5 pr-9 py-3 rounded-full outline-none text-[--lighter-gray] placeholder:text-[--highlight-gray]"
@@ -101,8 +113,11 @@ const PCNavbar = () => {
 
             {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
             {searchValue && (
-              <div id="large-screen-search-filter">
-                <SearchFilter />
+              <div
+                id="large-screen-search-filter"
+                className="absolute top-[70px] w-full max-w-[240px]"
+              >
+                <Search />
               </div>
             )}
           </div>
@@ -115,13 +130,19 @@ const PCNavbar = () => {
             >
               <span
                 id="profile-img"
-                className="w-[26px] h-[26px] border group-hover:border-[--green] transition-all ease-linear duration-150 rounded-full"
+                className={`${
+                  user?.image ? "bg-none" : "bg-[--green]"
+                } w-[25px] h-[25px] flex items-center justify-center transition-all ease-linear duration-150 rounded-full`}
               >
-                <img
-                  src={user?.image ? `${user.image}` : userImage}
-                  alt="profile image"
-                  className="w-full h-full object-cover"
-                />
+                {user?.image && (
+                  <img
+                    src={user?.image}
+                    alt="profile image"
+                    className="w-full h-full object-cover"
+                  />
+                )}
+
+                {!user?.image && <FaUser />}
               </span>
 
               <span
@@ -136,7 +157,7 @@ const PCNavbar = () => {
             <div
               id="dropDown-menu"
               onClick={toggleProfileDropdown}
-              className={`absolute right-0 overflow-hdden -bottom-[210px] transition-all duration-300 ${
+              className={`absolute right-0 overflow-hdden -bottom-[210px] transition-all duration-300  ${
                 showProfileDropdown && "visible opacity-100"
               } ${!showProfileDropdown && "invisible opacity-0 "}`}
             >
