@@ -8,8 +8,12 @@ import MobileNavbar from "./mobileNavbar/MobileNavbar";
 import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
-import { searchBarSlice, setSearchValue } from "../../features/slices/searchBarSlice/searchBarSlice";
+import {
+  searchBarSlice,
+  setSearchValue,
+} from "../../features/slices/searchBarSlice/searchBarSlice";
 import Search from "./search/Search";
+import { twMerge } from "tailwind-merge";
 
 const Navbar = ({ contCn, logoCn, screensCn }) => {
   const dispatch = useDispatch();
@@ -32,7 +36,10 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
   return (
     <div
       id="template"
-      className={`${contCn} bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg flex items-center justify-between h-[80px] px-[--px] relative z-[10000]`}
+      className={twMerge(
+        "bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg flex items-center justify-between h-[80px] px-[--px] relative z-[10000]",
+        contCn
+      )}
     >
       <div
         id="menu-btn-&-logo"
