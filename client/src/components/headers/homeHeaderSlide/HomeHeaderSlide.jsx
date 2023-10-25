@@ -14,7 +14,7 @@ const HomeHeaderSlide = ({ data }) => {
     <div
       id="home-header-slide"
       style={slideStyles}
-      className="flex items-end min-w-full h-screen max-h-[680px] "
+      className="flex items-end min-w-full h-screen min-h-[500px] max-h-[680px] "
     >
       <div
         id="hero-header-slide-text"
