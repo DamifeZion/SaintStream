@@ -8,7 +8,7 @@ const listStyle =
 
 const ProfileDropdownMobile = () => {
   const dispatch = useDispatch();
-  const { showUserMenu } = useSelector((state) => state.mobileNavSlice);
+  const { showUserMenu } = useSelector((state) => state.navbarSlice);
   const { sessionToken } = useSelector((state) => state.userSlice);
 
   return (

@@ -3,13 +3,12 @@ import { configureStore } from "@reduxjs/toolkit";
 //Slices
 import { userSlice } from "./slices/userSlice/userSlice";
 import { faqSlice } from "./slices/faq/faqSlice";
-import { mobileNavSlice } from "./slices/mobileNavSlice/mobileNavSlice";
+import { navbarSlice } from "./slices/navbarSlice/navbarSlice";
 import { loginSlice } from "./slices/loginSlice/loginSlice";
 import { signUpSlice } from "./slices/signUpSlice/signUpSlice";
 import { forgotPasswordSlice } from "./slices/forgotPasswordSlice/forgotPasswordSlice";
 import { passwordResetSlice } from "./slices/passwordResetSlice/passwordResetSlice.js";
 import { userApi } from "./api/userApi";
-import { pcNavbarSlice } from "./slices/pcNavBarSlice/pcNavbarSlice";
 import { searchBarSlice } from "./slices/searchBarSlice/searchBarSlice";
 
 const store = configureStore({
@@ -17,8 +16,7 @@ const store = configureStore({
     //Slices
     userSlice: userSlice.reducer,
     faqSlice: faqSlice.reducer,
-    mobileNavSlice: mobileNavSlice.reducer,
-    pcNavbarSlice: pcNavbarSlice.reducer,
+    navbarSlice: navbarSlice.reducer,
     loginSlice: loginSlice.reducer,
     signUpSlice: signUpSlice.reducer,
     forgotPasswordSlice: forgotPasswordSlice.reducer,

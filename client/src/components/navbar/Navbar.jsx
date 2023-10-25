@@ -7,7 +7,7 @@ import PCNavbar from "./pcNavbar/PCNavbar";
 import MobileNavbar from "./mobileNavbar/MobileNavbar";
 import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { mobileNavSlice } from "../../features/slices/mobileNavSlice/mobileNavSlice";
+import { navbarSlice } from "../../features/slices/navbarSlice/navbarSlice";
 import {
   searchBarSlice,
   setSearchValue,
@@ -19,7 +19,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
   const dispatch = useDispatch();
   const isSmall = useMediaQuery("(max-width: 1024px)");
   const { sessionToken } = useSelector((state) => state.userSlice);
-  const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
+  const { showMainMenu } = useSelector((state) => state.navbarSlice);
   const { searchValue } = useSelector((state) => state.searchBarSlice);
 
   // Note: 635px is very important for the nav search with ctrl + f to see
@@ -30,7 +30,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
     } else {
       document.body.style = `overflow: auto;`;
     }
-    dispatch(mobileNavSlice.actions.setShowMainMenu());
+    dispatch(navbarSlice.actions.setShowMainMenu());
   };
 
   return (

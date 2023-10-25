@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { BiSearch, BiSolidUser } from "react-icons/bi";
 import { userSlice } from "../../../features/slices/userSlice/userSlice";
 
-import { mobileNavSlice } from "../../../features/slices/mobileNavSlice/mobileNavSlice";
+import { navbarSlice } from "../../../features/slices/navbarSlice/navbarSlice";
 import ProfileDropdownMobile from "./ProfileDropdownMobile";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
 import Search from "../search/Search";
@@ -17,10 +17,10 @@ const activeStyle = `${inActiveStyle} text-[--green] hover:text-[--action-white]
 const MobileNavbar = () => {
   const dispatch = useDispatch();
   const { user, sessionToken } = useSelector((state) => state.userSlice);
-  const { showMainMenu } = useSelector((state) => state.mobileNavSlice);
+  const { showMainMenu, showSearchBar } = useSelector(
+    (state) => state.navbarSlice
+  );
   const { searchValue } = useSelector((state) => state.searchBarSlice);
-
-  const { showSearchBar } = useSelector((state) => state.mobileNavSlice);
 
   const handleLogOut = () => {
     dispatch(userSlice.actions.logOut());
@@ -116,7 +116,13 @@ const MobileNavbar = () => {
       )}
 
       {/* Profile dropdown to be shown if session token only */}
-      {sessionToken && <ProfileDropdownMobile />}
+      {sessionToken && (
+        <div
+          onClick={() => dispatch(navbarSlice.actions.toggleProfileDropdown())}
+        >
+          <ProfileDropdownMobile />
+        </div>
+      )}
 
       {/* search bar to be shown if width is less than 625px  */}
 
@@ -142,7 +148,10 @@ const MobileNavbar = () => {
 
         {/* if there is a search value, we show a loading component if it is loading and if not we show results in a component */}
         {searchValue && (
-          <div id="small-screen-search-filter" className="absolute w-full max-w-[93%]">
+          <div
+            id="small-screen-search-filter"
+            className="absolute w-full max-w-[93%]"
+          >
             <Search />
           </div>
         )}

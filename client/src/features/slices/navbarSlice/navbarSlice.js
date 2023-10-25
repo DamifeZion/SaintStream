@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const mobileNavSlice = createSlice({
-  name: "mobileNavSlice",
+export const navbarSlice = createSlice({
+  name: "navbarSlice",
 
   initialState: {
     showMainMenu: false,
     showUserMenu: false,
     showSearchBar: false,
+    showProfileDropdown: false,
   },
 
   reducers: {
@@ -22,6 +23,10 @@ export const mobileNavSlice = createSlice({
 
     setShowSearchBar: (state) => {
       state.showSearchBar = !state.showSearchBar;
+    },
+
+    toggleProfileDropdown: (state) => {
+      state.showProfileDropdown = !state.showProfileDropdown;
     },
   },
 });

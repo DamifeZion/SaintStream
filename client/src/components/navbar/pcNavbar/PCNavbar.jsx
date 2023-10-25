@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSlice } from "../../../features/slices/userSlice/userSlice";
 import userImage from "../../../assets/user.svg";
 import ProfileDropdownPC from "./ProfileDropdownPC";
-import { pcNavbarSlice } from "../../../features/slices/pcNavBarSlice/pcNavbarSlice";
+import { navbarSlice } from "../../../features/slices/navbarSlice/navbarSlice";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
 import Search from "../search/Search";
 
@@ -18,7 +18,7 @@ const activeStyle = ` text-[--green] font-extrabold text-md`;
 const PCNavbar = () => {
   const dispatch = useDispatch();
   const { user, sessionToken } = useSelector((state) => state.userSlice);
-  const { showProfileDropdown } = useSelector((state) => state.pcNavbarSlice);
+  const { showProfileDropdown } = useSelector((state) => state.navbarSlice);
   const { searchValue } = useSelector((state) => state.searchBarSlice);
 
   const handleLogout = () => {
