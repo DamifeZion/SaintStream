@@ -5,7 +5,6 @@ import { FaUser } from "react-icons/fa";
 import { PiCaretDown } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { userSlice } from "../../../features/slices/userSlice/userSlice";
-import userImage from "../../../assets/user.svg";
 import ProfileDropdownPC from "./ProfileDropdownPC";
 import { navbarSlice } from "../../../features/slices/navbarSlice/navbarSlice";
 import { setSearchValue } from "../../../features/slices/searchBarSlice/searchBarSlice";
@@ -26,7 +25,7 @@ const PCNavbar = () => {
   };
 
   const toggleProfileDropdown = () => {
-    dispatch(pcNavbarSlice.actions.toggleProfileDropdown());
+    dispatch(navbarSlice.actions.toggleProfileDropdown());
   };
 
   return (

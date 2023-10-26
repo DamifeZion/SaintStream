@@ -37,7 +37,7 @@ const Navbar = ({ contCn, logoCn, screensCn }) => {
     <div
       id="template"
       className={twMerge(
-        "bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg flex items-center justify-between h-[80px] px-[--px] relative z-[10000]",
+        "bg-black bg-opacity-40 backdrop-filter backdrop-blur-lg flex items-center justify-between h-[80px] px-[--px] relative z-[100]",
         contCn
       )}
     >

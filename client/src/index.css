@@ -22,6 +22,7 @@
 
   /* Background */
   --black: #060606; /*site color*/
+  --site-bg: #121014;
   --light-black: #1c1c1c;
   --green: #00925d;
   --dark-gray: #28262d;
@@ -47,7 +48,7 @@ html {
 }
 
 body {
-  background: #121014;
+  background: var(--site-bg);
   transition: linear 0.2s;
   color: var(--action-white);
   font-family: "Inter", sans-serif;

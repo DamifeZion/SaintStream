@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <ToastWrapper autoClose={2500} pauseOnHover={false} />
+        <ToastWrapper className={"z-[10000]"} autoClose={2500} pauseOnHover={false} />
         <App />
       </Router>
     </Provider>

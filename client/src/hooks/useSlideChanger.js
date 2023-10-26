@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { homeHeaderSlideData } from "../data/homeHeaderSlideData";
+import { homeHeaderSlideData } from "../data/homeData/homeHeaderSlideData";
 
 export const useSlideChanger = (
   slider_container_ref,

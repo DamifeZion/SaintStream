@@ -1,8 +1,8 @@
-import spiderMan from "../assets/spiderMan.jpg";
-import johnWick from "../assets/johnWick.jpg";
-import missionImpossible from "../assets/missionImpossible.jpg";
-import oppenheimer from "../assets/oppenheimer.jpg";
-import indianaJones from "../assets/indianaJones.jpg";
+import spiderMan from "../../assets/spiderMan.jpg";
+import johnWick from "../../assets/johnWick.jpg";
+import missionImpossible from "../../assets/missionImpossible.jpg";
+import oppenheimer from "../../assets/oppenheimer.jpg";
+import indianaJones from "../../assets/indianaJones.jpg";
 
 export const homeHeaderSlideData = [
   {

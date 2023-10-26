@@ -1,6 +1,6 @@
 import HomeHeaderSlide from "./HomeHeaderSlide";
 import { setActiveButtonClass } from "../../../utils/setActiveButtonClass";
-import { homeHeaderSlideData } from "../../../data/homeHeaderSlideData";
+import { homeHeaderSlideData } from "../../../data/homeData/homeHeaderSlideData";
 import { useSlideChanger } from "../../../hooks/useSlideChanger";
 import { useRef } from "react";
 
